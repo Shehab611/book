@@ -32,12 +32,12 @@ class _LoginBodyWidgetState extends State<LoginBodyWidget> {
           'assets/logo.png',
           height: height * .28,
         ),
-         AuthenticationTextField(
+         MyTextField(
           labelText: 'Email',
           iconData: Icons.email_outlined,controller: LoginBodyWidget.emailController,
         ),
 
-         AuthenticationTextField(
+         MyTextField(
           labelText: 'Password',
           iconData: Icons.lock,controller: LoginBodyWidget.passwordController,isLast: true,obscureText: true,
         ),

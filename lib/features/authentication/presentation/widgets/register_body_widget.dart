@@ -44,27 +44,29 @@ class _RegisterBodyWidgetState extends State<RegisterBodyWidget> {
                 ]),
           ),
 
-           AuthenticationTextField(
+           MyTextField(
             labelText: 'Email',
             iconData: Icons.email_outlined,
             controller: RegisterBodyWidget.emailController,
           ),
 
-           AuthenticationTextField(
+           MyTextField(
             labelText: 'Password',
             iconData: Icons.lock,
             controller:RegisterBodyWidget.passwordController,
              obscureText: true,
           ),
 
-           AuthenticationTextField(
+           MyTextField(
             labelText: 'Confirm Password',
             iconData: Icons.lock,controller: RegisterBodyWidget.confirmPasswordController,
              obscureText: true,isLast: true,
           ),
 
           GoInButton(
-            onPressed: () {},
+            onPressed: () {
+
+            },
             iconData: Icons.arrow_forward_ios_outlined,
           ),
         ],

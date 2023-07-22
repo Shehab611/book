@@ -1,3 +1,4 @@
+import 'package:book/constants.dart';
 import 'package:book/firebase_options.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -32,10 +33,10 @@ class MyApp extends StatelessWidget {
         pageTransitionsTheme: const PageTransitionsTheme(builders: {
           TargetPlatform.android: OpenUpwardsPageTransitionsBuilder()
         }),
-        useMaterial3: true,
+        useMaterial3: true,primaryColor: kDefaultColor
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: AppRouter.kLoginScreen,
+      initialRoute: AppRouter.kCompleteProfile,
       routes: AppRouter.routes,
     );
   }
