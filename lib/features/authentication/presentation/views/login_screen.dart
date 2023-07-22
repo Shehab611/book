@@ -11,6 +11,11 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+
+    double topPadding=switch(size.height){
+      <=750 => 0,
+      _=>size.height * 0.015625
+    };
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Center(
@@ -21,21 +26,20 @@ class LoginScreen extends StatelessWidget {
               painter: BackgroundPainter(),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 5),
+              padding:  EdgeInsets.fromLTRB(0,topPadding,0,10),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const ButtonsRow(),
-                  const Expanded(flex: 6, child: LoginBodyWidget()),
-                  Expanded(
-                    child: GestureDetector(
-                        onVerticalDragUpdate: (dd) {
-                          Navigator.pushReplacementNamed(
-                            context,
-                            AppRouter.kRegisterScreen,
-                          );
-                        },
-                        child: const LoginTransformWidget()),
-                  ),
+                  SizedBox(height: size.height * .6,child: const LoginBodyWidget()),
+                  GestureDetector(
+                      onVerticalDragUpdate: (dd) {
+                        Navigator.pushReplacementNamed(
+                          context,
+                          AppRouter.kRegisterScreen,
+                        );
+                      },
+                      child: const LoginTransformWidget()),
                 ],
               ),
             )

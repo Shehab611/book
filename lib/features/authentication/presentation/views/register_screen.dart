@@ -11,6 +11,10 @@ class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+    double topPadding=switch(size.height){
+      <=750 => 0,
+      _=>size.height * 0.015625
+    };
     return Scaffold(
         resizeToAvoidBottomInset: false,
         body: Center(
@@ -22,27 +26,21 @@ class RegisterScreen extends StatelessWidget {
               ),
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 4, vertical: 20),
+                     EdgeInsets.fromLTRB(0,topPadding,0,10),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Expanded(
-                        child: GestureDetector(
-                            onVerticalDragUpdate: (dd) {
-                              Navigator.pushReplacementNamed(
-                                context,
-                                AppRouter.kLoginScreen,
-                              );
-                            },
-                            child: const RegisterTransformWidget())),
-                    const Expanded(
-                      flex: 4,
-                      child: RegisterBodyWidget(),
-                    ),
-                    const Expanded(
-                      child: ButtonsRow(),
-                    ),
-                  ],
+                    GestureDetector(
+                        onVerticalDragUpdate: (dd) {
+                          Navigator.pushReplacementNamed(
+                            context,
+                            AppRouter.kLoginScreen,
+                          );
+                        },
+                        child: const RegisterTransformWidget()),
+                    SizedBox(height: size.height * .6,child: const RegisterBodyWidget()),
+                    const ButtonsRow(),
+                  ] ,
                 ),
               )
             ],

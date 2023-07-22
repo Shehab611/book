@@ -7,7 +7,8 @@ class ButtonsRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const ButtonBar(
-      alignment: MainAxisAlignment.spaceAround,
+      buttonHeight: 20,
+      alignment: MainAxisAlignment.spaceEvenly,
       children: [
         GoogleButton(),
         FaceBookButton()

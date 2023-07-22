@@ -7,6 +7,11 @@ class BeforeStepper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double height =MediaQuery.of(context).size.height;
+    double distanceUnderCurve=switch(height){
+      <=750 => height * .06,
+      _=>height * .075
+    };
     return Column(children: [
       Center(
         child: Text(
@@ -17,7 +22,7 @@ class BeforeStepper extends StatelessWidget {
               fontSize: Theme.of(context).textTheme.headlineSmall?.fontSize),
         ),
       ),
-      const SizedBox(height:30,),
+       SizedBox(height:distanceUnderCurve,),
       Stack(
         alignment: Alignment.bottomRight,
         children: [

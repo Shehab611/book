@@ -11,26 +11,37 @@ class MyStepper extends StatefulWidget {
   static TextEditingController birthdateController = TextEditingController();
   static String selectedGender = 'male';
   static int currentStep = 0;
+  static List<GlobalKey<FormState>> formKeys = [
+    GlobalKey<FormState>(),
+    GlobalKey<FormState>(),
+  ];
   static List<Step> steps = [
     Step(
         state:
             MyStepper.currentStep > 0 ? StepState.complete : StepState.indexed,
         isActive: MyStepper.currentStep >= 0,
         title: const Text('Account info'),
-        content: Column(
-          children: [
-            MyTextField(
-                labelText: 'First Name',
-                iconData: Icons.person,
-                controller: firstNameController),
-            const SizedBox(
-              height: 7,
-            ),
-            MyTextField(
-                labelText: 'Last Name',
-                iconData: Icons.person,
-                controller: secondNameController),
-          ],
+        content: Form(
+          key: formKeys[0],
+          child: Column(
+            children: [
+              MyTextField(
+                  labelText: 'First Name',
+                  iconData: Icons.person,
+                  validator: (p0) =>
+                      (p0!.length < 3) ? 'This Field can not be empty' : null,
+                  controller: firstNameController),
+              const SizedBox(
+                height: 7,
+              ),
+              MyTextField(
+                  labelText: 'Last Name',
+                  iconData: Icons.person,
+                  validator: (p0) =>
+                      (p0!.length < 3) ? 'This Field can not be empty' : null,
+                  controller: secondNameController),
+            ],
+          ),
         )),
     Step(
         state:
@@ -70,15 +81,29 @@ class _MyStepperState extends State<MyStepper> {
               ? null
               : setState(() => MyStepper.currentStep -= 1),
           onStepContinue: () {
-            bool isLastStep =
-                (MyStepper.currentStep == MyStepper.steps.length - 1);
-            if (isLastStep) {
-              //Do something with this information
-            } else {
-              setState(() => MyStepper.currentStep += 1);
+            if (MyStepper.formKeys[MyStepper.currentStep].currentState!
+                .validate()) {
+              bool isLastStep =
+                  (MyStepper.currentStep == MyStepper.steps.length - 1);
+              if (isLastStep) {
+               // todo :: go to home page and add this data to firebase
+              } else {
+                setState(() => MyStepper.currentStep += 1);
+              }
             }
           },
-          onStepTapped: (step) => setState(() => MyStepper.currentStep = step),
+          onStepTapped: (step) {
+            if (MyStepper.formKeys[MyStepper.currentStep].currentState!
+                .validate()) {
+              bool isLastStep =
+              (MyStepper.currentStep == MyStepper.steps.length - 1);
+              if (isLastStep) {
+                // todo :: go to home page and add this data to firebase
+              } else {
+                setState(() => MyStepper.currentStep += 1);
+              }
+            }
+          },
           steps: MyStepper.steps,
           controlsBuilder: (context, details) {
             final bool isLastStep =
@@ -153,11 +178,16 @@ class _BirthDate extends StatelessWidget {
               pickedDate.toString().split(' ')[0];
         }
       },
-      child: MyTextField(
-        labelText: 'Birth Date',
-        iconData: Icons.date_range_outlined,
-        controller: MyStepper.birthdateController,
-        enabled: false,
+      child: Form(
+        key: MyStepper.formKeys[1],
+        child: MyTextField(
+          labelText: 'Birth Date',
+          iconData: Icons.date_range_outlined,
+          controller: MyStepper.birthdateController,
+          validator: (p0) =>
+              (p0!.length < 3) ? 'This Field can not be empty' : null,
+          enabled: false,
+        ),
       ),
     );
   }
