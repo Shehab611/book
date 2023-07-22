@@ -1,0 +1,69 @@
+import 'package:book/constants.dart';
+import 'package:flutter/material.dart';
+
+class BackgroundPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    double x = size.width, y = size.height;
+    Paint paint = Paint()..color = kDefaultColor;
+    Paint paint1 = Paint()..color = kDefaultColor.withOpacity(.2);
+    //#region above curve
+    final path = drawAboveCurve(x,y);
+
+    //#endregion
+
+    //region bottom curve
+    final path2 =drawBottomCurve(x,y);
+
+    //endregion
+
+    //region color in between
+    final path3 = drawColorInBetween(x,y);
+
+    //endregion
+
+    canvas.drawPath(path, paint);
+    canvas.drawPath(path2, paint);
+    canvas.drawPath(path3, paint1);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+
+    return true;
+  }
+
+  Path drawAboveCurve(double x, double y) {
+    final path = Path();
+    path.moveTo(x, 0);
+    path.lineTo(x, y * .1);
+    path.quadraticBezierTo(x, y * 0.15, x * 0.60, y * 0.15);
+    path.lineTo(x * 0.58, y * 0.15);
+    path.quadraticBezierTo(x, y * .1, x * .995, 0);
+    path.close();
+    return path;
+  }
+
+  Path drawBottomCurve(double x, double y) {
+    final path = Path();
+    path.moveTo(0, y * .7);
+    path.lineTo(0, y * .8);
+    path.quadraticBezierTo(0, y * .85, x * .4, y * .85);
+    path.lineTo(x * 0.48, y * .85);
+    path.quadraticBezierTo(0, y * .8, 0, y * .7);
+    path.close();
+    return path;
+  }
+
+  Path drawColorInBetween(double x, double y) {
+    final path = Path();
+    path.moveTo(x, y * .1);
+    path.lineTo(x, y * .825);
+    path.lineTo(x * 0.48, y * .85);
+    path.quadraticBezierTo(0, y * .8, 0, y * .7);
+    path.lineTo(0, y * 0.185);
+    path.lineTo(x * 0.58, y * 0.15);
+    return path;
+  }
+
+}
