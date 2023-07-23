@@ -1,7 +1,7 @@
 import 'package:book/constants.dart';
 import 'package:flutter/material.dart';
 
-class BackgroundPainter extends CustomPainter {
+class LoginRegisterBackground extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     double x = size.width, y = size.height;
@@ -68,7 +68,7 @@ class BackgroundPainter extends CustomPainter {
 
 }
 
-class BackgroundCurve extends CustomPainter{
+class CompleteProfileBackgroundCurve extends CustomPainter{
   @override
   void paint(Canvas canvas, Size size) {
     Paint paint = Paint()..color = kDefaultColor;
@@ -84,5 +84,25 @@ class BackgroundCurve extends CustomPainter{
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
     return true;
+  }
+}
+
+class VerificationBackgroundCurve extends CustomPainter{
+  @override
+  void paint(Canvas canvas, Size size) {
+    double x = size.width, y = size.height;
+    Paint paint = Paint()..color = kDefaultColor;
+    final path = Path();
+    path.moveTo(0, y * .8);
+    path.quadraticBezierTo(x * .5, y * .6, x, y * .82);
+    path.lineTo(x, y);
+    path.lineTo(0, y);
+    path.close();
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+  return true;
   }
 }

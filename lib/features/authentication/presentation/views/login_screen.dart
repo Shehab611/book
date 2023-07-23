@@ -23,7 +23,7 @@ class LoginScreen extends StatelessWidget {
           children: [
             CustomPaint(
               size: size,
-              painter: BackgroundPainter(),
+              painter: LoginRegisterBackground(),
             ),
             Padding(
               padding:  EdgeInsets.fromLTRB(0,topPadding,0,10),

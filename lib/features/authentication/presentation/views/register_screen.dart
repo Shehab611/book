@@ -22,7 +22,7 @@ class RegisterScreen extends StatelessWidget {
             children: [
               CustomPaint(
                 size: size,
-                painter: BackgroundPainter(),
+                painter: LoginRegisterBackground(),
               ),
               Padding(
                 padding:

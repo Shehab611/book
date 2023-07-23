@@ -15,7 +15,7 @@ final Size size=MediaQuery.of(context).size;
       body: Stack(
         children: [
           CustomPaint(
-            painter: BackgroundCurve(),
+            painter: CompleteProfileBackgroundCurve(),
             size: size,
           ),
           const Padding(

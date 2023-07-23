@@ -30,7 +30,7 @@ class BeforeStepper extends StatelessWidget {
             radius: 60,
             backgroundColor: kColor,
             backgroundImage:
-            AssetImage('assets/user_image.jpg')
+            AssetImage('assets/images/user_image.jpg')
             ,
           ),
           FloatingActionButton.small(

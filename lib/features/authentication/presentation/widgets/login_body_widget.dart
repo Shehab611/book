@@ -1,4 +1,5 @@
 import 'package:book/constants.dart';
+import 'package:book/core/utils/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../components/go_in_button.dart';
@@ -36,7 +37,7 @@ class _LoginBodyWidgetState extends State<LoginBodyWidget> {
 
           children: [
             Image.asset(
-              'assets/logo.png',
+              'assets/images/logo.png',
             height: height * .1,
             ),
             MyTextField(
@@ -77,7 +78,9 @@ class _LoginBodyWidgetState extends State<LoginBodyWidget> {
                 alignment:
                     Alignment.lerp(Alignment.center, Alignment.centerRight, .9)!,
                 child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, AppRouter.kVerificationScreen);
+                    },
                     child: Text(
                       'Forgot password',
                       style: GoogleFonts.libreCaslonText(

@@ -4,29 +4,48 @@ import 'package:google_fonts/google_fonts.dart';
 
 class TextWidget extends StatelessWidget {
   const TextWidget(
-      {super.key, required this.aboveText, required this.bottomText});
+      {super.key,
+      required this.aboveText,
+      required this.bottomText,
+      this.crossAxisAlignment = CrossAxisAlignment.start,
+      this.aboveTextAlign=TextAlign.left,
+      this.bottomTextAlign=TextAlign.left,
+        this.aboveTextColor=kColor,
+        this.bottomTextColor=kDefaultColor,
+      });
 
   final String aboveText;
+  final Color aboveTextColor;
+  final Color bottomTextColor;
+  final TextAlign aboveTextAlign;
+  final TextAlign bottomTextAlign;
   final String bottomText;
+  final CrossAxisAlignment crossAxisAlignment;
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: crossAxisAlignment,
       children: [
         Text(
           aboveText,
-          style: GoogleFonts.montserrat(
-                  color: kColor, fontWeight: FontWeight.w800)
-              .copyWith(
-                  fontSize: Theme.of(context).textTheme.headlineMedium?.fontSize),
+          textAlign: aboveTextAlign,
+          style:
+              GoogleFonts.montserrat(color: aboveTextColor, fontWeight: FontWeight.w800)
+                  .copyWith(
+                      fontSize:
+                          Theme.of(context).textTheme.headlineMedium?.fontSize
+              ),
         ),
         Text(
           bottomText,
-          textAlign: TextAlign.left,
+          textAlign: bottomTextAlign,
           style: GoogleFonts.montserrat(
-              color: kDefaultColor, fontWeight: FontWeight.bold).copyWith(
-              fontSize: Theme.of(context).textTheme.titleLarge?.fontSize),
+                  color: bottomTextColor, fontWeight: FontWeight.bold)
+              .copyWith(
+                  fontSize:
+                  Theme.of(context).textTheme.titleLarge?.fontSize
+          ),
         ),
       ],
     );
