@@ -15,7 +15,7 @@ void main() async{
   );
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky,);
   runApp(DevicePreview(
-    enabled: false,
+    enabled: !kReleaseMode,
     builder: (context) => const MyApp(),
   ),);
 }

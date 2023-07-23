@@ -8,23 +8,16 @@ abstract class Authentication {
         .createUserWithEmailAndPassword(email: email, password: password);
   }
 
-
-  static Future<String> signInWithEmailAndPassword(
+  static Future<void> signInWithEmailAndPassword(
       {required String email, required String password}) async =>
       await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password)
-          .then((value) => 'Signed in Successfully')
-          .catchError((error) => error.toString());
+          .signInWithEmailAndPassword(email: email, password: password);
 
-  static Future<String> sendEmailVerification({required User user}) => user
-      .sendEmailVerification()
-      .then((value) => 'Email Sent Successful')
-      .catchError((error) => error.toString());
+  static Future<void> sendEmailVerification({required User user}) => user
+      .sendEmailVerification();
 
-  static Future<String> resetPassword({required String email}) => FirebaseAuth.instance
-      .sendPasswordResetEmail(email: email)
-      .then((value) => 'Email Sent Successful')
-      .catchError((error) => error.toString());
+  static Future<void> resetPassword({required String email}) => FirebaseAuth.instance
+      .sendPasswordResetEmail(email: email);
 
 
 }
