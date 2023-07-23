@@ -51,7 +51,9 @@ class VerificationScreen extends StatelessWidget {
                 Text('Did not receive the confirmation mail?',
                   style: GoogleFonts.montserrat().copyWith(fontSize:Theme.of(context).textTheme.titleMedium!.fontSize),),
                 ButtonWidget(
-                    onPressed: () {},
+                    onPressed: () {
+                      // todo :: resend email verification
+                    },
                     iconDirection: TextDirection.rtl,
                     iconColor: Colors.white,
                     textColor: Colors.white,

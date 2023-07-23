@@ -34,7 +34,9 @@ class BeforeStepper extends StatelessWidget {
             ,
           ),
           FloatingActionButton.small(
-            onPressed: () {},
+            onPressed: () {
+              // todo :: pick image and add it to firebase
+            },
             backgroundColor: kDefaultColor,
             child: const Icon(Icons.add_a_photo_outlined),
           )

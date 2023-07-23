@@ -39,7 +39,12 @@ class RegisterScreen extends StatelessWidget {
                         },
                         child: const RegisterTransformWidget()),
                     SizedBox(height: size.height * .6,child: const RegisterBodyWidget()),
-                    const ButtonsRow(),
+                     ButtonsRow(onPressedGoogleButton: () {
+                       // todo :: add google sign up method
+
+                     }, onPressedFacebookButton: () {
+                       // todo :: add facebook sign up method
+                     },),
                   ] ,
                 ),
               )

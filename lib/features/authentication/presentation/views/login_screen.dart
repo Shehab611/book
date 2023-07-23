@@ -30,7 +30,11 @@ class LoginScreen extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const ButtonsRow(),
+                   ButtonsRow(onPressedGoogleButton: () {
+                     // todo :: add google sign in method
+                   }, onPressedFacebookButton: () {
+                     // todo :: add facebook sign in method
+                   },),
                   SizedBox(height: size.height * .6,child: const LoginBodyWidget()),
                   GestureDetector(
                       onVerticalDragUpdate: (dd) {

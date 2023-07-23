@@ -110,7 +110,7 @@ class _RegisterBodyWidgetState extends State<RegisterBodyWidget> {
             GoInButton(
               onPressed: () {
                 if(RegisterBodyWidget.formKey.currentState!.validate()){
-                  //todo :: navigate to complete_profile.dart and create account in firebase
+                  //todo :: send email verification and create account in firebase
                 }
               },
               iconData: Icons.arrow_forward_ios_outlined,

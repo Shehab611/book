@@ -3,15 +3,17 @@ import '../components/facebook_button.dart';
 import '../components/google_button.dart';
 
 class ButtonsRow extends StatelessWidget {
-  const ButtonsRow({super.key});
+  const ButtonsRow({super.key, required this.onPressedGoogleButton, required this.onPressedFacebookButton});
+  final void Function() onPressedGoogleButton;
+  final void Function() onPressedFacebookButton;
   @override
   Widget build(BuildContext context) {
-    return const ButtonBar(
+    return  ButtonBar(
       buttonHeight: 20,
       alignment: MainAxisAlignment.spaceEvenly,
       children: [
-        GoogleButton(),
-        FaceBookButton()
+        GoogleButton(onPressed:onPressedGoogleButton ,),
+        FaceBookButton(onPressed:onPressedFacebookButton,)
       ],
     );
   }
