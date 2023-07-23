@@ -49,6 +49,7 @@ class _RegisterBodyWidgetState extends State<RegisterBodyWidget> {
             ),
             MyTextField(
               labelText: 'Email',
+              keyboardType: TextInputType.emailAddress,
               iconData: Icons.email_outlined,
               controller: RegisterBodyWidget.emailController,
               validator: (String? value) {

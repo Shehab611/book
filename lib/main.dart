@@ -15,7 +15,7 @@ void main() async{
   );
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky,);
   runApp(DevicePreview(
-    enabled: !kReleaseMode,
+    enabled: false,
     builder: (context) => const MyApp(),
   ),);
 }
@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,primaryColor: kDefaultColor
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: AppRouter.kVerificationScreen,
+      initialRoute: AppRouter.kForgetPasswordScreen,
       routes: AppRouter.routes,
     );
   }

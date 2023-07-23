@@ -42,11 +42,8 @@ class VerificationScreen extends StatelessWidget {
                   bottomText:
                   'Please check your email for confirmation mail. Click link in email to verification your account',
                 ),
-                SizedBox(
-                  height: size.height * .4,
-                  child: Lottie.asset(
-                    'assets/animated_json/verification_animation.json',
-                  ),
+                Lottie.asset(
+                  'assets/animated_json/verification_animation.json',height:size.height * .4,
                 ),
                 Text('Did not receive the confirmation mail?',
                   style: GoogleFonts.montserrat().copyWith(fontSize:Theme.of(context).textTheme.titleMedium!.fontSize),),

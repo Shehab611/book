@@ -41,6 +41,7 @@ class _LoginBodyWidgetState extends State<LoginBodyWidget> {
             ),
             MyTextField(
               labelText: 'Email',
+              keyboardType: TextInputType.emailAddress,
               iconData: Icons.email_outlined,
               controller: LoginBodyWidget.emailController,
               validator: (String? value) {
@@ -88,7 +89,7 @@ class _LoginBodyWidgetState extends State<LoginBodyWidget> {
             GoInButton(
               onPressed: () {
                 if(LoginBodyWidget.formKey.currentState!.validate()){
-                  //todo :: navigate to home and login to firebase
+                  // todo :: navigate to home and login to firebase
                 }
 
               },

@@ -11,7 +11,9 @@ class MyTextField extends StatelessWidget {
       this.isLast = false,
       this.enabled = true,
       required this.controller,
-      this.validator, this.onFieldSubmitted});
+      this.validator, this.onFieldSubmitted,
+      this.iconColor=kColor,this.labelColor=kColor, this.keyboardType
+      });
 
   final String labelText;
   final IconData iconData;
@@ -21,11 +23,14 @@ class MyTextField extends StatelessWidget {
   final TextEditingController controller;
   final String? Function(String?)? validator;
   final void Function(String?)? onFieldSubmitted;
+  final Color iconColor;
+  final Color labelColor;
+  final TextInputType? keyboardType;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-
       enabled: enabled,
+      keyboardType:keyboardType ,
       textInputAction: switch (isLast) {
         true => TextInputAction.done,
         false => TextInputAction.next
@@ -38,13 +43,13 @@ class MyTextField extends StatelessWidget {
         ),
         suffixIcon: Icon(
           iconData,
-          color: kColor,
+          color: iconColor,
         ),
         focusColor: kColor,
         focusedBorder: const UnderlineInputBorder(),
         labelText: labelText,
-        labelStyle: const TextStyle(
-            color: kColor, fontSize: 18, fontWeight: FontWeight.bold),
+        labelStyle:  TextStyle(
+            color: labelColor, fontSize: 18, fontWeight: FontWeight.bold),
       ),
       obscureText: obscureText,
       validator: validator,

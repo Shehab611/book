@@ -11,7 +11,7 @@ class TextWidget extends StatelessWidget {
       this.aboveTextAlign=TextAlign.left,
       this.bottomTextAlign=TextAlign.left,
         this.aboveTextColor=kColor,
-        this.bottomTextColor=kDefaultColor,
+        this.bottomTextColor=kDefaultColor, this.aboveTextFontSize, this.bottomTextFontSize,
       });
 
   final String aboveText;
@@ -21,7 +21,8 @@ class TextWidget extends StatelessWidget {
   final TextAlign bottomTextAlign;
   final String bottomText;
   final CrossAxisAlignment crossAxisAlignment;
-
+  final double? aboveTextFontSize;
+  final double? bottomTextFontSize;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -33,7 +34,7 @@ class TextWidget extends StatelessWidget {
           style:
               GoogleFonts.montserrat(color: aboveTextColor, fontWeight: FontWeight.w800)
                   .copyWith(
-                      fontSize:
+                      fontSize:aboveTextFontSize??
                           Theme.of(context).textTheme.headlineMedium?.fontSize
               ),
         ),
@@ -43,7 +44,7 @@ class TextWidget extends StatelessWidget {
           style: GoogleFonts.montserrat(
                   color: bottomTextColor, fontWeight: FontWeight.bold)
               .copyWith(
-                  fontSize:
+                  fontSize:bottomTextFontSize??
                   Theme.of(context).textTheme.titleLarge?.fontSize
           ),
         ),
