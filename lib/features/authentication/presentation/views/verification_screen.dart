@@ -1,5 +1,8 @@
 import 'package:book/constants.dart';
+import 'package:book/features/authentication/presentation/components/button_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
 import '../components/texts.dart';
@@ -12,7 +15,9 @@ class VerificationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
+    final Size size = MediaQuery
+        .of(context)
+        .size;
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -35,11 +40,24 @@ class VerificationScreen extends StatelessWidget {
                   aboveTextColor: kDefaultColor,
                   bottomTextColor: kColor,
                   bottomText:
-                      'Please check your email for confirmation mail. Click link in email to verification your account',
+                  'Please check your email for confirmation mail. Click link in email to verification your account',
                 ),
-                Lottie.asset(
-                  'assets/animated_json/verification_animation.json',
-                )
+                SizedBox(
+                  height: size.height * .4,
+                  child: Lottie.asset(
+                    'assets/animated_json/verification_animation.json',
+                  ),
+                ),
+                Text('Did not receive the confirmation mail?',
+                  style: GoogleFonts.montserrat().copyWith(fontSize:Theme.of(context).textTheme.titleMedium!.fontSize),),
+                ButtonWidget(
+                    onPressed: () {},
+                    iconDirection: TextDirection.rtl,
+                    iconColor: Colors.white,
+                    textColor: Colors.white,
+                    buttonBackgroundColor: kColor,
+                    iconData: FontAwesomeIcons.paperPlane,
+                    buttonText: 'RESEND EMAIL')
               ],
             ),
           ),

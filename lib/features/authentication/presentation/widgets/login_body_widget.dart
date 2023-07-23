@@ -79,7 +79,7 @@ class _LoginBodyWidgetState extends State<LoginBodyWidget> {
                     Alignment.lerp(Alignment.center, Alignment.centerRight, .9)!,
                 child: TextButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, AppRouter.kVerificationScreen);
+
                     },
                     child: Text(
                       'Forgot password',

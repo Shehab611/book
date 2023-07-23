@@ -7,26 +7,38 @@ class ButtonWidget extends StatelessWidget {
       {super.key,
       required this.onPressed,
       required this.iconData,
-      required this.buttonText});
+      required this.buttonText,
+        this.iconColor=kColor,
+        this.textColor=kColor,
+        this.buttonBackgroundColor=kDefaultColor,
+        this.iconDirection=TextDirection.ltr
+      });
 
   final void Function() onPressed;
   final IconData iconData;
   final String buttonText;
+  final Color iconColor;
+  final Color textColor;
+  final Color buttonBackgroundColor;
+  final TextDirection iconDirection;
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton.icon(
-      onPressed: onPressed,
-      icon: Icon(
-        iconData,
-        color: kColor,
-      ),
-      label: Text(
-        buttonText,
-        style: GoogleFonts.libreCaslonText(color: kColor, fontSize: 18),
-      ),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: kDefaultColor,
+    return Directionality(
+      textDirection:iconDirection,
+      child: ElevatedButton.icon(
+        onPressed: onPressed,
+        icon: Icon(
+          iconData,
+          color: iconColor,
+        ),
+        label: Text(
+          buttonText,
+          style: GoogleFonts.libreCaslonText(color: textColor, fontSize: 18),
+        ),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: buttonBackgroundColor,
+        ),
       ),
     );
   }
