@@ -51,8 +51,9 @@ class MyStepper extends StatefulWidget {
         content: const Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
-          children: [_BirthDate(), _GenderSelection()],
+          children: [_BirthDate(), _GenderSelection(),],
         )),
+    // todo :: add step with filter chips inside it contain books categories
   ];
 
   @override

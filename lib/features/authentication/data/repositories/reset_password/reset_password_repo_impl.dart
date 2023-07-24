@@ -4,16 +4,16 @@ import 'reset_password_repo.dart';
 
 class ResetPasswordImpl extends ResetPasswordRepo{
   @override
-  Future<String> resetPassword({required String email}) async {
-    String result='';
+  ({bool succsuful, String? errorString}) resetPassword({required String email})  {
+
     try{
-      await Authentication.resetPassword(email: email);
-      result='User Created Successfully';
+       Authentication.resetPassword(email: email);
+      return (succsuful: true,errorString: null);
     }
     catch(e){
-      result = e.toString();
+      return(succsuful:false,errorString:e.toString());
     }
 
-    return result;
+
   }
 }

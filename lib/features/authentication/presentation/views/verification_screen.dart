@@ -40,7 +40,7 @@ class VerificationScreen extends StatelessWidget {
                   aboveTextColor: kDefaultColor,
                   bottomTextColor: kColor,
                   bottomText:
-                  'Please check your email for confirmation mail. Click link in email to verification your account',
+                  'Please check your email for confirmation mail. Click link in email to verify your account',
                 ),
                 Lottie.asset(
                   'assets/animated_json/verification_animation.json',height:size.height * .4,

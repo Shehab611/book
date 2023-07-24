@@ -4,31 +4,28 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class RegisterRepoImpl implements RegisterRepo{
   @override
-  Future<String> createNewUser({required (String email, String password) user}) async {
-    String result='';
+  ({bool succsuful, String? errorString})  createNewUser({required (String email, String password) user})  {
     try{
-      await Authentication.createUserWithEmailAndPassword(email: user.$1, password: user.$2);
-      result='User Created Successfully';
+       Authentication.createUserWithEmailAndPassword(email: user.$1, password: user.$2);
+       return (succsuful: true,errorString: null);
     }
     catch(e){
-      result = e.toString();
+      return(succsuful:false,errorString:e.toString());
     }
 
-     return result;
   }
 
   @override
-  Future<String> verifyUserEmail({required User user}) async{
-    String result='';
+  ({bool succsuful, String? errorString})  verifyUserEmail({required User user}) {
+
     try{
-      await Authentication.sendEmailVerification(user: user);
-      result='Email Sent Successfully';
+       Authentication.sendEmailVerification(user: user);
+       return (succsuful: true,errorString: null);
     }
     catch(e){
-      result = e.toString();
+      return(succsuful:false,errorString:e.toString());
     }
 
-    return result;
   }
 
 }
