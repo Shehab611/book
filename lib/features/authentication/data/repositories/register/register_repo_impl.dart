@@ -27,5 +27,14 @@ class RegisterRepoImpl implements RegisterRepo{
     }
 
   }
-
+  @override
+  ({String? errorString, bool succsuful}) signUPWithGoogle() {
+  try{
+    Authentication.signInWithGoogle();
+    return (succsuful: true,errorString: null);
+  }
+  catch(e){
+    return(succsuful:false,errorString:e.toString());
+  }
+  }
 }

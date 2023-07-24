@@ -1,4 +1,5 @@
 import 'package:book/constants.dart';
+import 'package:book/core/usable_functions/firebase_auth.dart';
 import 'package:book/firebase_options.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,primaryColor: kDefaultColor
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: AppRouter.kForgetPasswordScreen,
+      initialRoute: AppRouter.kRegisterScreen,
       routes: AppRouter.routes,
     );
   }

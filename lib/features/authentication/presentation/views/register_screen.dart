@@ -1,3 +1,4 @@
+import 'package:book/core/usable_functions/firebase_auth.dart';
 import 'package:book/features/authentication/presentation/widgets/buttons_row.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/utils/app_router.dart';
@@ -39,9 +40,8 @@ class RegisterScreen extends StatelessWidget {
                         },
                         child: const RegisterTransformWidget()),
                     SizedBox(height: size.height * .6,child: const RegisterBodyWidget()),
-                     ButtonsRow(onPressedGoogleButton: () {
+                     ButtonsRow(onPressedGoogleButton: () async{
                        // todo :: add google sign up method
-
                      }, onPressedFacebookButton: () {
                        // todo :: add facebook sign up method
                      },),
