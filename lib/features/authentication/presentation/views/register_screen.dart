@@ -1,4 +1,3 @@
-import 'package:book/core/usable_functions/firebase_auth.dart';
 import 'package:book/features/authentication/presentation/widgets/buttons_row.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/utils/app_router.dart';
