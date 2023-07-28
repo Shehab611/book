@@ -15,11 +15,22 @@ class MyStepper extends StatefulWidget {
     GlobalKey<FormState>(),
     GlobalKey<FormState>(),
   ];
+  static List<String> categories = [
+    'Cooking',
+    'Adventure',
+    'Horror',
+    'Thriller',
+    'Romance',
+    'Biography',
+    'History',
+    'Travel',
+    'Money',
+  ];
+  static List<String> allSelected = [];
   static List<Step> steps = [
     Step(
-        state:
-            MyStepper.currentStep > 0 ? StepState.complete : StepState.indexed,
-        isActive: MyStepper.currentStep >= 0,
+        state: StepState.indexed,
+        isActive: true,
         title: const Text('Account info'),
         content: Form(
           key: formKeys[0],
@@ -43,17 +54,21 @@ class MyStepper extends StatefulWidget {
             ],
           ),
         )),
-    Step(
-        state:
-            MyStepper.currentStep > 1 ? StepState.complete : StepState.indexed,
-        isActive: MyStepper.currentStep >= 1,
-        title: const Text('Personal info'),
-        content: const Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [_BirthDate(), _GenderSelection(),],
+    const Step(
+        state: StepState.indexed,
+        isActive: true,
+        title: Text('Personal info'),
+        content: Column(
+          children: [
+            _BirthDate(),
+            _GenderSelection(),
+          ],
         )),
-    // todo :: add step with filter chips inside it contain books categories
+    const Step(
+        state: StepState.indexed,
+        isActive: true,
+        title: Text('Favourite Categories'),
+        content: _SelectCategories()),
   ];
 
   @override
@@ -72,79 +87,74 @@ class _MyStepperState extends State<MyStepper> {
   @override
   Widget build(BuildContext context) {
     return Theme(
-        data: ThemeData(
-            colorScheme: const ColorScheme.light(
-          primary: kDefaultColor,
-        )),
-        child: Stepper(
-          currentStep: MyStepper.currentStep,
-          onStepCancel: () => MyStepper.currentStep == 0
-              ? null
-              : setState(() => MyStepper.currentStep -= 1),
-          onStepContinue: () {
+      data: ThemeData(
+          colorScheme: const ColorScheme.light(
+        primary: kDefaultColor,
+      )),
+      child: Stepper(
+        physics: const NeverScrollableScrollPhysics(),
+        currentStep: MyStepper.currentStep,
+        onStepCancel: () => MyStepper.currentStep == 0
+            ? null
+            : setState(() => MyStepper.currentStep -= 1),
+        onStepContinue: () {
+          bool isLastStep = MyStepper.currentStep == MyStepper.steps.length - 1;
+          if (isLastStep) {
+
+          } else {
             if (MyStepper.formKeys[MyStepper.currentStep].currentState!
                 .validate()) {
-              bool isLastStep =
-                  (MyStepper.currentStep == MyStepper.steps.length - 1);
-              if (isLastStep) {
-               // todo :: go to home page and add this data to firebase
-              } else {
-                setState(() => MyStepper.currentStep += 1);
-              }
+              setState(() => MyStepper.currentStep += 1);
             }
-          },
-          onStepTapped: (step) {
-            if (MyStepper.formKeys[MyStepper.currentStep].currentState!
-                .validate()) {
-              bool isLastStep =
-              (MyStepper.currentStep == MyStepper.steps.length - 1);
-              if (isLastStep) {
-                // todo :: go to home page and add this data to firebase
-              } else {
-                setState(() => MyStepper.currentStep += 1);
-              }
-            }
-          },
-          steps: MyStepper.steps,
-          controlsBuilder: (context, details) {
-            final bool isLastStep =
-                MyStepper.currentStep == MyStepper.steps.length - 1;
-            return Container(
-              margin: const EdgeInsets.only(top: 20),
-              child: Row(
-                children: [
-                  Expanded(
-                      child: ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(kDefaultColor),
-                    ),
-                    onPressed: details.onStepCancel,
-                    child: const Text('Back',
-                        style: TextStyle(
-                            color: kColor,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700)),
-                  )),
-                  const SizedBox(
-                    width: 10,
+          }
+        },
+        onStepTapped: (step) {
+          setState(() {
+            MyStepper.currentStep = step;
+          });
+        },
+        steps: MyStepper.steps,
+
+        controlsBuilder: (context, details) {
+          final bool isLastStep =
+              MyStepper.currentStep == MyStepper.steps.length - 1;
+          return Container(
+            margin: const EdgeInsets.only(top: 8),
+            child: Row(
+              children: [
+                Expanded(
+                    child: ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(kDefaultColor),
                   ),
-                  Expanded(
-                      child: ElevatedButton(
-                    style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(kDefaultColor)),
-                    onPressed: details.onStepContinue,
-                    child: Text(isLastStep ? 'Confirm' : 'Continue',
-                        style: const TextStyle(
-                            color: kColor,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700)),
-                  )),
-                ],
-              ),
-            );
-          },
-        ));
+                  onPressed: details.onStepCancel,
+                  child: const Text('Back',
+                      style: TextStyle(
+                          color: kColor,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700)),
+                )),
+                const SizedBox(
+                  width: 10,
+                ),
+                Expanded(
+                    child: ElevatedButton(
+                  style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all(kDefaultColor)),
+                  onPressed: details.onStepContinue,
+                  child: Text(isLastStep ? 'Confirm' : 'Continue',
+                      style: const TextStyle(
+                          color: kColor,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700)),
+                )),
+              ],
+            ),
+          );
+        },
+      ),
+    );
   }
 }
 
@@ -246,6 +256,46 @@ class _GenderSelectionState extends State<_GenderSelection> {
           ),
         ),
       ],
+    );
+  }
+}
+
+class _SelectCategories extends StatefulWidget {
+  const _SelectCategories();
+
+  @override
+  State<_SelectCategories> createState() => _SelectCategoriesState();
+}
+
+class _SelectCategoriesState extends State<_SelectCategories> {
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      runSpacing: 3,
+      alignment: WrapAlignment.center,
+      spacing: 5,
+      children: List.generate(
+          MyStepper.categories.length,
+          (index) => FilterChip(
+                label: Text(
+                  MyStepper.categories[index],
+                  style: const TextStyle(color: kColor),
+                ),
+                showCheckmark: true,
+                selected:
+                    MyStepper.allSelected.contains(MyStepper.categories[index]),
+                selectedColor: kDefaultColor.withOpacity(.4),
+                onSelected: (bool value) {
+                  setState(() {
+                    if (value) {
+                      MyStepper.allSelected.add(MyStepper.categories[index]);
+                    } else {
+                      MyStepper.allSelected.removeWhere(
+                          (String name) => name == MyStepper.categories[index]);
+                    }
+                  });
+                },
+              )),
     );
   }
 }

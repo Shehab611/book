@@ -42,7 +42,7 @@ class RegisterScreen extends StatelessWidget {
                      ButtonsRow(onPressedGoogleButton: () async{
                        // todo :: add google sign up method
                      }, onPressedFacebookButton: () {
-                       // todo :: add facebook sign up method
+                       // todo :: can not be add until the app is published
                      },),
                   ] ,
                 ),

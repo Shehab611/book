@@ -33,7 +33,7 @@ class LoginScreen extends StatelessWidget {
                    ButtonsRow(onPressedGoogleButton: () {
                      // todo :: add google sign in method
                    }, onPressedFacebookButton: () {
-                     // todo :: add facebook sign in method
+                     // todo :: can not be add until the app is published
                    },),
                   SizedBox(height: size.height * .6,child: const LoginBodyWidget()),
                   GestureDetector(

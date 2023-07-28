@@ -9,7 +9,7 @@ class CompleteProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-final Size size=MediaQuery.of(context).size;
+    final Size size=MediaQuery.of(context).size;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Stack(
@@ -19,12 +19,14 @@ final Size size=MediaQuery.of(context).size;
             size: size,
           ),
           const Padding(
-            padding: EdgeInsets.symmetric(vertical: 15),
-            child: Column(
-              children: [
-                BeforeStepper(),
-                MyStepper(),
-              ],
+            padding: EdgeInsets.fromLTRB(0,15,0,0),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  BeforeStepper(),
+                  MyStepper(),
+                ],
+              ),
             ),
           )
 

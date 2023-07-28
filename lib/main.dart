@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'core/utils/app_router.dart';
 
+
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -34,8 +35,9 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,primaryColor: kDefaultColor
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: AppRouter.kRegisterScreen,
+      initialRoute: AppRouter.kCompleteProfile,
       routes: AppRouter.routes,
+
     );
   }
 }
