@@ -1,5 +1,6 @@
-import 'package:book/core/utils/app_router.dart';
+import 'package:book/features/authentication/presentation/view_model_manger/login_cubit/login_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../widgets/login_body_widget.dart';
 import '../widgets/buttons_row.dart';
 import '../widgets/painter.dart';
@@ -10,11 +11,12 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
-
-    double topPadding=switch(size.height){
-      <=750 => 0,
-      _=>size.height * 0.015625
+    final Size size = MediaQuery
+        .of(context)
+        .size;
+    double topPadding = switch(size.height){
+      <= 750 => 0,
+      _ => size.height * 0.015625
     };
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -26,25 +28,27 @@ class LoginScreen extends StatelessWidget {
               painter: LoginRegisterBackground(),
             ),
             Padding(
-              padding:  EdgeInsets.fromLTRB(0,topPadding,0,10),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                   ButtonsRow(onPressedGoogleButton: () {
-                     // todo :: add google sign in method
-                   }, onPressedFacebookButton: () {
-                     // todo :: can not be add until the app is published
-                   },),
-                  SizedBox(height: size.height * .6,child: const LoginBodyWidget()),
-                  GestureDetector(
-                      onVerticalDragUpdate: (dd) {
-                        Navigator.pushReplacementNamed(
-                          context,
-                          AppRouter.kRegisterScreen,
-                        );
-                      },
-                      child: const LoginTransformWidget()),
-                ],
+              padding: EdgeInsets.fromLTRB(0, topPadding, 0, 10),
+              child: BlocBuilder<LoginCubit, LoginState>(
+                builder: (context, state) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ButtonsRow(onPressedGoogleButton: () {
+                      LoginCubit.get(context).signInWithGoogle();
+                      }, onPressedFacebookButton: () {
+                        // todo :: can not be add until the app is published
+                      },),
+                      SizedBox(height: size.height * .6,
+                          child: const LoginBodyWidget()),
+                      GestureDetector(
+                          onVerticalDragUpdate: (dd) {
+                            LoginCubit.get(context).goToRegister(context);
+                          },
+                          child: const LoginTransformWidget()),
+                    ],
+                  );
+                },
               ),
             )
           ],

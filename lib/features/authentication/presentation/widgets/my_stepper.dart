@@ -100,7 +100,6 @@ class _MyStepperState extends State<MyStepper> {
         onStepContinue: () {
           bool isLastStep = MyStepper.currentStep == MyStepper.steps.length - 1;
           if (isLastStep) {
-
           } else {
             if (MyStepper.formKeys[MyStepper.currentStep].currentState!
                 .validate()) {
@@ -114,7 +113,6 @@ class _MyStepperState extends State<MyStepper> {
           });
         },
         steps: MyStepper.steps,
-
         controlsBuilder: (context, details) {
           final bool isLastStep =
               MyStepper.currentStep == MyStepper.steps.length - 1;
@@ -175,10 +173,8 @@ class _BirthDate extends StatelessWidget {
                 data: Theme.of(context).copyWith(
                   colorScheme: const ColorScheme.light(
                     primary: kColor,
-                    // header background color
                     onPrimary: kDefaultColor,
-                    // header text color
-                    onSurface: kColor, // body text color
+                    onSurface: kColor,
                   ),
                 ),
                 child: child!);

@@ -1,4 +1,5 @@
 import 'package:book/constants.dart';
+import 'package:book/core/utils/services_locator.dart';
 import 'package:book/firebase_options.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -10,7 +11,7 @@ import 'core/utils/app_router.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
-
+  initServicesLocator();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,primaryColor: kDefaultColor
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: AppRouter.kCompleteProfile,
+      initialRoute: AppRouter.kLoginScreen,
       routes: AppRouter.routes,
 
     );

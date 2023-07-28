@@ -1,4 +1,8 @@
 import 'package:book/constants.dart';
+import 'package:book/core/utils/app_router.dart';
+import 'package:book/core/utils/services_locator.dart';
+import 'package:book/features/authentication/data/repositories/login/login_repo_impl.dart';
+import 'package:book/features/authentication/data/repositories/reset_password/reset_password_repo_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../components/go_in_button.dart';
@@ -33,11 +37,10 @@ class _LoginBodyWidgetState extends State<LoginBodyWidget> {
         padding: const EdgeInsets.all(5),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
           children: [
             Image.asset(
               'assets/images/logo.png',
-            height: height * .1,
+              height: height * .1,
             ),
             MyTextField(
               labelText: 'Email',
@@ -64,22 +67,24 @@ class _LoginBodyWidgetState extends State<LoginBodyWidget> {
               controller: LoginBodyWidget.passwordController,
               isLast: true,
               obscureText: true,
-              onFieldSubmitted: (p0) => LoginBodyWidget.formKey.currentState!.validate(),
+              onFieldSubmitted: (p0) =>
+                  LoginBodyWidget.formKey.currentState!.validate(),
               validator: (String? value) {
-              switch(value!.isEmpty){
-                case true:
-                  return 'Password can not be empty';
-                case false:
-                  return null;
-              }
+                switch (value!.isEmpty) {
+                  case true:
+                    return 'Password can not be empty';
+                  case false:
+                    return null;
+                }
               },
             ),
             Align(
-                alignment:
-                    Alignment.lerp(Alignment.center, Alignment.centerRight, .9)!,
+                alignment: Alignment.lerp(
+                    Alignment.center, Alignment.centerRight, .9)!,
                 child: TextButton(
                     onPressed: () {
-
+                      Navigator.pushNamed(
+                          context, AppRouter.kForgetPasswordScreen);
                     },
                     child: Text(
                       'Forgot password',
@@ -88,10 +93,14 @@ class _LoginBodyWidgetState extends State<LoginBodyWidget> {
                     ))),
             GoInButton(
               onPressed: () {
-                if(LoginBodyWidget.formKey.currentState!.validate()){
-                  // todo :: navigate to home and login to firebase
+                if (LoginBodyWidget.formKey.currentState!.validate()) {
+                  var loginRepo = serviceLocator.get<LoginRepoImpl>();
+                  loginRepo.userLogin(user: (
+                    LoginBodyWidget.emailController.text,
+                    LoginBodyWidget.passwordController.text
+                  ));
+                  // todo :: navigate to home page
                 }
-
               },
               iconData: Icons.arrow_forward_ios_outlined,
             ),
