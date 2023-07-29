@@ -1,5 +1,8 @@
 import 'package:book/constants.dart';
+import 'package:book/core/usable_functions/firebase_auth.dart';
 import 'package:book/core/utils/app_router.dart';
+import 'package:book/core/utils/services_locator.dart';
+import 'package:book/features/authentication/data/repositories/reset_password/reset_password_repo_impl.dart';
 import 'package:book/features/authentication/presentation/components/button_widget.dart';
 import 'package:book/features/authentication/presentation/components/texts.dart';
 import 'package:flutter/material.dart';
@@ -9,13 +12,22 @@ import 'package:lottie/lottie.dart';
 
 import '../components/text_field.dart';
 
-class ForgetPasswordScreen extends StatelessWidget {
+class ForgetPasswordScreen extends StatefulWidget {
   const ForgetPasswordScreen({super.key});
 
   static TextEditingController emailController = TextEditingController();
-  static bool isVisible = false;
   static var formKey = GlobalKey<FormState>();
 
+  @override
+  State<ForgetPasswordScreen> createState() => _ForgetPasswordScreenState();
+}
+
+class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
+  @override
+  void dispose() {
+    ForgetPasswordScreen.emailController.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -25,7 +37,7 @@ class ForgetPasswordScreen extends StatelessWidget {
         elevation: 0,
       ),
       body: Form(
-        key: formKey,
+        key: ForgetPasswordScreen.formKey,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: SingleChildScrollView(
@@ -66,12 +78,13 @@ class ForgetPasswordScreen extends StatelessWidget {
                         }
                       },
                       iconData: Icons.alternate_email,
-                      controller: emailController),
+                      controller: ForgetPasswordScreen.emailController),
                   Center(
                     child: ButtonWidget(
                       onPressed: () {
-                        if (formKey.currentState!.validate()) {
-                          // todo :: send reset password email
+                        if (ForgetPasswordScreen.formKey.currentState!.validate()) {
+                          var resetPasswordRepo = serviceLocator.get<ResetPasswordImpl>();
+                          resetPasswordRepo.resetPassword(email: ForgetPasswordScreen.emailController.text);
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {

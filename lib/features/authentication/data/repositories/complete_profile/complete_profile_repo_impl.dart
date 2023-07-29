@@ -7,9 +7,9 @@ import 'complete_profile_repo.dart';
 
 class CompleteProfileRepoImpl implements CompleteProfileRepo {
   @override
-  ({bool succsuful, String? errorString}) addUserData({required UserDataModel userDataModel}) {
+  Future<({bool succsuful, String? errorString})> addUserData({required UserDataModel userDataModel}) async{
     try {
-      DataHandling.addDataToDocument(
+     await DataHandling.addDataToDocument(
           collectionName: 'users',
           docName: FirebaseAuth.instance.currentUser!.email!,
           data: UserDataModel.toJson(userDataModel: userDataModel));

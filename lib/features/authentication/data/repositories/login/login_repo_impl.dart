@@ -3,9 +3,9 @@ import 'package:book/features/authentication/data/repositories/login/login_repo.
 
 class LoginRepoImpl implements LoginRepo{
   @override
-  ({bool succsuful, String? errorString})  userLogin({required (String email,String password) user}) {
+  Future<({bool succsuful, String? errorString}) > userLogin({required (String email,String password) user}) async{
     try{
-       Authentication.signInWithEmailAndPassword(email: user.$1, password: user.$2);
+       await Authentication.signInWithEmailAndPassword(email: user.$1, password: user.$2);
        return (succsuful: true,errorString: null);
     }
     catch(e){
@@ -13,9 +13,9 @@ class LoginRepoImpl implements LoginRepo{
     }
   }
   @override
-  ({String? errorString, bool succsuful}) signUPWithGoogle() {
+Future < ({String? errorString, bool succsuful}) >signUPWithGoogle() async{
     try{
-      Authentication.signInWithGoogle();
+      await Authentication.signInWithGoogle();
       return (succsuful: true,errorString: null);
     }
     catch(e){

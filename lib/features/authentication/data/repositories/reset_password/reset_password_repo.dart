@@ -1,5 +1,4 @@
-abstract class ResetPasswordRepo{
-
-  ({bool succsuful, String? errorString})  resetPassword({required String email});
-
+abstract class ResetPasswordRepo {
+  Future<({bool succsuful, String? errorString})> resetPassword(
+      {required String email});
 }

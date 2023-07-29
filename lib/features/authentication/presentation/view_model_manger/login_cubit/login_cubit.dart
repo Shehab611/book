@@ -20,8 +20,8 @@ class LoginCubit extends Cubit<LoginState> {
     emit(GoToRegisterScreen());
   }
 
-  void signInWithGoogle() {
-    ({String? errorString, bool succsuful}) data = loginRepo.signUPWithGoogle();
+  void signInWithGoogle() async{
+    ({String? errorString, bool succsuful}) data =await loginRepo.signUPWithGoogle();
     emit(LoginWithGoogle(data: data));
   }
 

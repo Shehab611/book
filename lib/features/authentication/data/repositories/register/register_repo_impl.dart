@@ -4,9 +4,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class RegisterRepoImpl implements RegisterRepo{
   @override
-  ({bool succsuful, String? errorString})  createNewUser({required (String email, String password) user})  {
+  Future<({bool succsuful, String? errorString})> createNewUser({required (String email, String password) user}) async {
     try{
-       Authentication.createUserWithEmailAndPassword(email: user.$1, password: user.$2);
+      await Authentication.createUserWithEmailAndPassword(email: user.$1, password: user.$2);
        return (succsuful: true,errorString: null);
     }
     catch(e){
@@ -16,10 +16,10 @@ class RegisterRepoImpl implements RegisterRepo{
   }
 
   @override
-  ({bool succsuful, String? errorString})  verifyUserEmail({required User user}) {
+  Future< ({bool succsuful, String? errorString}) > verifyUserEmail({required User user}) async{
 
     try{
-       Authentication.sendEmailVerification(user: user);
+     await  Authentication.sendEmailVerification(user: user);
        return (succsuful: true,errorString: null);
     }
     catch(e){
@@ -28,9 +28,9 @@ class RegisterRepoImpl implements RegisterRepo{
 
   }
   @override
-  ({String? errorString, bool succsuful}) signUPWithGoogle() {
+  Future < ({String? errorString, bool succsuful})> signUPWithGoogle() async{
   try{
-    Authentication.signInWithGoogle();
+  await  Authentication.signInWithGoogle();
     return (succsuful: true,errorString: null);
   }
   catch(e){

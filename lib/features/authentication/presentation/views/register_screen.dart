@@ -1,6 +1,8 @@
+import 'package:book/features/authentication/presentation/view_model_manger/register_cubit/register_cubit.dart';
 import 'package:book/features/authentication/presentation/widgets/buttons_row.dart';
+import 'package:book/features/authentication/presentation/widgets/snack_bar.dart';
 import 'package:flutter/material.dart';
-import '../../../../core/utils/app_router.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../widgets/painter.dart';
 import '../widgets/register_body_widget.dart';
 import '../widgets/register_transform_widget.dart';
@@ -11,10 +13,8 @@ class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    double topPadding=switch(size.height){
-      <=750 => 0,
-      _=>size.height * 0.015625
-    };
+    double topPadding =
+        switch (size.height) { <= 750 => 0, _ => size.height * 0.015625 };
     return Scaffold(
         resizeToAvoidBottomInset: false,
         body: Center(
@@ -25,26 +25,40 @@ class RegisterScreen extends StatelessWidget {
                 painter: LoginRegisterBackground(),
               ),
               Padding(
-                padding:
-                     EdgeInsets.fromLTRB(0,topPadding,0,10),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    GestureDetector(
-                        onVerticalDragUpdate: (dd) {
-                          Navigator.pushReplacementNamed(
-                            context,
-                            AppRouter.kLoginScreen,
-                          );
-                        },
-                        child: const RegisterTransformWidget()),
-                    SizedBox(height: size.height * .6,child: const RegisterBodyWidget()),
-                     ButtonsRow(onPressedGoogleButton: () async{
-                       // todo :: add google sign up method
-                     }, onPressedFacebookButton: () {
-                       // todo :: can not be add until the app is published
-                     },),
-                  ] ,
+                padding: EdgeInsets.fromLTRB(0, topPadding, 0, 10),
+                child: BlocBuilder<RegisterCubit, RegisterState>(
+                  builder: (context, state) {
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        GestureDetector(
+                            onVerticalDragUpdate: (dd) {
+                              RegisterCubit.get(context).goToLogin(context);
+                            },
+                            child: const RegisterTransformWidget()),
+                        SizedBox(
+                            height: size.height * .6,
+                            child: const RegisterBodyWidget()),
+                        ButtonsRow(
+                          onPressedGoogleButton: () {
+                            RegisterCubit.get(context).signUpWithGoogle();
+                            if (state is SignUpWithGoogle) {
+                              if (!state.data.succsuful) {
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(MySnackBar(
+                                  snackBarText: state.data.errorString,
+                                ) as SnackBar);
+                              }
+                            }
+                            // todo :: go to home page
+                          },
+                          onPressedFacebookButton: () {
+                            // todo :: can not be add until the app is published
+                          },
+                        ),
+                      ],
+                    );
+                  },
                 ),
               )
             ],

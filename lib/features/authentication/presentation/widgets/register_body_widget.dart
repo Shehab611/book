@@ -1,4 +1,7 @@
 import 'package:book/constants.dart';
+import 'package:book/core/utils/app_router.dart';
+import 'package:book/features/authentication/data/repositories/register/register_repo_impl.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -106,12 +109,19 @@ class _RegisterBodyWidgetState extends State<RegisterBodyWidget> {
                         : null;
                 }
               },
-              onFieldSubmitted: (p0) => RegisterBodyWidget.formKey.currentState!.validate(),
+              onFieldSubmitted: (p0) =>
+                  RegisterBodyWidget.formKey.currentState!.validate(),
             ),
             GoInButton(
               onPressed: () {
-                if(RegisterBodyWidget.formKey.currentState!.validate()){
-                  //todo :: send email verification and create account in firebase
+                if (RegisterBodyWidget.formKey.currentState!.validate()) {
+                  var registerRepo = RegisterRepoImpl();
+                  registerRepo.createNewUser(user: (
+                    RegisterBodyWidget.emailController.text,
+                    RegisterBodyWidget.passwordController.text
+                  ));
+                  registerRepo.verifyUserEmail(user: FirebaseAuth.instance.currentUser!);
+                  Navigator.pushNamed(context, AppRouter.kVerificationScreen);
                 }
               },
               iconData: Icons.arrow_forward_ios_outlined,
