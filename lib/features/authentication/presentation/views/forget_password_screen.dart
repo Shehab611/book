@@ -1,5 +1,4 @@
 import 'package:book/constants.dart';
-import 'package:book/core/usable_functions/firebase_auth.dart';
 import 'package:book/core/utils/app_router.dart';
 import 'package:book/core/utils/services_locator.dart';
 import 'package:book/features/authentication/data/repositories/reset_password/reset_password_repo_impl.dart';
