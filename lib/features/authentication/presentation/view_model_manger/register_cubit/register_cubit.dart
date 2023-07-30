@@ -35,14 +35,11 @@ class RegisterCubit extends Cubit<RegisterState> {
   }
 
   void userRegister(BuildContext context) async {
-    ({String? errorString, bool succsuful}) data =
-        await registerRepo.createNewUser(user: (
-      //emailController.text, passwordController.text
-      'shehabehab1029@gmail.com',
-      'Bye32@zzz'
-    ));
-    emit(UserRegister(data: data));
-    if (formKey.currentState!.validate()) {}
+    if (formKey.currentState!.validate()) {
+      ({String? errorString, bool succsuful}) data = await registerRepo
+          .createNewUser(user: (emailController.text, passwordController.text));
+      emit(UserRegister(data: data));
+    }
   }
 
   void navigateToVerificationScreen(BuildContext context) {
@@ -56,13 +53,12 @@ class RegisterCubit extends Cubit<RegisterState> {
     emit(VerifyUserEmail(data: data));
   }
 
-  void navigateToCompleteProfile(BuildContext context) async{
+  void navigateToCompleteProfile(BuildContext context) async {
     await FirebaseAuth.instance.currentUser!.reload().then((value) {
       if (FirebaseAuth.instance.currentUser!.emailVerified) {
         Navigator.pushReplacementNamed(context, AppRouter.kCompleteProfile);
         emit(GoToCompleteProfileScreen());
-      }
-      else {
+      } else {
         showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -70,19 +66,24 @@ class RegisterCubit extends Cubit<RegisterState> {
               title: Text(
                 "Your Email is not verified",
                 style: GoogleFonts.montserrat(
-                    color: kDefaultColor, fontWeight: FontWeight.w800)
+                        color: kDefaultColor, fontWeight: FontWeight.w800)
                     .copyWith(
-                    fontSize:
-                    Theme.of(context).textTheme.headlineSmall?.fontSize),
+                        fontSize: Theme.of(context)
+                            .textTheme
+                            .headlineSmall
+                            ?.fontSize),
               ),
               content: Text("'Did not receive the confirmation mail?",
                   style: GoogleFonts.montserrat(
-                      color: kDefaultColor, fontWeight: FontWeight.w600)
+                          color: kDefaultColor, fontWeight: FontWeight.w600)
                       .copyWith(
-                      fontSize:
-                      Theme.of(context).textTheme.bodyMedium?.fontSize)),
+                          fontSize: Theme.of(context)
+                              .textTheme
+                              .bodyMedium
+                              ?.fontSize)),
               backgroundColor: kColor,
-              shape: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+              shape:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
               elevation: 10,
               actions: [
                 Center(
@@ -102,6 +103,5 @@ class RegisterCubit extends Cubit<RegisterState> {
         );
       }
     });
-
   }
 }

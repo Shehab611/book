@@ -1,8 +1,10 @@
 import 'package:book/core/utils/services_locator.dart';
 import 'package:book/features/authentication/data/repositories/login/login_repo_impl.dart';
 import 'package:book/features/authentication/data/repositories/register/register_repo_impl.dart';
+import 'package:book/features/authentication/data/repositories/reset_password/reset_password_repo_impl.dart';
 import 'package:book/features/authentication/presentation/view_model_manger/login_cubit/login_cubit.dart';
 import 'package:book/features/authentication/presentation/view_model_manger/register_cubit/register_cubit.dart';
+import 'package:book/features/authentication/presentation/view_model_manger/reset_password_cubit/reset_password_cubit.dart';
 import 'package:book/features/authentication/presentation/views/complete_profile_screen.dart';
 import 'package:book/features/authentication/presentation/views/forget_password_screen.dart';
 import 'package:book/features/authentication/presentation/views/login_screen.dart';
@@ -23,7 +25,11 @@ abstract class AppRouter {
         create: (BuildContext context) =>
             LoginCubit(serviceLocator.get<LoginRepoImpl>()),
         child: const LoginScreen()),
-    kForgetPasswordScreen: (BuildContext context) => const ForgetPasswordScreen(),
+    kForgetPasswordScreen: (BuildContext context) => BlocProvider(
+      create: (context) =>
+          ResetPasswordCubit(serviceLocator.get<ResetPasswordImpl>()),
+      child: const ForgetPasswordScreen(),
+    ),
     kRegisterScreen: (BuildContext context) => BlocProvider(
           create: (context) =>
               RegisterCubit(serviceLocator.get<RegisterRepoImpl>()),
