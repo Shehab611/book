@@ -11,6 +11,9 @@ class LoginCubit extends Cubit<LoginState> {
 
   static LoginCubit get(context) => BlocProvider.of(context);
 
+  TextEditingController emailController=TextEditingController();
+  TextEditingController passwordController=TextEditingController();
+  var formKey = GlobalKey<FormState>();
 
   void goToRegister(BuildContext context) {
     Navigator.pushReplacementNamed(
@@ -25,6 +28,21 @@ class LoginCubit extends Cubit<LoginState> {
     emit(LoginWithGoogle(data: data));
   }
 
+  void navigateToForgetPassword(BuildContext context){
+    Navigator.pushNamed(context, AppRouter.kForgetPasswordScreen);
+    emit(GoToForgetPasswordScreen());
+  }
 
+  void userLogin(BuildContext context)async{
+    if ( LoginCubit.get(context).formKey.currentState!.validate()) {
+      ({String? errorString, bool succsuful}) data =await loginRepo.userLogin(user: (
+      emailController.text,
+      passwordController.text
+      ));
+      emit(UserLogin(data: data));
+      // todo :: navigate to home page
+    }
+
+  }
 
 }

@@ -9,3 +9,8 @@ class LoginWithGoogle extends LoginState {
   LoginWithGoogle({required this.data});
   final ({String? errorString, bool succsuful}) data;
 }
+class GoToForgetPasswordScreen extends LoginState {}
+class UserLogin extends LoginState {
+  UserLogin({required this.data});
+  final ({String? errorString, bool succsuful}) data;
+}

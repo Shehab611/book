@@ -23,14 +23,18 @@ abstract class AppRouter {
         create: (BuildContext context) =>
             LoginCubit(serviceLocator.get<LoginRepoImpl>()),
         child: const LoginScreen()),
+    kForgetPasswordScreen: (BuildContext context) => const ForgetPasswordScreen(),
     kRegisterScreen: (BuildContext context) => BlocProvider(
           create: (context) =>
               RegisterCubit(serviceLocator.get<RegisterRepoImpl>()),
           child: const RegisterScreen(),
         ),
+    kVerificationScreen: (BuildContext context) =>BlocProvider(
+      create: (context) =>
+          RegisterCubit(serviceLocator.get<RegisterRepoImpl>()),
+      child: const VerificationScreen(),
+    ),
     kCompleteProfile: (BuildContext context) => const CompleteProfileScreen(),
-    kVerificationScreen: (BuildContext context) => const VerificationScreen(),
-    kForgetPasswordScreen: (BuildContext context) =>
-        const ForgetPasswordScreen(),
+
   };
 }

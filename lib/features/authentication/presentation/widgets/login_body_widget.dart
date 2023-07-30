@@ -1,37 +1,21 @@
 import 'package:book/constants.dart';
-import 'package:book/core/utils/app_router.dart';
-import 'package:book/core/utils/services_locator.dart';
-import 'package:book/features/authentication/data/repositories/login/login_repo_impl.dart';
+import 'package:book/features/authentication/presentation/view_model_manger/login_cubit/login_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../components/go_in_button.dart';
 import '../components/text_field.dart';
+import 'snack_bar.dart';
 
-class LoginBodyWidget extends StatefulWidget {
+class LoginBodyWidget extends StatelessWidget {
   const LoginBodyWidget({super.key});
-
-  static TextEditingController emailController = TextEditingController();
-  static TextEditingController passwordController = TextEditingController();
-  static var formKey = GlobalKey<FormState>();
-
-  @override
-  State<LoginBodyWidget> createState() => _LoginBodyWidgetState();
-}
-
-class _LoginBodyWidgetState extends State<LoginBodyWidget> {
-  @override
-  void dispose() {
-    LoginBodyWidget.emailController;
-    LoginBodyWidget.passwordController;
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
 
     return Form(
-      key: LoginBodyWidget.formKey,
+      key: LoginCubit.get(context).formKey,
       child: Padding(
         padding: const EdgeInsets.all(5),
         child: Column(
@@ -45,7 +29,7 @@ class _LoginBodyWidgetState extends State<LoginBodyWidget> {
               labelText: 'Email',
               keyboardType: TextInputType.emailAddress,
               iconData: Icons.email_outlined,
-              controller: LoginBodyWidget.emailController,
+              controller: LoginCubit.get(context).emailController,
               validator: (String? value) {
                 switch (value!.isEmpty) {
                   case true:
@@ -63,11 +47,11 @@ class _LoginBodyWidgetState extends State<LoginBodyWidget> {
             MyTextField(
               labelText: 'Password',
               iconData: Icons.lock,
-              controller: LoginBodyWidget.passwordController,
+              controller: LoginCubit.get(context).passwordController,
               isLast: true,
               obscureText: true,
               onFieldSubmitted: (p0) =>
-                  LoginBodyWidget.formKey.currentState!.validate(),
+                  LoginCubit.get(context).formKey.currentState!.validate(),
               validator: (String? value) {
                 switch (value!.isEmpty) {
                   case true:
@@ -82,26 +66,28 @@ class _LoginBodyWidgetState extends State<LoginBodyWidget> {
                     Alignment.center, Alignment.centerRight, .9)!,
                 child: TextButton(
                     onPressed: () {
-                      Navigator.pushNamed(
-                          context, AppRouter.kForgetPasswordScreen);
+                      LoginCubit.get(context).navigateToForgetPassword(context);
                     },
                     child: Text(
                       'Forgot password',
                       style: GoogleFonts.libreCaslonText(
                           color: kDefaultColor, fontSize: 17),
                     ))),
-            GoInButton(
-              onPressed: () {
-                if (LoginBodyWidget.formKey.currentState!.validate()) {
-                  var loginRepo = serviceLocator.get<LoginRepoImpl>();
-                  loginRepo.userLogin(user: (
-                    LoginBodyWidget.emailController.text,
-                    LoginBodyWidget.passwordController.text
-                  ));
-                  // todo :: navigate to home page
-                }
+            BlocBuilder<LoginCubit, LoginState>(
+              builder: (context, state) {
+                return GoInButton(
+                  onPressed: () {
+                    LoginCubit.get(context).userLogin(context);
+                    if (state is UserLogin) {
+                      if (!state.data.succsuful) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          MySnackBar.getSnackBar(state.data.errorString!),);
+                      }
+                    }
+                  },
+                  iconData: Icons.arrow_forward_ios_outlined,
+                );
               },
-              iconData: Icons.arrow_forward_ios_outlined,
             ),
           ],
         ),

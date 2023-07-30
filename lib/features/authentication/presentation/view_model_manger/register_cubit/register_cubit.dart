@@ -1,7 +1,12 @@
+import 'package:book/constants.dart';
 import 'package:book/core/utils/app_router.dart';
 import 'package:book/features/authentication/data/repositories/register/register_repo.dart';
+import 'package:book/features/authentication/presentation/components/button_widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 part 'register_state.dart';
 
@@ -10,7 +15,10 @@ class RegisterCubit extends Cubit<RegisterState> {
   final RegisterRepo registerRepo;
 
   static RegisterCubit get(context) => BlocProvider.of(context);
-
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
+  var formKey = GlobalKey<FormState>();
 
   void goToLogin(BuildContext context) {
     Navigator.pushReplacementNamed(
@@ -20,8 +28,80 @@ class RegisterCubit extends Cubit<RegisterState> {
     emit(GoToLoginScreen());
   }
 
-  void signUpWithGoogle() async{
-    ({String? errorString, bool succsuful}) data = await registerRepo.signUPWithGoogle();
+  void signUpWithGoogle() async {
+    ({String? errorString, bool succsuful}) data =
+        await registerRepo.signUPWithGoogle();
     emit(SignUpWithGoogle(data: data));
+  }
+
+  void userRegister(BuildContext context) async {
+    ({String? errorString, bool succsuful}) data =
+        await registerRepo.createNewUser(user: (
+      //emailController.text, passwordController.text
+      'shehabehab1029@gmail.com',
+      'Bye32@zzz'
+    ));
+    emit(UserRegister(data: data));
+    if (formKey.currentState!.validate()) {}
+  }
+
+  void navigateToVerificationScreen(BuildContext context) {
+    Navigator.pushNamed(context, AppRouter.kVerificationScreen);
+    emit(GoToVerificationScreen());
+  }
+
+  void verifyUserEmail() async {
+    ({String? errorString, bool succsuful}) data = await registerRepo
+        .verifyUserEmail(user: FirebaseAuth.instance.currentUser!);
+    emit(VerifyUserEmail(data: data));
+  }
+
+  void navigateToCompleteProfile(BuildContext context) async{
+    await FirebaseAuth.instance.currentUser!.reload().then((value) {
+      if (FirebaseAuth.instance.currentUser!.emailVerified) {
+        Navigator.pushReplacementNamed(context, AppRouter.kCompleteProfile);
+        emit(GoToCompleteProfileScreen());
+      }
+      else {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text(
+                "Your Email is not verified",
+                style: GoogleFonts.montserrat(
+                    color: kDefaultColor, fontWeight: FontWeight.w800)
+                    .copyWith(
+                    fontSize:
+                    Theme.of(context).textTheme.headlineSmall?.fontSize),
+              ),
+              content: Text("'Did not receive the confirmation mail?",
+                  style: GoogleFonts.montserrat(
+                      color: kDefaultColor, fontWeight: FontWeight.w600)
+                      .copyWith(
+                      fontSize:
+                      Theme.of(context).textTheme.bodyMedium?.fontSize)),
+              backgroundColor: kColor,
+              shape: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+              elevation: 10,
+              actions: [
+                Center(
+                  child: ButtonWidget(
+                    onPressed: () {
+                      verifyUserEmail();
+                      Navigator.pop(context);
+                    },
+                    iconData: FontAwesomeIcons.paperPlane,
+                    buttonText: 'RESEND EMAIL',
+                    iconDirection: TextDirection.rtl,
+                  ),
+                ),
+              ],
+            );
+          },
+        );
+      }
+    });
+
   }
 }

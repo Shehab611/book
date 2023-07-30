@@ -1,15 +1,12 @@
 import 'package:book/constants.dart';
 import 'package:flutter/material.dart';
 
-class MySnackBar extends StatelessWidget {
-  const MySnackBar({super.key,this.snackBarText});
-  final String? snackBarText;
-  @override
-  Widget build(BuildContext context) {
-    return   SnackBar(
-      content: Text(snackBarText!),
+ class MySnackBar{
+  static SnackBar getSnackBar(String snackBarText){
+    return SnackBar(
+      content: Text(snackBarText),
       elevation: 7,
-      duration: const Duration(seconds: 2),
+      duration: const Duration(seconds: 5),
       backgroundColor: kColor,
       animation: CurvedAnimation(
           parent: kAlwaysCompleteAnimation, curve: Curves.bounceOut),

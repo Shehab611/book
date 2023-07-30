@@ -9,7 +9,7 @@ import '../widgets/login_transform_widget.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
-
+  static var formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -28,6 +28,7 @@ class LoginScreen extends StatelessWidget {
               padding: EdgeInsets.fromLTRB(0, topPadding, 0, 10),
               child: BlocBuilder<LoginCubit, LoginState>(
                 builder: (context, state) {
+
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -37,7 +38,7 @@ class LoginScreen extends StatelessWidget {
                           if (state is LoginWithGoogle) {
                             if (!state.data.succsuful) {
                               ScaffoldMessenger.of(context).showSnackBar(
-                                  MySnackBar(snackBarText: state.data.errorString,) as SnackBar);
+                                MySnackBar.getSnackBar(state.data.errorString!),);
                             }
                           }
                         },

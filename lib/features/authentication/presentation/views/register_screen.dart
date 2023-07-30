@@ -44,10 +44,8 @@ class RegisterScreen extends StatelessWidget {
                             RegisterCubit.get(context).signUpWithGoogle();
                             if (state is SignUpWithGoogle) {
                               if (!state.data.succsuful) {
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(MySnackBar(
-                                  snackBarText: state.data.errorString,
-                                ) as SnackBar);
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  MySnackBar.getSnackBar(state.data.errorString!),);
                               }
                             }
                             // todo :: go to complete verification page
