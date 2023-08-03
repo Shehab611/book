@@ -1,7 +1,7 @@
 part of 'login_cubit.dart';
 
 
-abstract class LoginState {}
+sealed class LoginState {}
 
 class LoginInitial extends LoginState {}
 class GoToRegisterScreen extends LoginState {}
