@@ -1,4 +1,6 @@
 
+import 'package:book/core/utils/app_router.dart';
+import 'package:book/features/authentication/data/models/user_data.dart';
 import 'package:book/features/authentication/data/repositories/complete_profile/complete_profile_repo.dart';
 import 'package:book/features/authentication/presentation/widgets/step_one.dart';
 import 'package:book/features/authentication/presentation/widgets/step_three.dart';
@@ -93,35 +95,36 @@ class CompleteProfileCubit extends Cubit<CompleteProfileState> {
     return null;
   }
 
-  void Function()? onStepContinue() {
+  void Function()? onStepContinue(BuildContext context) {
     if (isLastStep()) {
-      print(
-           """${firstNameController.text}
-         ${ secondNameController.text}
-          ${ birthdateController.text}
-          $selectedGender
-          $allSelected
-           $imageLink""");
-
-      /*   completeProfileRepo.addUserData(
+         completeProfileRepo.addUserData(
           userDataModel: UserDataModel(
               fName: firstNameController.text,
               lName: secondNameController.text,
               birthDate: birthdateController.text,
               gender: selectedGender,
-              bookCategories:allSelected ,
-              imageLink: imageLink));*/
+              bookCategories:allSelected,
+              imageLink: imageLink));
+         emit(StepContinue());
+         navigateToHomeScreen(context);
+
     } else {
       if (formKeys[currentStep].currentState!.validate()) {
         currentStep += 1;
+        emit(StepContinue());
       }
     }
-    emit(StepContinue());
+
     return null;
   }
 
   void onStepTapped(int step) {
     currentStep = step;
     emit(StepTapped());
+  }
+
+  void navigateToHomeScreen(BuildContext context){
+    Navigator.pushReplacementNamed(context, AppRouter.kHomeScreen);
+    emit(GoToHomeScreen());
   }
 }

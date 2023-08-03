@@ -12,6 +12,7 @@ import 'package:book/features/authentication/presentation/views/forget_password_
 import 'package:book/features/authentication/presentation/views/login_screen.dart';
 import 'package:book/features/authentication/presentation/views/register_screen.dart';
 import 'package:book/features/authentication/presentation/views/verification_screen.dart';
+import 'package:book/features/home/presentation/views/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -21,6 +22,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
   static const String kCompleteProfile = '/CompleteProfile';
   static const String kVerificationScreen = '/VerificationScreen';
   static const String kForgetPasswordScreen = '/ForgetPasswordScreen';
+  static const String kHomeScreen = '/HomeScreen';
 
   static final Map<String, WidgetBuilder> routes = {
     kLoginScreen: (BuildContext context) => BlocProvider(
@@ -47,6 +49,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
           CompleteProfileCubit(serviceLocator.get<CompleteProfileRepoImpl>()),
       child: const CompleteProfileScreen(),
     ),
+    kHomeScreen:(BuildContext context) =>const HomeScreen(),
 
   };
 

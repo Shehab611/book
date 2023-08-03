@@ -19,7 +19,7 @@ class MyStepper extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             currentStep: CompleteProfileCubit.get(context).currentStep,
             onStepCancel: CompleteProfileCubit.get(context).onStepCancel,
-            onStepContinue: CompleteProfileCubit.get(context).onStepContinue,
+            onStepContinue: CompleteProfileCubit.get(context).onStepContinue(context),
             onStepTapped: (step) {
               CompleteProfileCubit.get(context).onStepTapped(step);
             },

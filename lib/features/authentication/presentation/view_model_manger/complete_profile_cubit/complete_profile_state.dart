@@ -18,3 +18,4 @@ class DoesContain extends CompleteProfileState{}
 class StepCancel extends CompleteProfileState{}
 class StepContinue extends CompleteProfileState{}
 class StepTapped extends CompleteProfileState{}
+class GoToHomeScreen extends CompleteProfileState{}
