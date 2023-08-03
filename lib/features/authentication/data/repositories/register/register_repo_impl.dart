@@ -3,7 +3,7 @@ import 'package:book/features/authentication/data/repositories/register/register
 import 'package:firebase_auth/firebase_auth.dart';
 
 
-class RegisterRepoImpl implements RegisterRepo{
+final class RegisterRepoImpl implements RegisterRepo{
   @override
   Future<({bool succsuful, String? errorString})> createNewUser({required (String email, String password) user}) async {
     try{

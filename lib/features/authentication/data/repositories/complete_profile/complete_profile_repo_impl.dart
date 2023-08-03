@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'complete_profile_repo.dart';
 
-class CompleteProfileRepoImpl implements CompleteProfileRepo {
+final class CompleteProfileRepoImpl implements CompleteProfileRepo {
   @override
   Future<({bool succsuful, String? errorString})> addUserData({required UserDataModel userDataModel}) async{
     try {

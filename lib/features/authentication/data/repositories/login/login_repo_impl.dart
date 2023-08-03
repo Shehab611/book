@@ -1,7 +1,7 @@
 import 'package:book/core/usable_functions/firebase_auth.dart';
 import 'package:book/features/authentication/data/repositories/login/login_repo.dart';
 
-class LoginRepoImpl implements LoginRepo{
+final class LoginRepoImpl implements LoginRepo{
   @override
   Future<({bool succsuful, String? errorString}) > userLogin({required (String email,String password) user}) async{
     try{

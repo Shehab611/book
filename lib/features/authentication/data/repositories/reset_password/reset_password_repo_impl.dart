@@ -2,7 +2,7 @@ import 'package:book/core/usable_functions/firebase_auth.dart';
 
 import 'reset_password_repo.dart';
 
-class ResetPasswordImpl extends ResetPasswordRepo{
+final class ResetPasswordImpl implements ResetPasswordRepo{
   @override
  Future< ({bool succsuful, String? errorString})> resetPassword({required String email})  async{
 

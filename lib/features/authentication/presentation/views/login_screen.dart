@@ -28,7 +28,6 @@ class LoginScreen extends StatelessWidget {
               padding: EdgeInsets.fromLTRB(0, topPadding, 0, 10),
               child: BlocBuilder<LoginCubit, LoginState>(
                 builder: (context, state) {
-
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

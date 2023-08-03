@@ -1,4 +1,4 @@
-class UserDataModel {
+final class UserDataModel {
   final String fName, lName, birthDate, gender,imageLink;
   final List<String> bookCategories;
 
