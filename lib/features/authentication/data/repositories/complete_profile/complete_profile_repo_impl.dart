@@ -20,11 +20,13 @@ final class CompleteProfileRepoImpl implements CompleteProfileRepo {
   }
 
   @override
-  Future<String> uploadUserImage({required String folderName}) async {
+  Future<({bool succsuful, String? errorString,String? path})>uploadUserImage({required String subFolderName}) async {
     try {
-      return await StorageHandle.uploadPicToFolder(folderName: folderName);
+      String path= await StorageHandle.uploadPicToSubFolder(folderName: 'user_images', subFolderName:subFolderName);
+
+      return (succsuful:true,errorString:null,path:path);
     } catch (e) {
-      return e.toString();
+      return (succsuful:false,errorString: e.toString(),path:null);
     }
   }
 }

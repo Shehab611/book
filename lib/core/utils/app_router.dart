@@ -1,7 +1,9 @@
 import 'package:book/core/utils/services_locator.dart';
+import 'package:book/features/authentication/data/repositories/complete_profile/complete_profile_repo_impl.dart';
 import 'package:book/features/authentication/data/repositories/login/login_repo_impl.dart';
 import 'package:book/features/authentication/data/repositories/register/register_repo_impl.dart';
 import 'package:book/features/authentication/data/repositories/reset_password/reset_password_repo_impl.dart';
+import 'package:book/features/authentication/presentation/view_model_manger/complete_profile_cubit/complete_profile_cubit.dart';
 import 'package:book/features/authentication/presentation/view_model_manger/login_cubit/login_cubit.dart';
 import 'package:book/features/authentication/presentation/view_model_manger/register_cubit/register_cubit.dart';
 import 'package:book/features/authentication/presentation/view_model_manger/reset_password_cubit/reset_password_cubit.dart';
@@ -40,7 +42,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
           RegisterCubit(serviceLocator.get<RegisterRepoImpl>()),
       child: const VerificationScreen(),
     ),
-    kCompleteProfile: (BuildContext context) => const CompleteProfileScreen(),
+    kCompleteProfile: (BuildContext context) => BlocProvider(
+      create: (context) =>
+          CompleteProfileCubit(serviceLocator.get<CompleteProfileRepoImpl>()),
+      child: const CompleteProfileScreen(),
+    ),
 
   };
+
+
 }

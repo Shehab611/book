@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,primaryColor: kDefaultColor
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: AppRouter.kLoginScreen,
+      initialRoute: AppRouter.kCompleteProfile,
       routes: AppRouter.routes,
 
     );
