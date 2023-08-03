@@ -13,7 +13,7 @@ import 'package:book/features/authentication/presentation/views/verification_scr
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-abstract class AppRouter {
+ abstract final class AppRouter {
   static const String kLoginScreen = '/LoginScreen';
   static const String kRegisterScreen = '/RegisterScreen';
   static const String kCompleteProfile = '/CompleteProfile';
