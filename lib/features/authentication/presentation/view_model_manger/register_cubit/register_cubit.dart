@@ -104,4 +104,13 @@ class RegisterCubit extends Cubit<RegisterState> {
       }
     });
   }
+
+  void navigateToCompleteProfileFromGoogle(BuildContext context) {
+    Navigator.pushNamed(context, AppRouter.kCompleteProfile, arguments: (
+      fName: FirebaseAuth.instance.currentUser!.displayName!.split(' ')[0],
+      lName: FirebaseAuth.instance.currentUser!.displayName!.split(' ')[1],
+      photoURL: FirebaseAuth.instance.currentUser!.photoURL,
+    ));
+    emit(GoToCompleteProfileScreenWithGoogle());
+  }
 }

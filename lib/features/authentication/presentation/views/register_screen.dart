@@ -12,6 +12,7 @@ class RegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final Size size = MediaQuery.of(context).size;
     double topPadding =
         switch (size.height) { <= 750 => 0, _ => size.height * 0.015625 };
@@ -26,7 +27,15 @@ class RegisterScreen extends StatelessWidget {
               ),
               Padding(
                 padding: EdgeInsets.fromLTRB(0, topPadding, 0, 10),
-                child: BlocBuilder<RegisterCubit, RegisterState>(
+                child: BlocConsumer<RegisterCubit, RegisterState>(
+                  listener: (context,state){
+                    if (state is SignUpWithGoogle) {
+                      if (!state.data.succsuful) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          MySnackBar.getSnackBar(state.data.errorString!),);
+                      }
+                    }
+                  },
                   builder: (context, state) {
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -42,12 +51,9 @@ class RegisterScreen extends StatelessWidget {
                         ButtonsRow(
                           onPressedGoogleButton: () {
                             RegisterCubit.get(context).signUpWithGoogle();
-                            if (state is SignUpWithGoogle) {
-                              if (!state.data.succsuful) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  MySnackBar.getSnackBar(state.data.errorString!),);
-                              }
-                            }
+
+
+
                             // todo :: go to complete verification page
                           },
                           onPressedFacebookButton: () {

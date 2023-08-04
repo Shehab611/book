@@ -7,6 +7,7 @@ class RegisterInitial extends RegisterState {}
 class GoToLoginScreen extends RegisterState {}
 class GoToVerificationScreen extends RegisterState {}
 class GoToCompleteProfileScreen extends RegisterState {}
+class GoToCompleteProfileScreenWithGoogle extends RegisterState {}
 class SignUpWithGoogle extends RegisterState {
   SignUpWithGoogle({required this.data});
   final ({String? errorString, bool succsuful}) data;

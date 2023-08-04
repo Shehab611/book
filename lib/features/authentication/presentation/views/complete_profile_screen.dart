@@ -10,6 +10,7 @@ class CompleteProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size=MediaQuery.of(context).size;
+    var argu=ModalRoute.of(context)?.settings.arguments;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Stack(

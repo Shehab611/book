@@ -9,6 +9,7 @@ class ImageSelection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return BlocConsumer<CompleteProfileCubit, CompleteProfileState>(
       listener: (context, state) {
         if (state is UploadUserImage) {
@@ -18,6 +19,9 @@ class ImageSelection extends StatelessWidget {
             );
           }
           else{CompleteProfileCubit.get(context).imageLink=state.data.path!;}
+        }
+        if(state is CompleteProfileInitial){
+       //   CompleteProfileCubit.get(context).imageLink=
         }
       },
       builder: (context, state) {

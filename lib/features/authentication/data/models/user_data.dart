@@ -1,5 +1,5 @@
 final class UserDataModel {
-  final String fName, lName, birthDate, gender,imageLink;
+  final String fName, lName, birthDate, gender, imageLink;
   final List<String> bookCategories;
 
   UserDataModel({required this.fName,
@@ -20,17 +20,15 @@ final class UserDataModel {
         bookCategories: json['bookCategories']);
   }
 
- static Map<String,dynamic> toJson({required UserDataModel userDataModel}){
+  static Map<String, dynamic> toJson({required UserDataModel userDataModel}) {
     return {
-      'fName':userDataModel.fName,
-      'lName':userDataModel.lName,
-      'birthDate':userDataModel.birthDate,
-      'gender':userDataModel.gender,
-      'bookCategories':userDataModel.bookCategories,
-      'imageLink':userDataModel.imageLink,
+      'fName': userDataModel.fName,
+      'lName': userDataModel.lName,
+      'birthDate': userDataModel.birthDate,
+      'gender': userDataModel.gender,
+      'bookCategories': userDataModel.bookCategories,
+      'imageLink': userDataModel.imageLink,
     };
-
-
   }
 
 }

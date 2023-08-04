@@ -24,6 +24,7 @@ abstract class Authentication {
 
     final GoogleSignInAccount? googleSignInAccount = await GoogleSignIn().signIn();
 
+
       final GoogleSignInAuthentication googleSignInAuthentication =
       await googleSignInAccount!.authentication;
       final AuthCredential credential = GoogleAuthProvider.credential(
@@ -36,6 +37,7 @@ abstract class Authentication {
   static Future signOutOfGoogle() async {
     FirebaseAuth.instance.signOut();
     GoogleSignIn().disconnect();
+
   }
 
   static Future<String> linkGoogleAcc({required user}) async {
