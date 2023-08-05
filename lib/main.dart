@@ -2,13 +2,11 @@ import 'package:book/constants.dart';
 import 'package:book/core/utils/services_locator.dart';
 import 'package:book/firebase_options.dart';
 import 'package:device_preview/device_preview.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'core/utils/app_router.dart';
 import 'core/utils/blocobserver.dart';
 
@@ -20,8 +18,7 @@ void main() async{
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  FirebaseAuth.instance.signOut();
-  GoogleSignIn().disconnect();
+
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky,);
   runApp(DevicePreview(
     enabled: !kReleaseMode,

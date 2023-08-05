@@ -8,7 +8,15 @@ class MyStepper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CompleteProfileCubit, CompleteProfileState>(
+    return BlocConsumer<CompleteProfileCubit, CompleteProfileState>(
+      listener: (context,state){
+        if(state is LastStepConfirm)
+        {
+          CompleteProfileCubit.get(context).navigateToHomeScreen(context);
+
+        }
+      },
+
       builder: (context, state) {
         return Theme(
           data: ThemeData(
@@ -19,7 +27,7 @@ class MyStepper extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             currentStep: CompleteProfileCubit.get(context).currentStep,
             onStepCancel: CompleteProfileCubit.get(context).onStepCancel,
-            onStepContinue: CompleteProfileCubit.get(context).onStepContinue(context),
+            onStepContinue: CompleteProfileCubit.get(context).onStepContinue,
             onStepTapped: (step) {
               CompleteProfileCubit.get(context).onStepTapped(step);
             },

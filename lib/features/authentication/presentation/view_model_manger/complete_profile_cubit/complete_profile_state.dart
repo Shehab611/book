@@ -19,3 +19,6 @@ class StepCancel extends CompleteProfileState{}
 class StepContinue extends CompleteProfileState{}
 class StepTapped extends CompleteProfileState{}
 class GoToHomeScreen extends CompleteProfileState{}
+class PutDataFromGoogleUser extends CompleteProfileState{}
+class LastStepConfirm extends CompleteProfileState{}
+class LogOut extends CompleteProfileState{}

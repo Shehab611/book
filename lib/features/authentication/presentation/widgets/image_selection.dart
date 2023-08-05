@@ -20,9 +20,6 @@ class ImageSelection extends StatelessWidget {
           }
           else{CompleteProfileCubit.get(context).imageLink=state.data.path!;}
         }
-        if(state is CompleteProfileInitial){
-       //   CompleteProfileCubit.get(context).imageLink=
-        }
       },
       builder: (context, state) {
         return Stack(

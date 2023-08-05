@@ -46,7 +46,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
     ),
     kCompleteProfile: (BuildContext context) => BlocProvider(
       create: (context) =>
-          CompleteProfileCubit(serviceLocator.get<CompleteProfileRepoImpl>()),
+          CompleteProfileCubit(serviceLocator.get<CompleteProfileRepoImpl>())..putData(),
       child: const CompleteProfileScreen(),
     ),
     kHomeScreen:(BuildContext context) =>const HomeScreen(),

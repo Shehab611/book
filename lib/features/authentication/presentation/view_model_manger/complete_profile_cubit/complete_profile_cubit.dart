@@ -7,6 +7,7 @@ import 'package:book/features/authentication/presentation/widgets/step_two.dart'
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 part 'complete_profile_state.dart';
 
@@ -58,6 +59,15 @@ class CompleteProfileCubit extends Cubit<CompleteProfileState> {
   ];
   List<String> allSelected = [];
 
+  void putData(){
+    if(FirebaseAuth.instance.currentUser?.displayName != null && FirebaseAuth.instance.currentUser?.photoURL!= null){
+      firstNameController.text=FirebaseAuth.instance.currentUser!.displayName!.split(' ')[0];
+      secondNameController.text=FirebaseAuth.instance.currentUser!.displayName!.split(' ')[1];
+      imageLink=FirebaseAuth.instance.currentUser!.photoURL!;
+    }
+    emit(PutDataFromGoogleUser());
+  }
+
   bool isLastStep() {
     return currentStep == steps.length - 1;
   }
@@ -94,7 +104,7 @@ class CompleteProfileCubit extends Cubit<CompleteProfileState> {
     return null;
   }
 
-  void Function()? onStepContinue(BuildContext context) {
+  void Function()? onStepContinue() {
     if (isLastStep()) {
          completeProfileRepo.addUserData(
           userDataModel: UserDataModel(
@@ -104,10 +114,9 @@ class CompleteProfileCubit extends Cubit<CompleteProfileState> {
               gender: selectedGender,
               bookCategories:allSelected,
               imageLink: imageLink));
-         emit(StepContinue());
-         navigateToHomeScreen(context);
-
-    } else {
+         emit(LastStepConfirm());
+    }
+    else {
       if (formKeys[currentStep].currentState!.validate()) {
         currentStep += 1;
         emit(StepContinue());
@@ -125,5 +134,12 @@ class CompleteProfileCubit extends Cubit<CompleteProfileState> {
   void navigateToHomeScreen(BuildContext context){
     Navigator.pushReplacementNamed(context, AppRouter.kHomeScreen);
     emit(GoToHomeScreen());
+  }
+
+  void logOut(BuildContext context){
+    FirebaseAuth.instance.signOut();
+    GoogleSignIn().disconnect();
+    Navigator.pushReplacementNamed(context, AppRouter.kLoginScreen);
+    emit(LogOut());
   }
 }

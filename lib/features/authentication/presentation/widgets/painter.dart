@@ -73,7 +73,7 @@ class CompleteProfileBackgroundCurve extends CustomPainter{
   void paint(Canvas canvas, Size size) {
     Paint paint = Paint()..color = kDefaultColor;
     Path path = Path();
-    double h = size.height * 0.32;
+    double h = size.height * 0.18;
     double w = size.width;
     path.lineTo(0, h / 2);
     path.cubicTo(5 * (w / 12), -(25 * (h / 336)), 7 * (w / 9), h , w, 0);

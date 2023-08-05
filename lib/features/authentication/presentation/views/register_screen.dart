@@ -34,6 +34,9 @@ class RegisterScreen extends StatelessWidget {
                         ScaffoldMessenger.of(context).showSnackBar(
                           MySnackBar.getSnackBar(state.data.errorString!),);
                       }
+                      else{
+                        RegisterCubit.get(context).navigateToCompleteProfileFromGoogle(context);
+                      }
                     }
                   },
                   builder: (context, state) {
