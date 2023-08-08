@@ -7,8 +7,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'core/utils/app_router.dart';
 import 'core/utils/bloc_observer.dart';
+
 
 
 void main() async{
@@ -18,6 +20,7 @@ void main() async{
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await Hive.initFlutter();
 
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky,);
   runApp(DevicePreview(
