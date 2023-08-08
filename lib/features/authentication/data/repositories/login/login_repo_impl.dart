@@ -1,4 +1,5 @@
 import 'package:book/core/usable_functions/firebase_auth.dart';
+import 'package:book/core/usable_functions/firebase_data.dart';
 import 'package:book/features/authentication/data/repositories/login/login_repo.dart';
 
 final class LoginRepoImpl implements LoginRepo{
@@ -12,8 +13,9 @@ final class LoginRepoImpl implements LoginRepo{
       return (succsuful: false,errorString: e.toString());
     }
   }
+
   @override
-Future < ({String? errorString, bool succsuful}) >signUPWithGoogle() async{
+  Future <({String? errorString, bool succsuful})> signUPWithGoogle() async{
     try{
       await Authentication.signInWithGoogle();
       return (succsuful: true,errorString: null);
@@ -21,5 +23,18 @@ Future < ({String? errorString, bool succsuful}) >signUPWithGoogle() async{
     catch(e){
       return(succsuful:false,errorString:e.toString());
     }
+  }
+
+  @override
+  Future<({String? errorString, bool exits,bool succsuful})> checkIfUserExits(String userEmail) async{
+try{
+
+  bool exits=await DataHandling.checkIfDocExist(collectionName: 'users', docName: userEmail);
+  return (exits: exits,errorString: null,succsuful:true);
+
+}catch(e){
+
+  return (exits: false,errorString: e.toString(),succsuful:false);
+}
   }
 }

@@ -1,6 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 abstract class DataHandling {
+
+  static Future<bool> checkIfDocExist({
+    required String collectionName,
+    required String docName,
+  }) async{
+    var x=await FirebaseFirestore.instance
+        .collection(collectionName)
+        .doc(docName)
+        .get();
+    return x.exists;
+  }
+
   static Future<List<Map<String, dynamic>>> getDataFromAllDocs({
     required String collectionName,
   }) async {
@@ -36,18 +48,14 @@ abstract class DataHandling {
   }
 
 //the data from selected document
-  static Future<Map<String, dynamic>> getDataFromDoc({
+  static Future<DocumentSnapshot<Map<String, dynamic>>> getDataFromDoc({
     required String collectionName,
     required String docName,
-  }) {
-    return FirebaseFirestore.instance
+  }) async{
+    return await FirebaseFirestore.instance
         .collection(collectionName)
         .doc(docName)
-        .get()
-        .then((value) {
-      if (!value.exists) return {'error': 'Document Not Exists'};
-      return value.data()!;
-    });
+        .get();
   }
 
 //specific

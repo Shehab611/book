@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/utils/app_router.dart';
-import 'core/utils/blocobserver.dart';
+import 'core/utils/bloc_observer.dart';
 
 
 void main() async{

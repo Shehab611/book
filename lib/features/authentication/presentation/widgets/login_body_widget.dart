@@ -73,17 +73,31 @@ class LoginBodyWidget extends StatelessWidget {
                       style: GoogleFonts.libreCaslonText(
                           color: kDefaultColor, fontSize: 17),
                     ))),
-            BlocBuilder<LoginCubit, LoginState>(
+            BlocConsumer<LoginCubit, LoginState>(
+              listener:  (context, state) {
+                if (state is UserLogin) {
+                  if (!state.data.succsuful) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      MySnackBar.getSnackBar(state.data.errorString!),
+                    );
+                  }
+                  else {
+                    LoginCubit.get(context).ifUserExits();
+                  }
+                }
+                if(state is IfUserExits){
+                  if(state.data.exits){
+                    LoginCubit.get(context).navigateToHome(context);
+                  }
+                  else {
+                    LoginCubit.get(context).navigateToCompleteProfile(context);
+                  }
+                }
+              },
               builder: (context, state) {
                 return GoInButton(
                   onPressed: () {
                     LoginCubit.get(context).userLogin(context);
-                    if (state is UserLogin) {
-                      if (!state.data.succsuful) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          MySnackBar.getSnackBar(state.data.errorString!),);
-                      }
-                    }
                   },
                   iconData: Icons.arrow_forward_ios_outlined,
                 );

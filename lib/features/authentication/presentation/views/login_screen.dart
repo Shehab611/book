@@ -9,7 +9,9 @@ import '../widgets/login_transform_widget.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
+
   static var formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -26,7 +28,27 @@ class LoginScreen extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(0, topPadding, 0, 10),
-              child: BlocBuilder<LoginCubit, LoginState>(
+              child: BlocConsumer<LoginCubit, LoginState>(
+                listener: (context, state) {
+                  if (state is LoginWithGoogle) {
+                    if (!state.data.succsuful) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        MySnackBar.getSnackBar(state.data.errorString!),
+                      );
+                    }
+                    else {
+                      LoginCubit.get(context).ifUserExits();
+                    }
+                  }
+                  if(state is IfUserExits){
+                    if(state.data.exits){
+                      LoginCubit.get(context).navigateToHome(context);
+                    }
+                    else {
+                      LoginCubit.get(context).navigateToCompleteProfile(context);
+                    }
+                  }
+                },
                 builder: (context, state) {
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -34,14 +56,8 @@ class LoginScreen extends StatelessWidget {
                       ButtonsRow(
                         onPressedGoogleButton: () {
                           LoginCubit.get(context).signInWithGoogle();
-                          if (state is LoginWithGoogle) {
-                            if (!state.data.succsuful) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                MySnackBar.getSnackBar(state.data.errorString!),);
-                            }
-                          }
                         },
-                        onPressedFacebookButton: () {
+                        onPressedFacebookButton: ()  {
 
                           // todo :: can not be add until the app is published
                         },
@@ -65,5 +81,3 @@ class LoginScreen extends StatelessWidget {
     );
   }
 }
-
-
