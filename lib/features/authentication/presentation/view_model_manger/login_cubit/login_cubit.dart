@@ -40,7 +40,6 @@ class LoginCubit extends Cubit<LoginState> {
       ({String? errorString, bool succsuful}) data = await loginRepo
           .userLogin(user: (emailController.text, passwordController.text));
       emit(UserLogin(data: data));
-      // todo :: navigate to home page
     }
   }
 
