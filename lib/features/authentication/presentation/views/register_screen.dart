@@ -55,9 +55,6 @@ class RegisterScreen extends StatelessWidget {
                           onPressedGoogleButton: () {
                             RegisterCubit.get(context).signUpWithGoogle();
 
-
-
-                            // todo :: go to complete verification page
                           },
                           onPressedFacebookButton: () {
                             // todo :: can not be add until the app is published
