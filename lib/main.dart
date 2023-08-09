@@ -12,7 +12,6 @@ import 'package:hive_flutter/adapters.dart';
 import 'core/utils/app_router.dart';
 import 'core/utils/bloc_observer.dart';
 
-
 late bool value;
 void main() async{
   Bloc.observer = MyBlocObserver();
