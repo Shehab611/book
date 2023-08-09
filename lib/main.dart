@@ -17,11 +17,7 @@ late bool value;
 void main() async{
   Bloc.observer = MyBlocObserver();
   WidgetsFlutterBinding.ensureInitialized();
-  await Hive.initFlutter();
-  await Hive.openBox<UserDataModel>('user');
-  await Hive.openBox('keep_login');
-  value= await Hive.box('keep_login').get('keep_login',defaultValue: true);
-  Hive.registerAdapter(UserDataModelAdapter());
+  initHive();
   initServicesLocator();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -57,3 +53,10 @@ class MyApp extends StatelessWidget {
   }
 }
 
+Future<void>initHive()async{
+  await Hive.initFlutter();
+  await Hive.openBox<UserDataModel>('user');
+  Hive.registerAdapter(UserDataModelAdapter());
+  await Hive.openBox('keep_login');
+  value= await Hive.box('keep_login').get('keep_login',defaultValue: true);
+}
