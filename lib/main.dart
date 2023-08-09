@@ -13,16 +13,19 @@ import 'core/utils/app_router.dart';
 import 'core/utils/bloc_observer.dart';
 
 
-
+late bool value;
 void main() async{
   Bloc.observer = MyBlocObserver();
   WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  await Hive.openBox<UserDataModel>('user');
+  await Hive.openBox('keep_login');
+  value= await Hive.box('keep_login').get('keep_login',defaultValue: true);
+  Hive.registerAdapter(UserDataModelAdapter());
   initServicesLocator();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  await Hive.initFlutter();
-  Hive.registerAdapter(UserDataModelAdapter());
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky,);
   runApp(DevicePreview(
     enabled: !kReleaseMode,
@@ -35,6 +38,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
+   String initRoute=switch(value){
+     true=>AppRouter.kHomeScreen,
+     false=>AppRouter.kLoginScreen
+   };
     return MaterialApp(
       title: 'Book App',
       theme: ThemeData(
@@ -44,9 +53,10 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,primaryColor: kDefaultColor
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: AppRouter.kLoginScreen,
+      initialRoute: initRoute,
       routes: AppRouter.routes,
 
     );
   }
 }
+
