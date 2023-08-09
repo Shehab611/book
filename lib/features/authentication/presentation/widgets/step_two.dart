@@ -21,8 +21,8 @@ final class StepTwo extends StatelessWidget {
                 Expanded(
                   child: ListTile(
                     contentPadding: EdgeInsets.zero,
-                    leading: Radio<String>(
-                      value: 'male',
+                    leading: Radio<Gender>(
+                      value: Gender.male,
                       groupValue: CompleteProfileCubit.get(context).selectedGender,
                       fillColor: MaterialStateProperty.all<Color>(kColor),
                       onChanged: (value) {
@@ -40,8 +40,8 @@ final class StepTwo extends StatelessWidget {
                 Expanded(
                   child: ListTile(
                     contentPadding: EdgeInsets.zero,
-                    leading: Radio<String>(
-                      value: 'female',
+                    leading: Radio<Gender>(
+                      value: Gender.female,
                       groupValue: CompleteProfileCubit.get(context).selectedGender,
                       fillColor: MaterialStateProperty.all<Color>(kColor),
                       onChanged: (value) {

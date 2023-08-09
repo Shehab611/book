@@ -21,7 +21,7 @@ class CompleteProfileCubit extends Cubit<CompleteProfileState> {
   TextEditingController firstNameController = TextEditingController();
   TextEditingController secondNameController = TextEditingController();
   TextEditingController birthdateController = TextEditingController();
-  String selectedGender = 'male';
+  Gender selectedGender = Gender.male;
   String imageLink =
       'https://firebasestorage.googleapis.com/v0/b/book-330e2.appspot.com/o/user_image.jpg?alt=media&token=8a8c2c4e-d4f5-4a01-84d5-44bc1698945f';
   int currentStep = 0;
@@ -79,7 +79,7 @@ class CompleteProfileCubit extends Cubit<CompleteProfileState> {
     emit(UploadUserImage(data: data));
   }
 
-  void changeGenderValue(String value) {
+  void changeGenderValue(Gender value) {
     selectedGender = value;
     emit(ChangeGenderValue());
   }
@@ -111,7 +111,7 @@ class CompleteProfileCubit extends Cubit<CompleteProfileState> {
               fName: firstNameController.text,
               lName: secondNameController.text,
               birthDate: birthdateController.text,
-              gender: selectedGender,
+              gender: selectedGender.name,
               bookCategories:allSelected,
               imageLink: imageLink));
          emit(LastStepConfirm());
@@ -142,4 +142,7 @@ class CompleteProfileCubit extends Cubit<CompleteProfileState> {
     Navigator.pushReplacementNamed(context, AppRouter.kLoginScreen);
     emit(LogOut());
   }
+}
+enum Gender{
+  male,female
 }
