@@ -38,8 +38,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-
    String initRoute=switch(value){
      true=>AppRouter.kHomeScreen,
      false=>AppRouter.kLoginScreen
@@ -55,7 +53,6 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: initRoute,
       routes: AppRouter.routes,
-
     );
   }
 }
