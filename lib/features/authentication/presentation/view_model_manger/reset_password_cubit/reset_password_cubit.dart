@@ -11,7 +11,11 @@ part 'reset_password_state.dart';
 class ResetPasswordCubit extends Cubit<ResetPasswordState> {
   ResetPasswordCubit(this.resetPasswordRepo) : super(ResetPasswordInitial());
   final ResetPasswordRepo resetPasswordRepo;
-
+  @override
+  Future<void> close() {
+    emailController.dispose();
+    return super.close();
+  }
   static ResetPasswordCubit get(context) => BlocProvider.of(context);
   TextEditingController emailController = TextEditingController();
   var formKey = GlobalKey<FormState>();

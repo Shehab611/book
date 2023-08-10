@@ -19,7 +19,13 @@ class CompleteProfileCubit extends Cubit<CompleteProfileState> {
   final CompleteProfileRepo completeProfileRepo;
   final Box<UserDataModel> userBox=serviceLocator.get<Box<UserDataModel>>();
   static CompleteProfileCubit get(context) => BlocProvider.of(context);
-
+  @override
+  Future<void> close() {
+    firstNameController.dispose();
+    secondNameController.dispose();
+    birthdateController.dispose();
+    return super.close();
+  }
   TextEditingController firstNameController = TextEditingController();
   TextEditingController secondNameController = TextEditingController();
   TextEditingController birthdateController = TextEditingController();

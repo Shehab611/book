@@ -9,7 +9,12 @@ part 'login_state.dart';
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit(this.loginRepo) : super(LoginInitial());
   final LoginRepo loginRepo;
-
+  @override
+  Future<void> close() {
+    passwordController.dispose();
+    emailController.dispose();
+    return super.close();
+  }
   static LoginCubit get(context) => BlocProvider.of(context);
 
   TextEditingController emailController = TextEditingController();

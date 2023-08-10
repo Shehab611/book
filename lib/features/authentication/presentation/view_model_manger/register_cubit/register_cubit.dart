@@ -14,6 +14,14 @@ class RegisterCubit extends Cubit<RegisterState> {
   RegisterCubit(this.registerRepo) : super(RegisterInitial());
   final RegisterRepo registerRepo;
 
+  @override
+  Future<void> close() {
+    confirmPasswordController.dispose();
+    passwordController.dispose();
+    emailController.dispose();
+    return super.close();
+  }
+
   static RegisterCubit get(context) => BlocProvider.of(context);
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
