@@ -1,6 +1,7 @@
 import 'package:book/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'drawer.dart';
 import 'widgets/home_body_widget.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -10,7 +11,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kDefaultColor.withOpacity(.2),
-      drawer: const Drawer(),
+      drawer: const DrawerView(),
       appBar: AppBar(
         backgroundColor: kDefaultColor.withOpacity(.2),
         elevation: 0,
