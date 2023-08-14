@@ -34,7 +34,7 @@ class DrawerHeaderWidget extends StatelessWidget {
           style: GoogleFonts.montserrat(
                   color: kColor, fontWeight: FontWeight.w800)
               .copyWith(
-                  fontSize: Theme.of(context).textTheme.titleMedium?.fontSize),
+                  fontSize: Theme.of(context).textTheme.titleLarge?.fontSize),
         )
       ],
     )));

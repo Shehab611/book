@@ -2,6 +2,8 @@ import 'package:book/constants.dart';
 import 'package:book/features/home/presentation/views/widgets/drawer_header.dart';
 import 'package:flutter/material.dart';
 
+import 'widgets/drawer_items.dart';
+
 class DrawerView extends StatelessWidget {
   const DrawerView({super.key});
 
@@ -18,7 +20,7 @@ class DrawerView extends StatelessWidget {
         children: [
           DrawerHeaderWidget(),
 
-          //DrawerItems(),
+          DrawerItems(),
         ],
       ),
     );
