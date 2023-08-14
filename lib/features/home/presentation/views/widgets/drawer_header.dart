@@ -11,36 +11,32 @@ class DrawerHeaderWidget extends StatelessWidget {
     return Center(
         child: DrawerHeader(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                CircleAvatar(
-                  radius: 45,
-                  backgroundColor: Colors.black,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(30),
-                    child: CachedNetworkImage(
-                      imageUrl:
-                          'https://firebasestorage.googleapis.com/v0/b/book-330e2.appspot.com/o/user_image.jpg?alt=media&token=8a8c2c4e-d4f5-4a01-84d5-44bc1698945f',
-                      placeholder: (context, url) =>
-                          const CircularProgressIndicator(),
-                      fit: BoxFit.cover,
-                      fadeInDuration: const Duration(milliseconds: 850),
-                    ),
-                  ),
-                ),
-                Text(
-                  'Ali Ahmed Abdelrahmdan',
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: GoogleFonts.montserrat(
-                          color: kColor, fontWeight: FontWeight.w800)
-                      .copyWith(
-                          fontSize: Theme.of(context)
-                              .textTheme
-                              .titleMedium
-                              ?.fontSize),
-                )
-              ],
-            )));
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        CircleAvatar(
+          radius: 45,
+          backgroundColor: Colors.black,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(30),
+            child: CachedNetworkImage(
+              imageUrl:
+                  'https://firebasestorage.googleapis.com/v0/b/book-330e2.appspot.com/o/user_image.jpg?alt=media&token=8a8c2c4e-d4f5-4a01-84d5-44bc1698945f',
+              placeholder: (context, url) => const CircularProgressIndicator(),
+              fit: BoxFit.cover,
+              fadeInDuration: const Duration(milliseconds: 850),
+            ),
+          ),
+        ),
+        Text(
+          'Ali Ahmed Abdelrahmdan',
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: GoogleFonts.montserrat(
+                  color: kColor, fontWeight: FontWeight.w800)
+              .copyWith(
+                  fontSize: Theme.of(context).textTheme.titleMedium?.fontSize),
+        )
+      ],
+    )));
   }
 }
