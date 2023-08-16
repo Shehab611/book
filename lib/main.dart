@@ -1,4 +1,5 @@
 import 'package:book/constants.dart';
+import 'package:book/core/usable_functions/api_service_helper.dart';
 import 'package:book/core/utils/services_locator.dart';
 import 'package:book/features/authentication/data/models/user_data.dart';
 import 'package:book/firebase_options.dart';
@@ -17,6 +18,7 @@ void main() async{
   Bloc.observer = MyBlocObserver();
   WidgetsFlutterBinding.ensureInitialized();
   await initHive();
+  DioServiceHelper.init(url: 'https://www.googleapis.com/books/v1/');
   initServicesLocator();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
