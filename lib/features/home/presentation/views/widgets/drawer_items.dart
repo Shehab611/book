@@ -10,11 +10,30 @@ class DrawerItems extends StatelessWidget {
     'Settings': Icons.settings,
     'Logout': Icons.logout
   };
-
+static  bool value=true;
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
+        ListTile(
+          leading: const Icon(Icons.login_outlined,color: kColor,
+            size: 35,),
+          title: Text('Keep logged in', style: GoogleFonts.montserrat(
+              color: kColor, fontWeight: FontWeight.w800)
+              .copyWith(
+              fontSize: Theme.of(context).textTheme.titleMedium?.fontSize)),
+          trailing:  Transform.scale(
+            scale: .8,
+            child: Switch(
+                value: value,
+                onChanged: (val) {
+                  value=val;
+                },
+                activeColor:kColor
+            ),
+          ),
+        ),
+
         ...List.generate(
             drawerItems.length,
             (index) => DrawerItem(
@@ -26,12 +45,6 @@ class DrawerItems extends StatelessWidget {
   }
 }
 
-// drawer item class
-// keep logged in switch button
-// home
-// saved books
-// settings
-// log out
 class DrawerItem extends StatelessWidget {
   const DrawerItem({super.key, required this.iconData, required this.text});
 
