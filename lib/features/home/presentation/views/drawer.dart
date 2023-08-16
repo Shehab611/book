@@ -19,8 +19,8 @@ class DrawerView extends StatelessWidget {
       child: const Column(
         children: [
           DrawerHeaderWidget(),
-
           DrawerItems(),
+
         ],
       ),
     );

@@ -1,76 +1,58 @@
-import 'package:book/core/utils/app_router.dart';
+import 'package:book/constants.dart';
 import 'package:flutter/material.dart';
-
+import 'package:google_fonts/google_fonts.dart';
 
 class DrawerItems extends StatelessWidget {
   const DrawerItems({Key? key}) : super(key: key);
-  static const List<IconData> icons = [
-    Icons.home_filled,
-    Icons.group_rounded,
-    Icons.star_sharp,
-    Icons.settings,
-  ];
-  static const List<String> texts = [
-    'Home',
-    'New Group',
-    'Saved Messages',
-    'Settings',
-  ];
-  static const List<String> routes = [
-    AppRouter.kHomeScreen,
-    AppRouter.kHomeScreen,
-    AppRouter.kHomeScreen,
-    AppRouter.kHomeScreen,
-  ];
+  static const Map<String,IconData> drawerItems = {
+    'Home': Icons.library_books,
+    'Profile': Icons.person,
+    'Settings': Icons.settings,
+    'Logout': Icons.logout
+  };
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         ...List.generate(
-            icons.length,
-            (index) => DrawerListItem(
-                  icon: icons[index],
-                  text: texts[index],
-                  locationPath: routes[index],
+            drawerItems.length,
+            (index) => DrawerItem(
+                  iconData: drawerItems.values.toList()[index],
+                  text:  drawerItems.keys.toList()[index],
                 ))
       ],
     );
   }
 }
 
-class DrawerListItem extends StatelessWidget {
-  const DrawerListItem(
-      {Key? key,
-      required this.icon,
-      required this.text,
-      required this.locationPath})
-      : super(key: key);
-  final IconData icon;
+// drawer item class
+// keep logged in switch button
+// home
+// saved books
+// settings
+// log out
+class DrawerItem extends StatelessWidget {
+  const DrawerItem({super.key, required this.iconData, required this.text});
+
+  final IconData iconData;
   final String text;
-  final String locationPath;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       leading: Icon(
-        icon,
-        color: Colors.white,
-        size: 25,
+        iconData,
+        color: kColor,
+        size: 35,
       ),
       title: Text(
         text,
-        style: const TextStyle(color: Colors.white, fontSize: 22),
+        style: GoogleFonts.montserrat(
+                color: kColor, fontWeight: FontWeight.w800)
+            .copyWith(
+                fontSize: Theme.of(context).textTheme.titleMedium?.fontSize),
       ),
-      onTap: () {
-        if(locationPath == AppRouter.kHomeScreen){
-         Navigator.popAndPushNamed(context,  AppRouter.kHomeScreen);
-        }
-        else{
-          Navigator.pushNamed(context, locationPath);
-
-        }
-      },
     );
   }
 }
