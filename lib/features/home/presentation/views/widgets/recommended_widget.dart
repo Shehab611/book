@@ -17,9 +17,7 @@ class RecommendedWidget extends StatelessWidget {
               imagePath:
               'http://books.google.com/books/content?id=zyTCAlFPjgYC&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE72Sr1FckXSy-4MUeiR_OJPqBfLy3rS5MUiBZXECVIElqdg14RQd9W1wfsD57GB3RdJ-sBAayjMwPZoFJbfGInfsdDxHTBrSpUJTWNfRONdPa20pGBAZ-GJZ-nRpZ8XOwrgCYmVl&source=gbs_api',
               title: 'Mexico',
-              rating: 0,
-              voteAverage: 0,
-              genres: ['Tourism'],
+              authors: ['Tourism'],
             );
           },
           separatorBuilder: (context, index) => const Divider(

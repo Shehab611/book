@@ -1,21 +1,19 @@
+import 'package:book/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'image_item.dart';
 
 class BookInfoItem extends StatelessWidget {
   const BookInfoItem(
       {Key? key,
-        required this.imagePath,
-        required this.title,
-        required this.rating,
-        required this.voteAverage,
-        required this.genres})
+      required this.imagePath,
+      required this.title,
+      required this.authors})
       : super(key: key);
   final String imagePath;
   final String title;
-  final num rating;
-  final num voteAverage;
-  final List<String?> genres;
+  final List<String?> authors;
 
   @override
   Widget build(BuildContext context) {
@@ -34,20 +32,24 @@ class BookInfoItem extends StatelessWidget {
                   width: MediaQuery.of(context).size.width * .5,
                   child: Text(
                     title,
-                    style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 22,
-                        fontWeight: FontWeight.w700),
+                    style: GoogleFonts.libreCaslonText(
+                            color: kColor, fontWeight: FontWeight.w700)
+                        .copyWith(
+                      fontSize:
+                          Theme.of(context).textTheme.headlineMedium?.fontSize,
+                    ),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
                 Text(
-                  genres.join(','),
-                  style: const TextStyle(
-                      fontSize: 17,
-                      color: Colors.black45,
-                      fontWeight: FontWeight.bold),
+                  authors.join(','),
+                  style: GoogleFonts.libreCaslonText(
+                          color: kColor.withOpacity(.5),
+                          fontWeight: FontWeight.bold)
+                      .copyWith(
+                    fontSize: Theme.of(context).textTheme.titleMedium?.fontSize,
+                  ),
                 ),
               ]),
         ),
