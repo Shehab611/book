@@ -11,7 +11,7 @@ final class HomeRepoImpl implements HomeRepo {
       getBooks() async {
     try {
       var data = await DioServiceHelper.getData(endPoint: 'volumes', query: {
-        'q': 'travel',
+        'q': 'all',
         'maxResults': 40,
         'orderBy': 'newest',
         'key': apiKey
