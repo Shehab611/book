@@ -1,8 +1,13 @@
 import 'package:book/constants.dart';
+import 'package:book/core/utils/services_locator.dart';
+import 'package:book/features/home/data/repositories/drawer/drawer_repo_impl.dart';
+import 'package:book/features/home/presentation/view_model_manger/drawer_cubit/drawer_cubit.dart';
 import 'package:book/features/home/presentation/widgets/drawer_header.dart';
 import 'package:book/features/home/presentation/widgets/drawer_items.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 
 
 
@@ -15,15 +20,18 @@ class DrawerView extends StatelessWidget {
         .of(context)
         .size
         .width;
-    return Drawer(
-      backgroundColor: kDefaultColor,
-      width: width * 0.75,
-      child: const Column(
-        children: [
-          DrawerHeaderWidget(),
-          DrawerItems(),
+    return BlocProvider(
+      create: (context) => DrawerCubit(serviceLocator.get<DrawerRepoImpl>())..getUserData(),
+      child: Drawer(
+        backgroundColor: kDefaultColor,
+        width: width * 0.75,
+        child: const Column(
+          children: [
+            DrawerHeaderWidget(),
+            DrawerItems(),
 
-        ],
+          ],
+        ),
       ),
     );
   }

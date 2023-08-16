@@ -7,7 +7,10 @@ import 'drawer_repo.dart';
 class DrawerRepoImpl implements DrawerRepo{
   @override
   ({String userImagePath, String userName}) getUserData() {
-    var userData=  serviceLocator.get<Box<UserDataModel>>().get(0);
-   return (userName:('${userData!.fName} ${userData.lName}'),userImagePath: userData.imageLink);
+    var userData= serviceLocator.get<Box<UserDataModel>>().get(0);
+    String fName=userData!.fName;
+    String lName=userData.lName;
+    String userImagePath=userData.imageLink;
+   return (userName:('$fName $lName'),userImagePath:userImagePath);
   }
 }

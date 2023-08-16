@@ -3,6 +3,7 @@ import 'package:book/features/authentication/data/repositories/complete_profile/
 import 'package:book/features/authentication/data/repositories/login/login_repo_impl.dart';
 import 'package:book/features/authentication/data/repositories/register/register_repo_impl.dart';
 import 'package:book/features/authentication/data/repositories/reset_password/reset_password_repo_impl.dart';
+import 'package:book/features/home/data/repositories/drawer/drawer_repo_impl.dart';
 import 'package:book/features/home/data/repositories/home/home_repo_impl.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
@@ -18,6 +19,7 @@ void initServicesLocator() {
   serviceLocator.registerSingleton<CompleteProfileRepoImpl>(CompleteProfileRepoImpl());
   serviceLocator.registerSingleton<ResetPasswordImpl>(ResetPasswordImpl());
   serviceLocator.registerSingleton<HomeRepoImpl>(HomeRepoImpl());
+  serviceLocator.registerSingleton<DrawerRepoImpl>(DrawerRepoImpl());
   serviceLocator.registerSingleton<Box<UserDataModel>>(Hive.box('user'));
 
 
