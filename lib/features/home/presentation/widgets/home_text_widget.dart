@@ -2,8 +2,8 @@ import 'package:book/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class TextWidget extends StatelessWidget {
-  const TextWidget({super.key});
+class HomeTextWidget extends StatelessWidget {
+  const HomeTextWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

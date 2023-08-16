@@ -1,8 +1,9 @@
 import 'package:book/constants.dart';
+import 'package:book/features/home/presentation/widgets/home_body_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'drawer.dart';
-import 'widgets/home_body_widget.dart';
+
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});

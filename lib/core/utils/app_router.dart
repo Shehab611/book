@@ -12,6 +12,10 @@ import 'package:book/features/authentication/presentation/views/forget_password_
 import 'package:book/features/authentication/presentation/views/login_screen.dart';
 import 'package:book/features/authentication/presentation/views/register_screen.dart';
 import 'package:book/features/authentication/presentation/views/verification_screen.dart';
+import 'package:book/features/home/data/repositories/home/home_repo_impl.dart';
+import 'package:book/features/home/presentation/view_model_manger/books_cubit/books_cubit.dart';
+import 'package:book/features/home/presentation/view_model_manger/home_cubit/home_cubit.dart';
+import 'package:book/features/home/presentation/view_model_manger/recommended_books_cubit/recommended_books_cubit.dart';
 import 'package:book/features/home/presentation/views/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -49,7 +53,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
           CompleteProfileCubit(serviceLocator.get<CompleteProfileRepoImpl>())..putData(),
       child: const CompleteProfileScreen(),
     ),
-    kHomeScreen:(BuildContext context) =>const HomeScreen(),
+    kHomeScreen:(BuildContext context) =>MultiBlocProvider(providers: [
+      BlocProvider(create: (context) =>HomeCubit(serviceLocator.get<HomeRepoImpl>()),),
+      BlocProvider(create: (context) =>BooksCubit(serviceLocator.get<HomeRepoImpl>())..getBooks(),),
+      BlocProvider(create: (context) =>RecommendedBooksCubit(serviceLocator.get<HomeRepoImpl>())..getRecommendedBooks(),),
+    ],
+      child: const HomeScreen(),),
 
   };
 

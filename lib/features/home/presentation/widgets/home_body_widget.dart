@@ -1,5 +1,5 @@
-import 'package:book/features/home/presentation/views/widgets/all_books_widget.dart';
-import 'package:book/features/home/presentation/views/widgets/text_widget.dart';
+import 'package:book/features/home/presentation/widgets/all_books_widget.dart';
+import 'package:book/features/home/presentation/widgets/home_text_widget.dart';
 import 'package:flutter/material.dart';
 
 import 'recommended_widget.dart';
@@ -12,7 +12,7 @@ class HomeBodyWidget extends StatelessWidget {
     return const CustomScrollView(
       slivers: [
         AllBooksWidget(),
-        TextWidget(),
+        HomeTextWidget(),
         RecommendedWidget(),
       ],
     );

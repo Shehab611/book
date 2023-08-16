@@ -29,11 +29,12 @@ class RegisterCubit extends Cubit<RegisterState> {
   var formKey = GlobalKey<FormState>();
 
   void goToLogin(BuildContext context) {
+    emit(GoToLoginScreen());
     Navigator.pushReplacementNamed(
       context,
       AppRouter.kLoginScreen,
     );
-    emit(GoToLoginScreen());
+
   }
 
   void signUpWithGoogle() async {
@@ -51,8 +52,9 @@ class RegisterCubit extends Cubit<RegisterState> {
   }
 
   void navigateToVerificationScreen(BuildContext context) {
-    Navigator.pushNamed(context, AppRouter.kVerificationScreen);
     emit(GoToVerificationScreen());
+    Navigator.pushNamed(context, AppRouter.kVerificationScreen);
+
   }
 
   void verifyUserEmail() async {
@@ -64,8 +66,9 @@ class RegisterCubit extends Cubit<RegisterState> {
   void navigateToCompleteProfile(BuildContext context) async {
     await FirebaseAuth.instance.currentUser!.reload().then((value) {
       if (FirebaseAuth.instance.currentUser!.emailVerified) {
-        Navigator.pushReplacementNamed(context, AppRouter.kCompleteProfile);
         emit(GoToCompleteProfileScreen());
+        Navigator.pushReplacementNamed(context, AppRouter.kCompleteProfile);
+
       } else {
         showDialog(
           context: context,
@@ -114,7 +117,8 @@ class RegisterCubit extends Cubit<RegisterState> {
   }
 
   void navigateToCompleteProfileFromGoogle(BuildContext context) {
-    Navigator.pushNamed(context, AppRouter.kCompleteProfile,);
     emit(GoToCompleteProfileScreenWithGoogle());
+    Navigator.pushNamed(context, AppRouter.kCompleteProfile,);
+
   }
 }

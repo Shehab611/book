@@ -13,12 +13,12 @@ class BookInfoItem extends StatelessWidget {
       : super(key: key);
   final String imagePath;
   final String title;
-  final List<String?> authors;
+  final List<dynamic> authors;
 
   @override
   Widget build(BuildContext context) {
     return Row(children: [
-      ImageItem(imagePath: imagePath, width: 100, height: 146),
+      ImageItem(imagePath: imagePath, width: 100, height: 146, ),
       const SizedBox(
         width: 20,
       ),
@@ -44,6 +44,8 @@ class BookInfoItem extends StatelessWidget {
                 ),
                 Text(
                   authors.join(','),
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
                   style: GoogleFonts.libreCaslonText(
                           color: kColor.withOpacity(.5),
                           fontWeight: FontWeight.bold)

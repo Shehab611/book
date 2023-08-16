@@ -22,11 +22,12 @@ class LoginCubit extends Cubit<LoginState> {
   var formKey = GlobalKey<FormState>();
 
   void goToRegister(BuildContext context) {
+    emit(GoToRegisterScreen());
     Navigator.pushReplacementNamed(
       context,
       AppRouter.kRegisterScreen,
     );
-    emit(GoToRegisterScreen());
+
   }
 
   void signInWithGoogle() async {
@@ -36,8 +37,9 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
   void navigateToForgetPassword(BuildContext context) {
-    Navigator.pushNamed(context, AppRouter.kForgetPasswordScreen);
     emit(GoToForgetPasswordScreen());
+    Navigator.pushNamed(context, AppRouter.kForgetPasswordScreen);
+
   }
 
   void userLogin(BuildContext context) async {
@@ -56,12 +58,14 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
   void navigateToHome(BuildContext context) {
-    Navigator.pushNamed(context, AppRouter.kHomeScreen);
     emit(GoToHomeScreen());
+    Navigator.pushNamed(context, AppRouter.kHomeScreen);
+
   }
 
   void navigateToCompleteProfile(BuildContext context) {
-    Navigator.pushNamed(context, AppRouter.kCompleteProfile);
     emit(GoToCompleteProfileScreen());
+    Navigator.pushNamed(context, AppRouter.kCompleteProfile);
+
   }
 }

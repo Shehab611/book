@@ -68,7 +68,8 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
   }
 
   void goToLoginScreen(BuildContext context) {
-    Navigator.pushReplacementNamed(context, AppRouter.kLoginScreen);
     emit(NavigateToLogin());
+    Navigator.pushReplacementNamed(context, AppRouter.kLoginScreen);
+
   }
 }
