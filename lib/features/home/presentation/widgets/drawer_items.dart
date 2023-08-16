@@ -1,18 +1,23 @@
 import 'package:book/constants.dart';
+import 'package:book/features/home/presentation/view_model_manger/drawer_cubit/drawer_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class DrawerItems extends StatelessWidget {
   const DrawerItems({Key? key}) : super(key: key);
-  static const Map<String,IconData> drawerItems = {
-    'Home': Icons.library_books,
-    'Profile': Icons.person,
-    'Settings': Icons.settings,
-    'Logout': Icons.logout
-  };
-static  bool value=true;
+
   @override
   Widget build(BuildContext context) {
+    return BlocBuilder<DrawerCubit, DrawerState>(
+  builder: (context, state) {
+     const Map<String,IconData> drawerItems = {
+      'Home': Icons.library_books,
+      'Profile': Icons.person,
+      'Settings': Icons.settings,
+      'Logout': Icons.logout
+    };
+
     return Column(
       children: [
         ListTile(
@@ -25,15 +30,14 @@ static  bool value=true;
           trailing:  Transform.scale(
             scale: .8,
             child: Switch(
-                value: value,
+                value:DrawerCubit.get(context).value??true,
                 onChanged: (val) {
-                  value=val;
+                  DrawerCubit.get(context).changeLoggedInValue(val);
                 },
                 activeColor:kColor
             ),
           ),
         ),
-
         ...List.generate(
             drawerItems.length,
             (index) => DrawerItem(
@@ -42,11 +46,13 @@ static  bool value=true;
                 ))
       ],
     );
+  },
+);
   }
 }
 
 class DrawerItem extends StatelessWidget {
-  const DrawerItem({super.key, required this.iconData, required this.text});
+  const DrawerItem({super.key, required this.iconData, required this.text,});
 
   final IconData iconData;
   final String text;
@@ -66,6 +72,8 @@ class DrawerItem extends StatelessWidget {
             .copyWith(
                 fontSize: Theme.of(context).textTheme.titleMedium?.fontSize),
       ),
+      onTap: (){
+      },
     );
   }
 }

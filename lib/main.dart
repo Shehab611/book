@@ -66,5 +66,5 @@ Future<void> initHive() async {
   Hive.registerAdapter(UserDataModelAdapter());
   await Hive.openBox<UserDataModel>('user');
   await Hive.openBox('keep_login');
-  value = await Hive.box('keep_login').get('keep_login', defaultValue: true);
+  value = await Hive.box('keep_login').get('keep_login', defaultValue: false);
 }
