@@ -15,17 +15,17 @@ final class VolumeInfo {
   const VolumeInfo(
       {required this.title,required this.previewLink, required this.authors, required this.imageLinks});
 
-  final String title;
+  final String? title;
   final String? previewLink;
-  final dynamic authors;
+  final List<dynamic>? authors;
   final ImageLinks imageLinks;
 
   factory VolumeInfo.fromJson(Map<String, dynamic> json) {
     return VolumeInfo(
-        title: json['title'],
-        authors: json['authors'],
+        title: json['title']??'',
+        authors: json['authors']??[],
         previewLink: json['previewLink']??'',
-        imageLinks: ImageLinks.fromJson(json['imageLinks']));
+        imageLinks: ImageLinks.fromJson(json['imageLinks']??{}));
   }
 }
 
@@ -35,11 +35,11 @@ final class ImageLinks {
     required this.thumbnail,
   });
 
-  final String smallThumbnail;
-  final String thumbnail;
+  final String? smallThumbnail;
+  final String? thumbnail;
 
   factory ImageLinks.fromJson(Map<String, dynamic> json) {
     return ImageLinks(
-        smallThumbnail: json['smallThumbnail'], thumbnail: json['thumbnail']);
+        smallThumbnail: json['smallThumbnail']??'', thumbnail: json['thumbnail']??'');
   }
 }

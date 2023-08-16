@@ -72,6 +72,7 @@ class CompleteProfileCubit extends Cubit<CompleteProfileState> {
       firstNameController.text=FirebaseAuth.instance.currentUser!.displayName!.split(' ')[0];
       secondNameController.text=FirebaseAuth.instance.currentUser!.displayName!.split(' ')[1];
       imageLink=FirebaseAuth.instance.currentUser!.photoURL!;
+
     }
     emit(PutDataFromGoogleUser());
   }

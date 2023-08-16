@@ -14,7 +14,8 @@ import 'core/utils/app_router.dart';
 import 'core/utils/bloc_observer.dart';
 
 late bool value;
-void main() async{
+
+void main() async {
   Bloc.observer = MyBlocObserver();
   WidgetsFlutterBinding.ensureInitialized();
   await initHive();
@@ -23,11 +24,17 @@ void main() async{
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky,);
-  runApp(DevicePreview(
-    enabled: !kReleaseMode,
-    builder: (context) => const MyApp(),
-  ),);
+
+
+  SystemChrome.setEnabledSystemUIMode(
+    SystemUiMode.immersiveSticky,
+  );
+  runApp(
+    DevicePreview(
+      enabled: !kReleaseMode,
+      builder: (context) => const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -35,18 +42,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   String initRoute=switch(value){
-     true=>AppRouter.kHomeScreen,
-     false=>AppRouter.kLoginScreen
-   };
+    String initRoute = switch (value) {
+      true => AppRouter.kHomeScreen,
+      false => AppRouter.kLoginScreen
+    };
     return MaterialApp(
       title: 'Book App',
       theme: ThemeData(
-        pageTransitionsTheme: const PageTransitionsTheme(builders: {
-          TargetPlatform.android: OpenUpwardsPageTransitionsBuilder()
-        }),
-        useMaterial3: true,primaryColor: kDefaultColor
-      ),
+          pageTransitionsTheme: const PageTransitionsTheme(builders: {
+            TargetPlatform.android: OpenUpwardsPageTransitionsBuilder()
+          }),
+          useMaterial3: true,
+          primaryColor: kDefaultColor),
       debugShowCheckedModeBanner: false,
       initialRoute: AppRouter.kHomeScreen,
       routes: AppRouter.routes,
@@ -54,10 +61,10 @@ class MyApp extends StatelessWidget {
   }
 }
 
-Future<void>initHive()async{
+Future<void> initHive() async {
   await Hive.initFlutter();
   Hive.registerAdapter(UserDataModelAdapter());
   await Hive.openBox<UserDataModel>('user');
   await Hive.openBox('keep_login');
-  value = await Hive.box('keep_login').get('keep_login',defaultValue: true);
+  value = await Hive.box('keep_login').get('keep_login', defaultValue: true);
 }
