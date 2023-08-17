@@ -44,7 +44,7 @@ class DrawerHeaderWidget extends StatelessWidget {
         ],
       ))),
       crossFadeState: (state is DrawerHeaderGetUserData)?CrossFadeState.showSecond:CrossFadeState.showFirst,
-      duration: const Duration(seconds: 1, milliseconds: 500),
+      duration: const Duration(seconds: 1,),
     );
   },
 );

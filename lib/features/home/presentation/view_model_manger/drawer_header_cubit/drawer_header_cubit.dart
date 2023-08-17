@@ -11,7 +11,7 @@ class DrawerHeaderCubit extends Cubit<DrawerHeaderState> {
     final ({String userImagePath, String userName}) userData =
     drawerRepo.getUserData();
     Future.delayed(
-      const Duration(milliseconds: 100),
+      const Duration(microseconds: 5),
           () => emit(DrawerHeaderGetUserData(userData)),
     );
   }

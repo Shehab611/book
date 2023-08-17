@@ -17,6 +17,7 @@ import 'package:book/features/home/presentation/view_model_manger/books_cubit/bo
 import 'package:book/features/home/presentation/view_model_manger/home_cubit/home_cubit.dart';
 import 'package:book/features/home/presentation/view_model_manger/recommended_books_cubit/recommended_books_cubit.dart';
 import 'package:book/features/home/presentation/views/home_screen.dart';
+import 'package:book/features/home/presentation/views/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -27,6 +28,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
   static const String kVerificationScreen = '/VerificationScreen';
   static const String kForgetPasswordScreen = '/ForgetPasswordScreen';
   static const String kHomeScreen = '/HomeScreen';
+  static const String kSearchScreen = '/SearchScreen';
 
   static final Map<String, WidgetBuilder> routes = {
     kLoginScreen: (BuildContext context) => BlocProvider(
@@ -59,7 +61,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
       BlocProvider(create: (context) =>RecommendedBooksCubit(serviceLocator.get<HomeRepoImpl>())..getRecommendedBooks(),),
     ],
       child: const HomeScreen(),),
-
+    kSearchScreen:(BuildContext context)=>const SearchScreen(),
   };
 
 

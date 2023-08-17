@@ -1,6 +1,8 @@
 import 'package:book/constants.dart';
+import 'package:book/features/home/presentation/view_model_manger/home_cubit/home_cubit.dart';
 import 'package:book/features/home/presentation/widgets/home_body_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'drawer.dart';
 
@@ -16,22 +18,30 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: kDefaultColor.withOpacity(.2),
         elevation: 0,
-        title:Text(
+        title: Text(
           'Home',
           style: GoogleFonts.montserrat(
               color: kColor, fontWeight: FontWeight.w800)
               .copyWith(
-              fontSize: Theme.of(context)
+              fontSize: Theme
+                  .of(context)
                   .textTheme
                   .headlineSmall
                   ?.fontSize),
         ),
         centerTitle: true,
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.search,size: 30,color: kColor,)),
+          BlocBuilder<HomeCubit, HomeState>(
+            builder: (context, state) {
+              return IconButton(onPressed: () {
+                HomeCubit.get(context).navigateToSearchScreen(context);
+              },
+                  icon: const Icon(Icons.search, size: 30, color: kColor,));
+            },
+          ),
         ],
       ),
-      body:const HomeBodyWidget(),
+      body: const HomeBodyWidget(),
     );
   }
 }

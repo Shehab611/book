@@ -36,21 +36,21 @@ class BookInfoItem extends StatelessWidget {
                             color: kColor, fontWeight: FontWeight.w700)
                         .copyWith(
                       fontSize:
-                          Theme.of(context).textTheme.headlineMedium?.fontSize,
+                          Theme.of(context).textTheme.headlineSmall?.fontSize,
                     ),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
                 Text(
-                  authors.join(','),
+                  authors.join(' , '),
                   maxLines: 3,
                   overflow: TextOverflow.ellipsis,
                   style: GoogleFonts.libreCaslonText(
                           color: kColor.withOpacity(.5),
                           fontWeight: FontWeight.bold)
                       .copyWith(
-                    fontSize: Theme.of(context).textTheme.titleMedium?.fontSize,
+                    fontSize: Theme.of(context).textTheme.titleSmall?.fontSize,
                   ),
                 ),
               ]),
