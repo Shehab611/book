@@ -45,7 +45,8 @@ class BookDetailsScreen extends StatelessWidget {
                           fontSize:
                               Theme.of(context).textTheme.bodyMedium?.fontSize),
                       'This is an open access book. We are pleased to announce our 3rd International Conference on Bioinformatics and Data Science (ICBDS – 2022) and 9th International Conference on Public Mental Health and Neurosciences (ICPMN – 2022) which was a unique conference where we connectted Biological Function through Computational Genomics to the world of integrated medicine and therapeutics. Functional genomics is a field of molecular biology that attempts to describe gene (and protein) functions and interactions. This science aims to understand the complex relationship between genotype and phenotype on a global (genome-wide) scale of different biological processes. Most researchers now study genes or regions on a “genome-wide” scale (i.e. all or multiple genes/regions at the same time), with the hope of narrowing them down to a list of candidate genes or regions to analyze in more detail. There are several specific functional genomics approaches depending on what we are focused on DNA level (genomics and epigenomics), RNA level (transcriptomics)'),
-                )
+                ),
+                SizedBox(height:screenSize.height * .09 ,)
               ],
             ),
           ),

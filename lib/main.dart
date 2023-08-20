@@ -2,6 +2,8 @@ import 'package:book/constants.dart';
 import 'package:book/core/usable_functions/api_service_helper.dart';
 import 'package:book/core/utils/services_locator.dart';
 import 'package:book/features/authentication/data/models/user_data.dart';
+import 'package:book/features/home/data/repositories/book_details/book_details_repo.dart';
+import 'package:book/features/home/data/repositories/book_details/book_details_repo_impl.dart';
 import 'package:book/firebase_options.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -25,7 +27,9 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-
+  BookDetailsRepo x=BookDetailsRepoImpl();
+  var data= await x.getBookDetails('rU66zwEACAAJ');
+  print(data.book!.id);
   SystemChrome.setEnabledSystemUIMode(
     SystemUiMode.immersiveSticky,
   );
