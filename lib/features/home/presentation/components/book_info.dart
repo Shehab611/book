@@ -17,8 +17,9 @@ class BookInfoItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size screenSize=MediaQuery.of(context).size;
     return Row(children: [
-      ImageItem(imagePath: imagePath, width: 100, height: 146, ),
+      ImageItem(imagePath: imagePath, width: screenSize.width * .28, height: screenSize.height * .2, ),
       const SizedBox(
         width: 20,
       ),

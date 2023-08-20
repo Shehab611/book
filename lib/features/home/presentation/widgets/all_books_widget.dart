@@ -8,6 +8,7 @@ class AllBooksWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size screenSize=MediaQuery.of(context).size;
     return SliverPadding(
         padding: const EdgeInsets.all(10),
         sliver: SliverToBoxAdapter(
@@ -15,15 +16,15 @@ class AllBooksWidget extends StatelessWidget {
             builder: (context, state) {
               if(state is GetBooksSuccessful){
                 return SizedBox(
-                  height: 230,
+                  height: screenSize.height * .32,
                   child: ListView.separated(
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
                         return  ImageItem(
                             imagePath:
                            state.books[index].volumeInfo.imageLinks.thumbnail!,
-                            width: 150,
-                            height: 220,);
+                            width: screenSize.width * .42,
+                            height: screenSize.height*.29,);
                       },
                       separatorBuilder: (context, index) =>
                       const SizedBox(
