@@ -1,9 +1,5 @@
-import 'package:book/core/utils/services_locator.dart';
-import 'package:book/features/home/data/repositories/book_details/book_details_repo_impl.dart';
 import 'package:book/features/home/presentation/components/image_item.dart';
-import 'package:book/features/home/presentation/view_model_manger/book_details_cubit/book_details_cubit.dart';
 import 'package:book/features/home/presentation/view_model_manger/books_cubit/books_cubit.dart';
-import 'package:book/features/home/presentation/views/book_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -26,15 +22,7 @@ class AllBooksWidget extends StatelessWidget {
                       itemBuilder: (context, index) {
                         return  GestureDetector(
                           onTap: (){
-                            showBottomSheet(context: context,
-                              builder: (context) {
-                              return BlocProvider(
-                                create: (context) =>
-                                    BookDetailsCubit(serviceLocator.get<BookDetailsRepoImpl>())..getBook(state.books[index].id),
-                                child: const BookDetailsScreen() ,
-                              );
-
-                            },enableDrag: true,);
+                            BooksCubit.get(context).openBookDetails(context, state.books[index].id);
                           },
                           child: ImageItem(
                               imagePath:
