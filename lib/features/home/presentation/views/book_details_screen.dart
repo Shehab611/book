@@ -93,15 +93,36 @@ class BookDetailsScreen extends StatelessWidget {
                     )
                   ],
                 ),
-                ElevatedButton(
-                    onPressed: () {},
-                    child: Text(
-                      'Preview Link',
-                      style: GoogleFonts.libreCaslonText(
-                          color: kColor,
-                          fontSize:
-                              Theme.of(context).textTheme.bodyMedium?.fontSize),
-                    ))
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    SizedBox(
+                      width: screenSize.width /2.5,
+                      child: ElevatedButton(
+                          onPressed: () {},
+                          child: Text(
+                            'Preview Link',
+                            style: GoogleFonts.libreCaslonText(
+                                color: kColor,
+                                fontSize:
+                                    Theme.of(context).textTheme.bodyMedium?.fontSize),
+                          )),
+                    ),
+
+                    SizedBox(
+                      width: screenSize.width /2.5,
+                      child: ElevatedButton(
+                          onPressed: () {},
+                          child: Text(
+                            'Save Book',
+                            style: GoogleFonts.libreCaslonText(
+                                color: kColor,
+                                fontSize:
+                                    Theme.of(context).textTheme.bodyMedium?.fontSize),
+                          )),
+                    ),
+                  ],
+                )
               ],
             ),
           )
