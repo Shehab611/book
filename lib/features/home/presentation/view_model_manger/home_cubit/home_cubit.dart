@@ -11,15 +11,8 @@ class HomeCubit extends Cubit<HomeState> {
 
   static HomeCubit get(context) => BlocProvider.of(context);
 
-
-
-  void navigateToBookDetailsScreen(){
-    emit(NavigateToBookDetailsScreen());
-  }
-
-  void navigateToSearchScreen(BuildContext context){
+  void navigateToSearchScreen(BuildContext context) {
     emit(NavigateToSearchScreen());
-   Navigator.pushNamed(context, AppRouter.kSearchScreen);
+    AppNavigator.navigateToSearchScreen(context);
   }
-
 }

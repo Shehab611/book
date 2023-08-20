@@ -31,6 +31,7 @@ abstract final class AppRouter {
   static const String kHomeScreen = '/HomeScreen';
   static const String kSearchScreen = '/SearchScreen';
   static const String kBookDetailsScreen = '/BookDetailsScreen';
+  static const String kSavedScreen = '/SavedScreen';
 
   static final Map<String, WidgetBuilder> routes = {
     kLoginScreen: (BuildContext context) => BlocProvider(
@@ -125,10 +126,9 @@ abstract final class AppNavigator {
         AppRouter.kSearchScreen,
       );
 
-  static navigateToBookDetailsScreen(BuildContext context,String bookId) =>
+  static navigateToBookDetailsScreen(BuildContext context) =>
       Navigator.pushReplacementNamed(
         context,
         AppRouter.kBookDetailsScreen,
-        arguments: bookId
       );
 }
