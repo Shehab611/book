@@ -1,5 +1,9 @@
+import 'package:book/core/utils/services_locator.dart';
+import 'package:book/features/home/data/repositories/book_details/book_details_repo_impl.dart';
 import 'package:book/features/home/presentation/components/image_item.dart';
+import 'package:book/features/home/presentation/view_model_manger/book_details_cubit/book_details_cubit.dart';
 import 'package:book/features/home/presentation/view_model_manger/books_cubit/books_cubit.dart';
+import 'package:book/features/home/presentation/views/book_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,11 +24,24 @@ class AllBooksWidget extends StatelessWidget {
                   child: ListView.separated(
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
-                        return  ImageItem(
-                            imagePath:
-                           state.books[index].volumeInfo.imageLinks.thumbnail!,
-                            width: screenSize.width * .42,
-                            height: screenSize.height*.29,);
+                        return  GestureDetector(
+                          onTap: (){
+                            showBottomSheet(context: context,
+                              builder: (context) {
+                              return BlocProvider(
+                                create: (context) =>
+                                    BookDetailsCubit(serviceLocator.get<BookDetailsRepoImpl>())..getBook(state.books[index].id),
+                                child: const BookDetailsScreen() ,
+                              );
+
+                            },enableDrag: true,);
+                          },
+                          child: ImageItem(
+                              imagePath:
+                             state.books[index].volumeInfo.imageLinks.thumbnail!,
+                              width: screenSize.width * .42,
+                              height: screenSize.height*.29,),
+                        );
                       },
                       separatorBuilder: (context, index) =>
                       const SizedBox(

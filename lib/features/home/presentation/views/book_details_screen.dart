@@ -1,7 +1,9 @@
 import 'package:book/constants.dart';
 import 'package:book/features/authentication/presentation/components/texts.dart';
 import 'package:book/features/home/presentation/components/image_item.dart';
+import 'package:book/features/home/presentation/view_model_manger/book_details_cubit/book_details_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class BookDetailsScreen extends StatelessWidget {
@@ -9,124 +11,145 @@ class BookDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var x=ModalRoute.of(context)!.settings.arguments;
     Size screenSize = MediaQuery.of(context).size;
-    return Scaffold(
-      appBar: AppBar(toolbarHeight: 40),
-      body: Stack(
-        alignment: Alignment.bottomCenter,
-        children: [
-          SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                ImageItem(
-                  height: screenSize.height * .42,
-                  width: screenSize.width * .64,
-                  imagePath:
-                      'http://books.google.com/books/content?id=GsPDEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api',
-                ),
-                const TextWidget(
-                    aboveText: 'The Last Thing He Told Me',
-                    bottomText: 'Ali Ahmed',
-                    aboveTextAlign: TextAlign.center,
-                    crossAxisAlignment: CrossAxisAlignment.center),
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  margin: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: kDefaultColor.withOpacity(.2)),
-                  child: Text(
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.libreCaslonText(
-                          color: kColor,
-                          fontWeight: FontWeight.w700,
-                          fontSize:
-                              Theme.of(context).textTheme.bodyMedium?.fontSize),
-                      'This is an open access book. We are pleased to announce our 3rd International Conference on Bioinformatics and Data Science (ICBDS – 2022) and 9th International Conference on Public Mental Health and Neurosciences (ICPMN – 2022) which was a unique conference where we connectted Biological Function through Computational Genomics to the world of integrated medicine and therapeutics. Functional genomics is a field of molecular biology that attempts to describe gene (and protein) functions and interactions. This science aims to understand the complex relationship between genotype and phenotype on a global (genome-wide) scale of different biological processes. Most researchers now study genes or regions on a “genome-wide” scale (i.e. all or multiple genes/regions at the same time), with the hope of narrowing them down to a list of candidate genes or regions to analyze in more detail. There are several specific functional genomics approaches depending on what we are focused on DNA level (genomics and epigenomics), RNA level (transcriptomics)'),
-                ),
-                SizedBox(height:screenSize.height * .09 ,)
-              ],
+    return SizedBox(
+      height: screenSize.height * .75,
+      child: Scaffold(
+        appBar: AppBar(toolbarHeight: 40,automaticallyImplyLeading: false,leading: IconButton(onPressed: (){
+          Navigator.pop(context);
+        }, icon: const Icon(Icons.close,color: kColor,)),),
+        body: BlocConsumer<BookDetailsCubit, BookDetailsState>(
+  listener: (context, state) {
+  },
+  builder: (context, state) {
+      if(state is GetBookDetailsFailure) {
+        return  Center(child: Text(state.failure.errMessage),);
+      } else if(state is GetBookDetailsSuccessful){
+        return Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  ImageItem(
+                    height: screenSize.height * .38,
+                    width: screenSize.width * .6,
+                    imagePath:
+                    state.book.volumeInfo.imageLinks.thumbnail??'',
+                  ),
+                   TextWidget(
+                      aboveText:state.book.volumeInfo.title ,
+                      aboveTextFontSize: Theme.of(context).textTheme.titleLarge?.fontSize,
+                      bottomTextFontSize:Theme.of(context).textTheme.titleMedium?.fontSize ,
+                      bottomText:state.book.volumeInfo.authors[0].toString(),
+                      aboveTextAlign: TextAlign.center,
+                      crossAxisAlignment: CrossAxisAlignment.center),
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    margin: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: kDefaultColor.withOpacity(.2)),
+                    child: Text( state.book.volumeInfo.description,
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.libreCaslonText(
+                            color: kColor,
+                            fontWeight: FontWeight.w700,
+                            fontSize:
+                            Theme.of(context).textTheme.bodyMedium?.fontSize),
+                        ),
+                  ),
+                  SizedBox(height:screenSize.height * .09 ,)
+                ],
+              ),
             ),
-          ),
-          Container(
-            height: screenSize.height * .1,
-            decoration: const BoxDecoration(
-                borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-                color: kDefaultColor),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(
-                      Icons.star,
-                      size: 20,
-                      color: Colors.amber,
-                    ),
-                    const SizedBox(
-                      width: 6.3,
-                    ),
-                    Text(
-                      3.5.toString(),
-                      style: TextStyle(
-                        fontSize:
-                            Theme.of(context).textTheme.bodyMedium?.fontSize,
-                        fontWeight: FontWeight.w900,
+            Container(
+              height: screenSize.height * .1,
+              decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                  color: kDefaultColor),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        Icons.star,
+                        size: 20,
+                        color: Colors.amber,
                       ),
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    Opacity(
-                      opacity: .5,
-                      child: Text(
-                        '(80)',
+                      const SizedBox(
+                        width: 6.3,
+                      ),
+                      Text(
+                        state.book.volumeInfo.averageRating.toString(),
                         style: TextStyle(
                           fontSize:
-                              Theme.of(context).textTheme.bodyMedium?.fontSize,
+                          Theme.of(context).textTheme.bodyMedium?.fontSize,
                           fontWeight: FontWeight.w900,
                         ),
                       ),
-                    )
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    SizedBox(
-                      width: screenSize.width /2.5,
-                      child: ElevatedButton(
-                          onPressed: () {},
-                          child: Text(
-                            'Preview Link',
-                            style: GoogleFonts.libreCaslonText(
-                                color: kColor,
-                                fontSize:
-                                    Theme.of(context).textTheme.bodyMedium?.fontSize),
-                          )),
-                    ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Opacity(
+                        opacity: .5,
+                        child: Text(
+                          state.book.volumeInfo.ratingsCount.toString(),
+                          style: TextStyle(
+                            fontSize:
+                            Theme.of(context).textTheme.bodyMedium?.fontSize,
+                            fontWeight: FontWeight.w900,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      SizedBox(
+                        width: screenSize.width /2.5,
+                        child: ElevatedButton(
+                            onPressed: () {},
+                            child: Text(
+                              'Preview Link',
+                              style: GoogleFonts.libreCaslonText(
+                                  color: kColor,
+                                  fontSize:
+                                  Theme.of(context).textTheme.bodyMedium?.fontSize),
+                            )),
+                      ),
 
-                    SizedBox(
-                      width: screenSize.width /2.5,
-                      child: ElevatedButton(
-                          onPressed: () {},
-                          child: Text(
-                            'Save Book',
-                            style: GoogleFonts.libreCaslonText(
-                                color: kColor,
-                                fontSize:
-                                    Theme.of(context).textTheme.bodyMedium?.fontSize),
-                          )),
-                    ),
-                  ],
-                )
-              ],
-            ),
-          )
-        ],
+                      SizedBox(
+                        width: screenSize.width /2.5,
+                        child: ElevatedButton(
+                            onPressed: () {},
+                            child: Text(
+                              'Save Book',
+                              style: GoogleFonts.libreCaslonText(
+                                  color: kColor,
+                                  fontSize:
+                                  Theme.of(context).textTheme.bodyMedium?.fontSize),
+                            )),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            )
+          ],
+        );
+      }
+      else {
+        return const Center(child: CircularProgressIndicator(),);
+      }
+
+
+  },
+),
       ),
     );
   }

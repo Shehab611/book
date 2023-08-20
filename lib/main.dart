@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           primaryColor: kDefaultColor),
       debugShowCheckedModeBanner: false,
-      initialRoute: AppRouter.kBookDetailsScreen,
+      initialRoute: AppRouter.kHomeScreen,
       routes: AppRouter.routes,
     );
   }

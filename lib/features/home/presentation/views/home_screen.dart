@@ -4,7 +4,6 @@ import 'package:book/features/home/presentation/widgets/home_body_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'book_details_screen.dart';
 import 'drawer.dart';
 
 
@@ -36,7 +35,7 @@ class HomeScreen extends StatelessWidget {
           BlocBuilder<HomeCubit, HomeState>(
             builder: (context, state) {
               return IconButton(onPressed: () {
-                Scaffold.of(context).showBottomSheet((context) => const BookDetailsScreen());
+
               },
                   icon: const Icon(Icons.search, size: 30, color: kColor,));
             },
