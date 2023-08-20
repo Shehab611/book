@@ -18,9 +18,7 @@ class BookDetailsScreen extends StatelessWidget {
         appBar: AppBar(toolbarHeight: 40,automaticallyImplyLeading: false,leading: IconButton(onPressed: (){
           Navigator.pop(context);
         }, icon: const Icon(Icons.close,color: kColor,)),),
-        body: BlocConsumer<BookDetailsCubit, BookDetailsState>(
-  listener: (context, state) {
-  },
+        body: BlocBuilder<BookDetailsCubit, BookDetailsState>(
   builder: (context, state) {
       if(state is GetBookDetailsFailure) {
         return  Center(child: Text(state.failure.errMessage),);
@@ -113,7 +111,9 @@ class BookDetailsScreen extends StatelessWidget {
                       SizedBox(
                         width: screenSize.width /2.5,
                         child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              BookDetailsCubit.get(context).lunchUrl(state.book.volumeInfo.previewLink);
+                            },
                             child: Text(
                               'Preview Link',
                               style: GoogleFonts.libreCaslonText(
