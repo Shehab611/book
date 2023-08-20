@@ -10,40 +10,13 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   final SearchController _searchController = SearchController();
 
-  // these will be reused later
-  final leading = const Icon(Icons.search);
-  final trailing = [
-    IconButton(
-      icon: const Icon(Icons.keyboard_voice),
-      onPressed: () {
-        print('Use voice command');
-      },
-    ),
-    IconButton(
-      icon: const Icon(Icons.camera_alt),
-      onPressed: () {
-        print('Use image search');
-      },
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        SearchAnchor(
+        SearchAnchor.bar(
           searchController: _searchController,
-          builder: (BuildContext context, SearchController controller) {
-            return SearchBar(
-              leading: leading,
-              trailing: trailing,
-              onTap: () {
-                _searchController.text;
-                _searchController.openView();
-              },
-            );
-          },
           suggestionsBuilder:
               (BuildContext context, SearchController controller) {
             final keyword = controller.value.text;
@@ -54,7 +27,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       title: Text(item),
                       onTap: () {
                         setState(() {
-                          controller.closeView(item);
+                          controller.closeView(null);
                           FocusScope.of(context).unfocus();
                         });
                       },

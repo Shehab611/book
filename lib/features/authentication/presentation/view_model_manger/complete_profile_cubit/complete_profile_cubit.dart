@@ -143,7 +143,7 @@ class CompleteProfileCubit extends Cubit<CompleteProfileState> {
 
   void navigateToHomeScreen(BuildContext context){
     emit(GoToHomeScreen());
-    Navigator.pushReplacementNamed(context, AppRouter.kHomeScreen);
+    AppNavigator.navigateToHomeScreen(context);
 
   }
 
@@ -151,7 +151,7 @@ class CompleteProfileCubit extends Cubit<CompleteProfileState> {
     FirebaseAuth.instance.signOut();
     GoogleSignIn().disconnect();
     emit(LogOut());
-    Navigator.pushReplacementNamed(context, AppRouter.kLoginScreen);
+    AppNavigator.navigateToLoginScreen(context);
 
   }
 }

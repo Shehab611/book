@@ -23,10 +23,7 @@ class LoginCubit extends Cubit<LoginState> {
 
   void goToRegister(BuildContext context) {
     emit(GoToRegisterScreen());
-    Navigator.pushReplacementNamed(
-      context,
-      AppRouter.kRegisterScreen,
-    );
+    AppNavigator.navigateToRegisterScreen(context);
 
   }
 
@@ -38,7 +35,7 @@ class LoginCubit extends Cubit<LoginState> {
 
   void navigateToForgetPassword(BuildContext context) {
     emit(GoToForgetPasswordScreen());
-    Navigator.pushNamed(context, AppRouter.kForgetPasswordScreen);
+    AppNavigator.navigateToForgetPasswordScreen(context);
 
   }
 
@@ -59,13 +56,13 @@ class LoginCubit extends Cubit<LoginState> {
 
   void navigateToHome(BuildContext context) {
     emit(GoToHomeScreen());
-    Navigator.pushNamed(context, AppRouter.kHomeScreen);
+    AppNavigator.navigateToHomeScreen(context);
 
   }
 
   void navigateToCompleteProfile(BuildContext context) {
     emit(GoToCompleteProfileScreen());
-    Navigator.pushNamed(context, AppRouter.kCompleteProfile);
+    AppNavigator.navigateToCompleteProfileScreen(context);
 
   }
 }

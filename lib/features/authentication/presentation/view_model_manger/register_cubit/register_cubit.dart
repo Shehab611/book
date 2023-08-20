@@ -30,10 +30,7 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   void goToLogin(BuildContext context) {
     emit(GoToLoginScreen());
-    Navigator.pushReplacementNamed(
-      context,
-      AppRouter.kLoginScreen,
-    );
+    AppNavigator.navigateToLoginScreen(context);
 
   }
 
@@ -53,7 +50,7 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   void navigateToVerificationScreen(BuildContext context) {
     emit(GoToVerificationScreen());
-    Navigator.pushNamed(context, AppRouter.kVerificationScreen);
+    AppNavigator.navigateToVerificationScreen(context);
 
   }
 
@@ -67,7 +64,7 @@ class RegisterCubit extends Cubit<RegisterState> {
     await FirebaseAuth.instance.currentUser!.reload().then((value) {
       if (FirebaseAuth.instance.currentUser!.emailVerified) {
         emit(GoToCompleteProfileScreen());
-        Navigator.pushReplacementNamed(context, AppRouter.kCompleteProfile);
+        AppNavigator.navigateToCompleteProfileScreen(context);
 
       } else {
         showDialog(
@@ -118,7 +115,7 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   void navigateToCompleteProfileFromGoogle(BuildContext context) {
     emit(GoToCompleteProfileScreenWithGoogle());
-    Navigator.pushNamed(context, AppRouter.kCompleteProfile,);
+    AppNavigator.navigateToCompleteProfileScreen(context);
 
   }
 }
