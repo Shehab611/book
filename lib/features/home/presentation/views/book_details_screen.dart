@@ -9,6 +9,7 @@ class BookDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var x=ModalRoute.of(context)!.settings.arguments;
     Size screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(toolbarHeight: 40),
