@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           primaryColor: kDefaultColor),
       debugShowCheckedModeBanner: false,
-      initialRoute: AppRouter.kHomeScreen,
+      initialRoute: AppRouter.kSavedScreen,
       routes: AppRouter.routes,
     );
   }

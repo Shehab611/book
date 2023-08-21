@@ -18,6 +18,7 @@ import 'package:book/features/home/presentation/view_model_manger/home_cubit/hom
 import 'package:book/features/home/presentation/view_model_manger/recommended_books_cubit/recommended_books_cubit.dart';
 import 'package:book/features/home/presentation/views/book_details_screen.dart';
 import 'package:book/features/home/presentation/views/home_screen.dart';
+import 'package:book/features/home/presentation/views/saved_screen.dart';
 import 'package:book/features/home/presentation/views/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -80,6 +81,7 @@ abstract final class AppRouter {
         ),
     kSearchScreen: (BuildContext context) => const SearchScreen(),
     kBookDetailsScreen: (BuildContext context) => const BookDetailsScreen(),
+    kSavedScreen: (BuildContext context) => const SavedScreen(),
   };
 }
 
@@ -130,5 +132,11 @@ abstract final class AppNavigator {
       Navigator.pushReplacementNamed(
         context,
         AppRouter.kBookDetailsScreen,
+      );
+
+  static navigateToSavedScreen(BuildContext context) =>
+      Navigator.pushReplacementNamed(
+        context,
+        AppRouter.kSavedScreen,
       );
 }
