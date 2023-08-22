@@ -7,6 +7,7 @@ import 'package:book/features/home/data/models/book_details_model.dart';
 import 'package:book/features/home/data/repositories/book_details/book_details_repo_impl.dart';
 import 'package:book/features/home/data/repositories/drawer/drawer_repo_impl.dart';
 import 'package:book/features/home/data/repositories/home/home_repo_impl.dart';
+import 'package:book/features/home/data/repositories/saved_repo/saved_repo_impl.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
 
@@ -23,6 +24,7 @@ void initServicesLocator() {
   serviceLocator.registerSingleton<HomeRepoImpl>(HomeRepoImpl());
   serviceLocator.registerSingleton<DrawerRepoImpl>(DrawerRepoImpl());
   serviceLocator.registerSingleton<BookDetailsRepoImpl>(BookDetailsRepoImpl());
+  serviceLocator.registerSingleton<SavedRepoImpl>(SavedRepoImpl());
   serviceLocator.registerSingleton<Box<UserDataModel>>(Hive.box('user'));
   serviceLocator.registerSingleton<Box<BookDetailsModel>>(Hive.box('books'));
 
