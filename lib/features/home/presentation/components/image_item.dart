@@ -5,11 +5,13 @@ class ImageItem extends StatelessWidget {
   const ImageItem(
       {Key? key,
       required this.imagePath,
-      required this.width,
-      required this.height})
+       this.width,
+        this.boxFit,
+       this.height})
       : super(key: key);
   final String imagePath;
-  final double width, height;
+  final double? width, height;
+  final BoxFit? boxFit;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class ImageItem extends StatelessWidget {
         width: width,
         height: height,
         placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-        fit: BoxFit.cover,
+        fit: boxFit??BoxFit.cover,
         fadeInDuration: const Duration(milliseconds: 850),
         errorWidget: (context, url, error) =>const Placeholder() ,
       ),
