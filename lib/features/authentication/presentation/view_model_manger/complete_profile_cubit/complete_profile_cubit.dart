@@ -82,7 +82,7 @@ class CompleteProfileCubit extends Cubit<CompleteProfileState> {
   }
 
   void uploadImage() async {
-    ({bool succsuful, String? errorString, String? path}) data =
+    ({bool successful, String? errorString, String? path}) data =
         await completeProfileRepo.uploadUserImage(
             subFolderName: FirebaseAuth.instance.currentUser!.email!);
     emit(UploadUserImage(data: data));

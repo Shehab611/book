@@ -8,7 +8,7 @@ part 'home_state.dart';
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit(this.homeRepo) : super(HomeInitial());
   final HomeRepo homeRepo;
-
+//[]
   static HomeCubit get(context) => BlocProvider.of(context);
 
   void navigateToSearchScreen(BuildContext context) {

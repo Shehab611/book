@@ -13,7 +13,7 @@ class ImageSelection extends StatelessWidget {
     return BlocConsumer<CompleteProfileCubit, CompleteProfileState>(
       listener: (context, state) {
         if (state is UploadUserImage) {
-          if (!state.data.succsuful) {
+          if (!state.data.successful) {
             ScaffoldMessenger.of(context).showSnackBar(
               MySnackBar.getSnackBar(state.data.errorString!),
             );

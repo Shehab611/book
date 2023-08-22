@@ -26,4 +26,11 @@ class BookDetailsCubit extends Cubit<BookDetailsState> {
       final Uri urlLunch = Uri.parse(url);
       await launchUrl(urlLunch);
     }
+
+    Future<void> saveBook(BookDetailsModel bookDetailsModel)async{
+
+    await bookDetailsRepo.saveBook(bookDetailsModel);
+
+    emit(const BookSavedState());
+    }
 }

@@ -4,7 +4,7 @@ sealed class CompleteProfileState {}
 
 class CompleteProfileInitial extends CompleteProfileState {}
 class UploadUserImage extends CompleteProfileState{
-  final ({bool succsuful, String? errorString,String? path}) data;
+  final ({bool successful, String? errorString,String? path}) data;
   UploadUserImage({required this.data});
 }
 class UploadUserData extends CompleteProfileState{

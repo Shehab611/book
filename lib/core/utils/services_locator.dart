@@ -3,6 +3,7 @@ import 'package:book/features/authentication/data/repositories/complete_profile/
 import 'package:book/features/authentication/data/repositories/login/login_repo_impl.dart';
 import 'package:book/features/authentication/data/repositories/register/register_repo_impl.dart';
 import 'package:book/features/authentication/data/repositories/reset_password/reset_password_repo_impl.dart';
+import 'package:book/features/home/data/models/book_details_model.dart';
 import 'package:book/features/home/data/repositories/book_details/book_details_repo_impl.dart';
 import 'package:book/features/home/data/repositories/drawer/drawer_repo_impl.dart';
 import 'package:book/features/home/data/repositories/home/home_repo_impl.dart';
@@ -23,6 +24,7 @@ void initServicesLocator() {
   serviceLocator.registerSingleton<DrawerRepoImpl>(DrawerRepoImpl());
   serviceLocator.registerSingleton<BookDetailsRepoImpl>(BookDetailsRepoImpl());
   serviceLocator.registerSingleton<Box<UserDataModel>>(Hive.box('user'));
+  serviceLocator.registerSingleton<Box<BookDetailsModel>>(Hive.box('books'));
 
 
 }

@@ -1,11 +1,16 @@
-class BookDetailsModel {
+
+import 'package:hive/hive.dart';
+
+part 'book_details_model.g.dart';
+@HiveType(typeId: 1)
+final class BookDetailsModel {
   BookDetailsModel({
     required this.id,
     required this.volumeInfo,
   });
-
+  @HiveField(0)
    final String id;
-
+  @HiveField(1)
    final VolumeInfo volumeInfo;
 
   factory BookDetailsModel.fromJson(Map<String, dynamic> json) {
@@ -16,7 +21,7 @@ class BookDetailsModel {
   }
 }
 
-class VolumeInfo {
+final class VolumeInfo {
   VolumeInfo({
     required this.title,
     required this.authors,
@@ -47,7 +52,7 @@ class VolumeInfo {
   }
 }
 
-class ImageLinks {
+final class ImageLinks {
   ImageLinks({
     required this.smallThumbnail,
     required this.thumbnail,

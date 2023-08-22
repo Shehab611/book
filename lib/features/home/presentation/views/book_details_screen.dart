@@ -15,14 +15,17 @@ class BookDetailsScreen extends StatelessWidget {
     return SizedBox(
       height: screenSize.height * .75,
       child: Scaffold(
-        appBar: AppBar(toolbarHeight: 40,automaticallyImplyLeading: false,leading: IconButton(onPressed: (){
+        appBar: AppBar(
+          backgroundColor: kDefaultColor.withOpacity(.2),
+          toolbarHeight: 40,automaticallyImplyLeading: false,leading: IconButton(onPressed: (){
           Navigator.pop(context);
         }, icon: const Icon(Icons.close,color: kColor,)),),
         body: BlocBuilder<BookDetailsCubit, BookDetailsState>(
   builder: (context, state) {
       if(state is GetBookDetailsFailure) {
         return  Center(child: Text(state.failure.errMessage),);
-      } else if(state is GetBookDetailsSuccessful){
+      }
+      else if(state is GetBookDetailsSuccessful){
         return Stack(
           alignment: Alignment.bottomCenter,
           children: [
@@ -126,7 +129,9 @@ class BookDetailsScreen extends StatelessWidget {
                       SizedBox(
                         width: screenSize.width /2.5,
                         child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              BookDetailsCubit.get(context).saveBook(state.book);
+                            },
                             child: Text(
                               'Save Book',
                               style: GoogleFonts.libreCaslonText(

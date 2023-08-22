@@ -2,6 +2,7 @@ import 'package:book/constants.dart';
 import 'package:book/core/usable_functions/api_service_helper.dart';
 import 'package:book/core/utils/services_locator.dart';
 import 'package:book/features/authentication/data/models/user_data.dart';
+import 'package:book/features/home/data/models/book_details_model.dart';
 import 'package:book/firebase_options.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -48,13 +49,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Book App',
       theme: ThemeData(
+        scaffoldBackgroundColor:kDefaultColor.withOpacity(.2),
           pageTransitionsTheme: const PageTransitionsTheme(builders: {
             TargetPlatform.android: OpenUpwardsPageTransitionsBuilder()
           }),
           useMaterial3: true,
           primaryColor: kDefaultColor),
       debugShowCheckedModeBanner: false,
-      initialRoute: AppRouter.kSavedScreen,
+      initialRoute: AppRouter.kHomeScreen,
       routes: AppRouter.routes,
     );
   }
@@ -63,7 +65,9 @@ class MyApp extends StatelessWidget {
 Future<void> initHive() async {
   await Hive.initFlutter();
   Hive.registerAdapter(UserDataModelAdapter());
+  Hive.registerAdapter(BookDetailsModelAdapter());
   await Hive.openBox<UserDataModel>('user');
+  await Hive.openBox<BookDetailsModel>('books');
   await Hive.openBox('keep_login');
   value = await Hive.box('keep_login').get('keep_login', defaultValue: false);
 }

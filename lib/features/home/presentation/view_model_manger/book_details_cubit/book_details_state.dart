@@ -21,3 +21,6 @@ class GetBookDetailsFailure extends BookDetailsState {
 
  const GetBookDetailsFailure(this.failure);
 }
+class BookSavedState extends BookDetailsState{
+  const BookSavedState();
+}
