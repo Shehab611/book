@@ -1,5 +1,5 @@
 import 'package:book/features/authentication/presentation/view_model_manger/login_cubit/login_cubit.dart';
-import 'package:book/features/authentication/presentation/widgets/snack_bar.dart';
+import 'package:book/core/utils/components/snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../widgets/login_body_widget.dart';

@@ -1,6 +1,6 @@
 import 'package:book/constants.dart';
 import 'package:book/features/authentication/presentation/view_model_manger/complete_profile_cubit/complete_profile_cubit.dart';
-import 'package:book/features/authentication/presentation/widgets/snack_bar.dart';
+import 'package:book/core/utils/components/snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

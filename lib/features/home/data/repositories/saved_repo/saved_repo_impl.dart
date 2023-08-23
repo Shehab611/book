@@ -4,16 +4,7 @@ import 'package:book/features/home/data/repositories/saved_repo/saved_repo.dart'
 import 'package:hive/hive.dart';
 
 final class SavedRepoImpl implements SavedRepo {
-  @override
-  Future<({String? errorString, bool successful})> addBook(
-      BookDetailsModel book) async {
-    try {
-      await serviceLocator.get<Box<BookDetailsModel>>().put(book.id, book);
-      return (successful: true, errorString: null);
-    } catch (e) {
-      return (successful: false, errorString: e.toString());
-    }
-  }
+
 
   @override
   ({List<BookDetailsModel>? books, String? errorString, bool successful})
@@ -27,7 +18,16 @@ final class SavedRepoImpl implements SavedRepo {
       return (successful: false, errorString: e.toString(), books: null);
     }
   }
-
+  @override
+  Future<({String? errorString, bool successful})> addBook(
+      BookDetailsModel book) async {
+    try {
+      await serviceLocator.get<Box<BookDetailsModel>>().put(book.id, book);
+      return (successful: true, errorString: null);
+    } catch (e) {
+      return (successful: false, errorString: e.toString());
+    }
+  }
   @override
   Future<({String? errorString, bool successful})> removeBook(
       String bookId) async {

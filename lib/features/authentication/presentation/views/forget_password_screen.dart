@@ -2,7 +2,7 @@ import 'package:book/constants.dart';
 import 'package:book/features/authentication/presentation/components/button_widget.dart';
 import 'package:book/features/authentication/presentation/components/texts.dart';
 import 'package:book/features/authentication/presentation/view_model_manger/reset_password_cubit/reset_password_cubit.dart';
-import 'package:book/features/authentication/presentation/widgets/snack_bar.dart';
+import 'package:book/core/utils/components/snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

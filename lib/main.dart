@@ -66,6 +66,8 @@ Future<void> initHive() async {
   await Hive.initFlutter();
   Hive.registerAdapter(UserDataModelAdapter());
   Hive.registerAdapter(BookDetailsModelAdapter());
+  Hive.registerAdapter(VolumeInfoAdapter());
+  Hive.registerAdapter(ImageLinksAdapter());
   await Hive.openBox<UserDataModel>('user');
   await Hive.openBox<BookDetailsModel>('books');
   await Hive.openBox('keep_login');

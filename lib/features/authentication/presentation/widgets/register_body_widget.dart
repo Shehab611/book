@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../components/go_in_button.dart';
 import '../components/text_field.dart';
-import 'snack_bar.dart';
+import '../../../../core/utils/components/snack_bar.dart';
 
 class RegisterBodyWidget extends StatelessWidget {
   const RegisterBodyWidget({super.key});
