@@ -18,14 +18,18 @@ class BooksCubit extends Cubit<BooksState> {
 
   static BooksCubit get(context) => BlocProvider.of(context);
 
-  Future<void> getBooks() async {
+  Future<void> getBooks()  async{
     emit(const LoadingState());
-    var data = await homeRepo.getBooks();
-    if (data.statuesCode == 200) {
-      emit(GetBooksSuccessful(data.books!));
-    } else {
-      emit(GetBooksHomeFailure(data.failure!));
-    }
+    Future.delayed(const Duration(seconds: 2),() async{
+      var data = await homeRepo.getBooks();
+      if (data.statuesCode == 200) {
+        emit(GetBooksSuccessful(data.books!));
+      } else {
+        emit(GetBooksHomeFailure(data.failure!));
+      }
+
+    },);
+
   }
 
   void openBookDetails(BuildContext context, String bookId) {

@@ -34,7 +34,7 @@ final class HomeRepoImpl implements HomeRepo {
     }
   }
 
-  List<String> _getUserBookCategories()  {
+  List _getUserBookCategories()  {
   return serviceLocator.get<Box<UserDataModel>>().get(0)!.bookCategories;
   }
 

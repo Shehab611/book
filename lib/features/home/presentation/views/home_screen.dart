@@ -16,7 +16,7 @@ class HomeScreen extends StatelessWidget {
       backgroundColor: kDefaultColor,
       drawer: const DrawerView(),
       appBar: AppBar(
-        backgroundColor: kDefaultColor,
+        backgroundColor: kDefaultColor.withOpacity(.2),
         elevation: 0,
         title: Text(
           'Home',

@@ -7,8 +7,10 @@ sealed class HomeState {
 
 class HomeInitial extends HomeState {}
 
-class HomeLoadingState extends HomeState {}
+class CheckOnData extends HomeState{
+  const CheckOnData();
+}
 
-class NavigateToBookDetailsScreen extends HomeState{}
-
-class NavigateToSearchScreen extends HomeState{}
+class NavigateToSearchScreen extends HomeState {
+  const NavigateToSearchScreen();
+}

@@ -66,7 +66,7 @@ abstract final class AppRouter {
           providers: [
             BlocProvider(
               create: (context) =>
-                  HomeCubit(serviceLocator.get<HomeRepoImpl>()),
+                  HomeCubit(serviceLocator.get<HomeRepoImpl>())..check(),
             ),
             BlocProvider(
               create: (context) =>

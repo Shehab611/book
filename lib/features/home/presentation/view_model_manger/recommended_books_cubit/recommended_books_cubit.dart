@@ -42,11 +42,15 @@ class RecommendedBooksCubit extends Cubit<RecommendedBooksState> {
 
   Future<void> getRecommendedBooks() async {
     emit(const LoadingState());
-    var data=await homeRepo.getRecommendedBooks();
-    if(data.statuesCode==200){
-      emit(GetRecommendedBooksSuccessful(data.books!));
-    }else{
-      emit(GetRecommendedBooksHomeFailure(data.failure!));
-    }
+
+    Future.delayed(const Duration(seconds: 2),() async{
+      var data=await homeRepo.getRecommendedBooks();
+      if(data.statuesCode==200){
+        emit(GetRecommendedBooksSuccessful(data.books!));
+      }else{
+        emit(GetRecommendedBooksHomeFailure(data.failure!));
+      }
+    },);
+
   }
 }

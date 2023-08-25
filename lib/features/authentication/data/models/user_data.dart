@@ -15,7 +15,7 @@ final class UserDataModel extends HiveObject {
   @HiveField(4)
   final String imageLink;
   @HiveField(5)
-  final List<String> bookCategories;
+  final List<dynamic> bookCategories;
 
   UserDataModel({
     required this.fName,
