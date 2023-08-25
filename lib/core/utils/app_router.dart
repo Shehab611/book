@@ -13,9 +13,11 @@ import 'package:book/features/authentication/presentation/views/login_screen.dar
 import 'package:book/features/authentication/presentation/views/register_screen.dart';
 import 'package:book/features/authentication/presentation/views/verification_screen.dart';
 import 'package:book/features/home/data/repositories/home/home_repo_impl.dart';
+import 'package:book/features/home/data/repositories/saved_repo/saved_repo_impl.dart';
 import 'package:book/features/home/presentation/view_model_manger/books_cubit/books_cubit.dart';
 import 'package:book/features/home/presentation/view_model_manger/home_cubit/home_cubit.dart';
 import 'package:book/features/home/presentation/view_model_manger/recommended_books_cubit/recommended_books_cubit.dart';
+import 'package:book/features/home/presentation/view_model_manger/saved_screen_cubit/saved_screen_cubit.dart';
 import 'package:book/features/home/presentation/views/book_details_screen.dart';
 import 'package:book/features/home/presentation/views/home_screen.dart';
 import 'package:book/features/home/presentation/views/saved_screen.dart';
@@ -81,7 +83,11 @@ abstract final class AppRouter {
         ),
     kSearchScreen: (BuildContext context) => const SearchScreen(),
     kBookDetailsScreen: (BuildContext context) => const BookDetailsScreen(),
-    kSavedScreen: (BuildContext context) => const SavedScreen(),
+    kSavedScreen: (BuildContext context) => BlocProvider(
+      create: (context) =>
+          SavedScreenCubit(serviceLocator.get<SavedRepoImpl>())..getAllBooks(),
+      child: const SavedScreen(),
+    ),
   };
 }
 

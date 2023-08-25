@@ -1,6 +1,8 @@
 import 'package:book/constants.dart';
 import 'package:book/features/home/presentation/components/saved_item.dart';
+import 'package:book/features/home/presentation/view_model_manger/saved_screen_cubit/saved_screen_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'drawer.dart';
@@ -13,9 +15,6 @@ class SavedScreen extends StatefulWidget {
 }
 
 class _SavedScreenState extends State<SavedScreen> {
-  final List<String> items = [];
-  final GlobalKey<AnimatedListState> key = GlobalKey();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,52 +33,107 @@ class _SavedScreenState extends State<SavedScreen> {
         centerTitle: true,
       ),
       drawer: const DrawerView(),
-      body: AnimatedList(
-        key: key,
-        initialItemCount: items.length,
-        itemBuilder: (context, index, animation) {
-          return SizeTransition(
-            sizeFactor: animation,
-            child: const SavedItem(
-                imagePath:
-                    'http://books.google.com/books/content?id=GsPDEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api',
-                title: 'title',
-                authors: ['authors']),
+      body: BlocConsumer<SavedScreenCubit, SavedScreenState>(
+        listener: (context, state) {
+          if(state is RemoveBook){
+            SavedScreenCubit.get(context).getAllBooks();
+          }
+
+        },
+        builder: (context, state) {
+          var savedContext=context;
+          if (state is GetAllBooksFailure) {
+            return const Center(
+              child: Text('You Have No books Saved Yet'),
+            );
+          } else if (state is GetAllBooksSuccessful) {
+            return ListView.builder(
+              itemCount: state.books.length,
+              itemBuilder: (context, index) {
+                return Dismissible(
+                  key: ValueKey<String>(state.books[index].volumeInfo.title),
+                  background: Container(
+                    color: Colors.red,
+                    child: const Padding(
+                      padding: EdgeInsets.all(15),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Icon(Icons.delete, color: Colors.white),
+                          Text('Remove from saved',
+                              style: TextStyle(color: Colors.white)),
+                        ],
+                      ),
+                    ),
+                  ),
+                  direction: DismissDirection.endToStart,
+                  confirmDismiss: (DismissDirection direction) async {
+                    return await showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text(
+                            "Remove Confirmation",
+                            style: GoogleFonts.montserrat(
+                                    color: kDefaultColor,
+                                    fontWeight: FontWeight.w800)
+                                .copyWith(
+                                    fontSize: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall
+                                        ?.fontSize),
+                          ),
+                          content: Text(
+                              "Are you sure you want to Remove this saved book?",
+                              style: GoogleFonts.montserrat(
+                                      color: kDefaultColor,
+                                      fontWeight: FontWeight.w600)
+                                  .copyWith(
+                                      fontSize: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium
+                                          ?.fontSize)),
+                          backgroundColor: kColor,
+                          shape: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(15)),
+                          elevation: 10,
+                          actions: [
+                            TextButton(
+                                onPressed: () {
+                                  SavedScreenCubit.get(savedContext).removeBookFromFav(index);
+                                  Navigator.of(context).pop(true);
+                                },
+                                child: const Text(
+                                  "Remove",
+                                  style: TextStyle(color: kDefaultColor),
+                                )),
+                            TextButton(
+                              onPressed: () => Navigator.of(context).pop(false),
+                              child: const Text(
+                                "Cancel",
+                                style: TextStyle(color: kDefaultColor),
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                  child: SavedItem(
+                    imagePath:
+                        state.books[index].volumeInfo.imageLinks.thumbnail!,
+                    title: state.books[index].volumeInfo.title,
+                    authors: state.books[index].volumeInfo.authors,
+                  ),
+                );
+              },
+            );
+          }
+          return const Center(
+            child: CircularProgressIndicator(),
           );
         },
       ),
-    );
-  }
-
-  void insertItems() {
-    var index = items.length;
-    items.add('item ${index + 1}');
-    key.currentState!.insertItem(index);
-  }
-
-  void deleteItem(int index) {
-    items.removeAt(index);
-    key.currentState!.removeItem(
-        index,
-        (context, animation) => SizeTransition(
-            sizeFactor: animation,
-            child: Item(text: items[index], onPressed: () {})));
-  }
-}
-
-class Item extends StatelessWidget {
-  const Item({super.key, required this.text, required this.onPressed});
-
-  final String text;
-  final VoidCallback onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      leading: const Icon(Icons.add),
-      title: Text(text),
-      trailing:
-          IconButton(onPressed: onPressed, icon: const Icon(Icons.delete)),
     );
   }
 }

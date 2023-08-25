@@ -73,6 +73,8 @@ class DrawerItem extends StatelessWidget {
                 fontSize: Theme.of(context).textTheme.titleMedium?.fontSize),
       ),
       onTap: (){
+      //  AppNavigator.navigateToSavedScreen(context);
+
       },
     );
   }
