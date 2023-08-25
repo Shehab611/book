@@ -1,12 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 abstract class DataHandling {
-
   static Future<bool> checkIfDocExist({
     required String collectionName,
     required String docName,
-  }) async{
-    var x=await FirebaseFirestore.instance
+  }) async {
+    var x = await FirebaseFirestore.instance
         .collection(collectionName)
         .doc(docName)
         .get();
@@ -51,7 +50,7 @@ abstract class DataHandling {
   static Future<DocumentSnapshot<Map<String, dynamic>>> getDataFromDoc({
     required String collectionName,
     required String docName,
-  }) async{
+  }) async {
     return await FirebaseFirestore.instance
         .collection(collectionName)
         .doc(docName)
@@ -156,20 +155,22 @@ abstract class DataHandling {
     return docsData;
   }
 
-  List<Map<String, dynamic>> getStreamOfDataChat(
-      {required String collectionName,
-        required String docName,
-        required String subCollectionName,
-        required String subDocName,
-        required String subSubCollectionName,}) {
+  List<Map<String, dynamic>> getStreamOfDataChat({
+    required String collectionName,
+    required String docName,
+    required String subCollectionName,
+    required String subDocName,
+    required String subSubCollectionName,
+  }) {
     List<Map<String, dynamic>> data = [];
 
     return data;
   }
 
-  static Future<void> addDataToDocument({required String collectionName,
-    required String docName,
-    required Map<String, dynamic> data}) async {
+  static Future<void> addDataToDocument(
+      {required String collectionName,
+      required String docName,
+      required Map<String, dynamic> data}) async {
     await FirebaseFirestore.instance
         .collection(collectionName)
         .doc(docName)
@@ -184,11 +185,12 @@ abstract class DataHandling {
     });
   }
 
-  static Future<void> addDataToDocInSubCollection({required String collectionName,
-    required String docName,
-    required String subCollectionName,
-     String? subDocName,
-    required Map<String, dynamic> data}) async {
+  static Future<void> addDataToDocInSubCollection(
+      {required String collectionName,
+      required String docName,
+      required String subCollectionName,
+      String? subDocName,
+      required Map<String, dynamic> data}) async {
     await FirebaseFirestore.instance
         .collection(collectionName)
         .doc(docName)
@@ -207,12 +209,27 @@ abstract class DataHandling {
     });
   }
 
- static Future<void> addDataToDocInSubSubCollection({required String collectionName,
+  static Future<void> removeDocInSubCollection({
+    required String collectionName,
     required String docName,
     required String subCollectionName,
     required String subDocName,
-    required String subSubCollectionName,
-    required Map<String, dynamic> data}) async {
+  }) async {
+    await FirebaseFirestore.instance
+        .collection(collectionName)
+        .doc(docName)
+        .collection(subCollectionName)
+        .doc(subDocName)
+        .delete();
+  }
+
+  static Future<void> addDataToDocInSubSubCollection(
+      {required String collectionName,
+      required String docName,
+      required String subCollectionName,
+      required String subDocName,
+      required String subSubCollectionName,
+      required Map<String, dynamic> data}) async {
     await FirebaseFirestore.instance
         .collection(collectionName)
         .doc(docName)
@@ -222,4 +239,3 @@ abstract class DataHandling {
         .add(data);
   }
 }
-
