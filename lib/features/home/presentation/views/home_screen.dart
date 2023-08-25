@@ -13,7 +13,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kDefaultColor,
+      backgroundColor: kDefaultColor.withOpacity(.2),
       drawer: const DrawerView(),
       appBar: AppBar(
         backgroundColor: kDefaultColor.withOpacity(.2),
