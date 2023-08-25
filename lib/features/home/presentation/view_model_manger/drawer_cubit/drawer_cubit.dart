@@ -13,7 +13,7 @@ class DrawerCubit extends Cubit<DrawerState> {
   static DrawerCubit get(context) => BlocProvider.of(context);
 
   void getValue()async{
-    value = await Hive.box('keep_login').get('keep_login');
+    value = await Hive.box('keep_login').get('keep_login',defaultValue: false);
     emit(DrawerValueGet());
   }
 
