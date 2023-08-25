@@ -17,8 +17,9 @@ class BookDetailsScreen extends StatelessWidget {
         .of(context)
         .size;
     return SizedBox(
-      height: screenSize.height * .75,
+      height: screenSize.height * .85,
       child: Scaffold(
+        backgroundColor: kDefaultColor.withOpacity(.2),
         appBar: AppBar(
           backgroundColor: kDefaultColor.withOpacity(.2),
           toolbarHeight: 40,
@@ -88,7 +89,7 @@ class BookDetailsScreen extends StatelessWidget {
                           ),
                         ),
                         SizedBox(
-                          height: screenSize.height * .09,
+                          height: screenSize.height * .17,
                         )
                       ],
                     ),
@@ -100,7 +101,7 @@ class BookDetailsScreen extends StatelessWidget {
                         BorderRadius.vertical(top: Radius.circular(20)),
                         color: kDefaultColor),
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -130,7 +131,7 @@ class BookDetailsScreen extends StatelessWidget {
                             Opacity(
                               opacity: .5,
                               child: Text(
-                                state.book.volumeInfo.ratingsCount.toString(),
+                                '(${state.book.volumeInfo.ratingsCount.toString()})',
                                 style: TextStyle(
                                   fontSize: Theme
                                       .of(context)

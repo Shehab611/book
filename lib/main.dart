@@ -18,12 +18,13 @@ void main() async {
   await AllAppInit.firebaseInit();
   AllAppInit.removeStatusBar();
 
-  runApp(
+ /* runApp(
     DevicePreview(
       enabled: !kReleaseMode,
       builder: (context) => const MyApp(),
     ),
-  );
+  );*/
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -38,14 +39,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Book App',
       theme: ThemeData(
-        scaffoldBackgroundColor:kDefaultColor.withOpacity(.2),
           pageTransitionsTheme: const PageTransitionsTheme(builders: {
             TargetPlatform.android: OpenUpwardsPageTransitionsBuilder()
           }),
           useMaterial3: true,
-          primaryColor: kDefaultColor),
+          primaryColor: kColor),
       debugShowCheckedModeBanner: false,
-      initialRoute: AppRouter.kSavedScreen,
+      initialRoute: initRoute,
       routes: AppRouter.routes,
     );
   }
