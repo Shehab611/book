@@ -19,6 +19,17 @@ final class BookDetailsModel {
       volumeInfo: VolumeInfo.fromJson(json['volumeInfo']),
     );
   }
+
+
+  static Map<String, dynamic> toJson({required BookDetailsModel bookDetailsModel}) {
+    return {
+      'id': bookDetailsModel.id,
+      'volumeInfo': VolumeInfo.toJson(volumeInfo: bookDetailsModel.volumeInfo),
+
+    };
+  }
+
+
 }
 @HiveType(typeId: 2)
 final class VolumeInfo {
@@ -56,6 +67,20 @@ final class VolumeInfo {
         ratingsCount: json['ratingsCount']??0,
         previewLink: json['previewLink']);
   }
+
+  static Map<String, dynamic> toJson({required VolumeInfo volumeInfo}) {
+    return {
+      'title': volumeInfo.title,
+      'authors': volumeInfo.authors,
+      'description': volumeInfo.description,
+      'averageRating': volumeInfo.averageRating,
+      'ratingsCount': volumeInfo.ratingsCount,
+      'previewLink': volumeInfo.previewLink,
+      'imageLinks': ImageLinks.toJson(imageLinks: volumeInfo.imageLinks),
+    };
+  }
+
+
 }
 @HiveType(typeId: 3)
 final class ImageLinks {
@@ -85,4 +110,17 @@ final class ImageLinks {
         medium: json['medium']??'',
         large: json['large']??'');
   }
+
+
+
+  static Map<String, dynamic> toJson({required ImageLinks imageLinks}) {
+    return {
+      'smallThumbnail': imageLinks.smallThumbnail,
+      'thumbnail': imageLinks.thumbnail,
+      'small': imageLinks.small,
+      'medium': imageLinks.medium,
+      'large': imageLinks.large,
+    };
+  }
+
 }

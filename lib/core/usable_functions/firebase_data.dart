@@ -187,7 +187,7 @@ abstract class DataHandling {
   static Future<void> addDataToDocInSubCollection({required String collectionName,
     required String docName,
     required String subCollectionName,
-    required String subDocName,
+     String? subDocName,
     required Map<String, dynamic> data}) async {
     await FirebaseFirestore.instance
         .collection(collectionName)
