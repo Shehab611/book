@@ -12,13 +12,13 @@ late bool value;
 void main() async {
   Bloc.observer = MyBlocObserver();
   WidgetsFlutterBinding.ensureInitialized();
-   value = await AllAppInit.initHive();
+  value = await AllAppInit.initHive();
   AllAppInit.dioInit();
   AllAppInit.serviceLocatorInit();
   await AllAppInit.firebaseInit();
   AllAppInit.removeStatusBar();
 
- /* runApp(
+  /* runApp(
     DevicePreview(
       enabled: !kReleaseMode,
       builder: (context) => const MyApp(),
@@ -33,8 +33,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String initRoute = switch (value) {
-      true => AppRouter.kHomeScreen,
-      false => AppRouter.kLoginScreen
+      true => AppPathName.kHomeScreen,
+      false => AppPathName.kLoginScreen
     };
     return MaterialApp(
       title: 'Book App',
@@ -50,4 +50,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

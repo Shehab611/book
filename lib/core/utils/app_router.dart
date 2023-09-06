@@ -26,45 +26,36 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 abstract final class AppRouter {
-  static const String kLoginScreen = '/LoginScreen';
-  static const String kRegisterScreen = '/RegisterScreen';
-  static const String kCompleteProfile = '/CompleteProfile';
-  static const String kVerificationScreen = '/VerificationScreen';
-  static const String kForgetPasswordScreen = '/ForgetPasswordScreen';
-  static const String kHomeScreen = '/HomeScreen';
-  static const String kSearchScreen = '/SearchScreen';
-  static const String kBookDetailsScreen = '/BookDetailsScreen';
-  static const String kSavedScreen = '/SavedScreen';
-
   static final Map<String, WidgetBuilder> routes = {
-    kLoginScreen: (BuildContext context) => BlocProvider(
+    AppPathName.kLoginScreen: (BuildContext context) => BlocProvider(
         create: (BuildContext context) =>
             LoginCubit(serviceLocator.get<LoginRepoImpl>()),
         child: const LoginScreen()),
-    kForgetPasswordScreen: (BuildContext context) => BlocProvider(
+    AppPathName.kForgetPasswordScreen: (BuildContext context) => BlocProvider(
           create: (context) =>
               ResetPasswordCubit(serviceLocator.get<ResetPasswordImpl>()),
           child: const ForgetPasswordScreen(),
         ),
-    kRegisterScreen: (BuildContext context) => BlocProvider(
+    AppPathName.kRegisterScreen: (BuildContext context) => BlocProvider(
           create: (context) =>
               RegisterCubit(serviceLocator.get<RegisterRepoImpl>()),
           child: const RegisterScreen(),
         ),
-    kVerificationScreen: (BuildContext context) => BlocProvider(
+    AppPathName.kVerificationScreen: (BuildContext context) => BlocProvider(
           create: (context) =>
               RegisterCubit(serviceLocator.get<RegisterRepoImpl>()),
           child: const VerificationScreen(),
         ),
-    kCompleteProfile: (BuildContext context) => BlocProvider(
+    AppPathName.kCompleteProfile: (BuildContext context) => BlocProvider(
           create: (context) => CompleteProfileCubit(
               serviceLocator.get<CompleteProfileRepoImpl>())
             ..putData(),
           child: const CompleteProfileScreen(),
         ),
-    kHomeScreen: (BuildContext context) => MultiBlocProvider(
+    AppPathName.kHomeScreen: (BuildContext context) => MultiBlocProvider(
           providers: [
             BlocProvider(
+              lazy: false,
               create: (context) =>
                   HomeCubit(serviceLocator.get<HomeRepoImpl>())..check(),
             ),
@@ -77,17 +68,18 @@ abstract final class AppRouter {
                   RecommendedBooksCubit(serviceLocator.get<HomeRepoImpl>())
                     ..getRecommendedBooks(),
             ),
-
           ],
           child: const HomeScreen(),
         ),
-    kSearchScreen: (BuildContext context) => const SearchScreen(),
-    kBookDetailsScreen: (BuildContext context) => const BookDetailsScreen(),
-    kSavedScreen: (BuildContext context) => BlocProvider(
-      create: (context) =>
-          SavedScreenCubit(serviceLocator.get<SavedRepoImpl>())..getAllBooks(),
-      child: const SavedScreen(),
-    ),
+    AppPathName.kSearchScreen: (BuildContext context) => const SearchScreen(),
+    AppPathName.kBookDetailsScreen: (BuildContext context) =>
+        const BookDetailsScreen(),
+    AppPathName.kSavedScreen: (BuildContext context) => BlocProvider(
+          create: (context) =>
+              SavedScreenCubit(serviceLocator.get<SavedRepoImpl>())
+                ..getAllBooks(),
+          child: const SavedScreen(),
+        ),
   };
 }
 
@@ -95,54 +87,66 @@ abstract final class AppNavigator {
   static navigateToRegisterScreen(BuildContext context) =>
       Navigator.pushReplacementNamed(
         context,
-        AppRouter.kRegisterScreen,
+        AppPathName.kRegisterScreen,
       );
 
   static navigateToLoginScreen(BuildContext context) =>
       Navigator.pushReplacementNamed(
         context,
-        AppRouter.kLoginScreen,
+        AppPathName.kLoginScreen,
       );
 
   static navigateToCompleteProfileScreen(BuildContext context) =>
       Navigator.pushReplacementNamed(
         context,
-        AppRouter.kCompleteProfile,
+        AppPathName.kCompleteProfile,
       );
 
   static navigateToVerificationScreen(BuildContext context) =>
       Navigator.pushReplacementNamed(
         context,
-        AppRouter.kVerificationScreen,
+        AppPathName.kVerificationScreen,
       );
 
   static navigateToForgetPasswordScreen(BuildContext context) =>
       Navigator.pushReplacementNamed(
         context,
-        AppRouter.kForgetPasswordScreen,
+        AppPathName.kForgetPasswordScreen,
       );
 
   static navigateToHomeScreen(BuildContext context) =>
-      Navigator.pushReplacementNamed(
+      Navigator.popAndPushNamed(
         context,
-        AppRouter.kHomeScreen,
+        AppPathName.kHomeScreen,
       );
 
   static navigateToSearchScreen(BuildContext context) =>
       Navigator.pushReplacementNamed(
         context,
-        AppRouter.kSearchScreen,
+        AppPathName.kSearchScreen,
       );
 
   static navigateToBookDetailsScreen(BuildContext context) =>
       Navigator.pushReplacementNamed(
         context,
-        AppRouter.kBookDetailsScreen,
+        AppPathName.kBookDetailsScreen,
       );
 
   static navigateToSavedScreen(BuildContext context) =>
       Navigator.pushReplacementNamed(
         context,
-        AppRouter.kSavedScreen,
+        AppPathName.kSavedScreen,
       );
+}
+
+abstract final class AppPathName {
+  static const String kLoginScreen = '/LoginScreen';
+  static const String kRegisterScreen = '/RegisterScreen';
+  static const String kCompleteProfile = '/CompleteProfile';
+  static const String kVerificationScreen = '/VerificationScreen';
+  static const String kForgetPasswordScreen = '/ForgetPasswordScreen';
+  static const String kHomeScreen = '/HomeScreen';
+  static const String kSearchScreen = '/SearchScreen';
+  static const String kBookDetailsScreen = '/BookDetailsScreen';
+  static const String kSavedScreen = '/SavedScreen';
 }

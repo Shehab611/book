@@ -21,7 +21,7 @@ class UserDataModelAdapter extends TypeAdapter<UserDataModel> {
       lName: fields[1] as String,
       birthDate: fields[2] as String,
       gender: fields[3] as String,
-      bookCategories: (fields[5] as List).cast<String>(),
+      bookCategories: (fields[5] as List).cast<dynamic>(),
       imageLink: fields[4] as String,
     );
   }

@@ -12,29 +12,28 @@ class DrawerCubit extends Cubit<DrawerState> {
   bool? value;
   static DrawerCubit get(context) => BlocProvider.of(context);
 
-  void getValue()async{
-    value = await Hive.box('keep_login').get('keep_login',defaultValue: false);
+  void getValue() async {
+    value = await Hive.box('keep_login').get('keep_login', defaultValue: false);
     emit(DrawerValueGet());
   }
 
-  void changeLoggedInValue(bool value) async{
+  void changeLoggedInValue(bool value) async {
     this.value = await Hive.box('keep_login').get('keep_login');
     if (value) {
-      this.value=value;
+      this.value = value;
       await Hive.box('keep_login').put('keep_login', value);
       emit(DrawerMakeLoggedInTrue());
     } else {
-      this.value=value;
+      this.value = value;
       await Hive.box('keep_login').put('keep_login', value);
       emit(DrawerMakeLoggedInFalse());
     }
   }
 
-  void logOut(BuildContext context){
+  void logOut(BuildContext context) {
     FirebaseAuth.instance.signOut();
     GoogleSignIn().disconnect();
     emit(DrawerLogOut());
-    Navigator.pushReplacementNamed(context, AppRouter.kLoginScreen);
-
+    Navigator.pushReplacementNamed(context, AppPathName.kLoginScreen);
   }
 }

@@ -30,7 +30,7 @@ class DrawerItems extends StatelessWidget {
           trailing:  Transform.scale(
             scale: .8,
             child: Switch(
-                value:DrawerCubit.get(context).value??true,
+                value:DrawerCubit.get(context).value??false,
                 onChanged: (val) {
                   DrawerCubit.get(context).changeLoggedInValue(val);
                 },
