@@ -10,52 +10,65 @@ class DrawerItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<DrawerCubit, DrawerState>(
-  builder: (context, state) {
-     const Map<String,IconData> drawerItems = {
-      'Home': Icons.library_books,
-      'Profile': Icons.person,
-      'Settings': Icons.settings,
-      'Logout': Icons.logout
-    };
-
-    return Column(
-      children: [
-        ListTile(
-          leading: const Icon(Icons.login_outlined,color: kColor,
-            size: 35,),
-          title: Text('Keep logged in', style: GoogleFonts.montserrat(
-              color: kColor, fontWeight: FontWeight.w800)
-              .copyWith(
-              fontSize: Theme.of(context).textTheme.titleMedium?.fontSize)),
-          trailing:  Transform.scale(
-            scale: .8,
-            child: Switch(
-                value:DrawerCubit.get(context).value??false,
-                onChanged: (val) {
-                  DrawerCubit.get(context).changeLoggedInValue(val);
-                },
-                activeColor:kColor
+      builder: (context, state) {
+        const Map<String, IconData> drawerItems = {
+          'Home': Icons.library_books,
+          'Saved': Icons.bookmark,
+          //'Settings': Icons.settings,
+           'Logout': Icons.logout
+        };
+        return Column(
+          children: [
+            ListTile(
+              leading: const Icon(
+                Icons.login_outlined,
+                color: kColor,
+                size: 35,
+              ),
+              title: Text('Keep logged in',
+                  style: GoogleFonts.montserrat(
+                          color: kColor, fontWeight: FontWeight.w800)
+                      .copyWith(
+                          fontSize: Theme.of(context)
+                              .textTheme
+                              .titleMedium
+                              ?.fontSize)),
+              trailing: Transform.scale(
+                scale: .8,
+                child: Switch(
+                    value: DrawerCubit.get(context).value ?? false,
+                    onChanged: (val) {
+                      DrawerCubit.get(context).changeLoggedInValue(val);
+                    },
+                    activeColor: kColor),
+              ),
             ),
-          ),
-        ),
-        ...List.generate(
-            drawerItems.length,
-            (index) => DrawerItem(
-                  iconData: drawerItems.values.toList()[index],
-                  text:  drawerItems.keys.toList()[index],
-                ))
-      ],
+            ...List.generate(
+                drawerItems.length,
+                (index) => DrawerItem(
+                      iconData: drawerItems.values.toList()[index],
+                      text: drawerItems.keys.toList()[index],
+                      index: index,
+                    ))
+          ],
+        );
+      },
     );
-  },
-);
   }
 }
 
 class DrawerItem extends StatelessWidget {
-  const DrawerItem({super.key, required this.iconData, required this.text,});
+  const DrawerItem({
+    super.key,
+    required this.iconData,
+    required this.text,
+    required this.index,
+  });
 
   final IconData iconData;
   final String text;
+
+  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -72,9 +85,16 @@ class DrawerItem extends StatelessWidget {
             .copyWith(
                 fontSize: Theme.of(context).textTheme.titleMedium?.fontSize),
       ),
-      onTap: (){
-      //  AppNavigator.navigateToSavedScreen(context);
+      onTap: () {
+        switch (index) {
+          case 0:
 
+            DrawerCubit.get(context).navigateToHome(context);
+          case 1:
+            DrawerCubit.get(context).navigateToSaved(context);
+          case 2:
+            DrawerCubit.get(context).logOut(context);
+        }
       },
     );
   }

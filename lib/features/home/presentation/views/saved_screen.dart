@@ -18,7 +18,7 @@ class _SavedScreenState extends State<SavedScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kDefaultColor.withOpacity(.2),
+      backgroundColor: kDefaultColor,
       appBar: AppBar(
         backgroundColor: kDefaultColor.withOpacity(.2),
         elevation: 0,

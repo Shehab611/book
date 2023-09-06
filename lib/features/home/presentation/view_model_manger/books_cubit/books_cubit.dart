@@ -20,7 +20,7 @@ class BooksCubit extends Cubit<BooksState> {
 
   Future<void> getBooks()  async{
     emit(const LoadingState());
-    Future.delayed(const Duration(seconds: 2),() async{
+
       var data = await homeRepo.getBooks();
       if (data.statuesCode == 200) {
         emit(GetBooksSuccessful(data.books!));
@@ -28,7 +28,6 @@ class BooksCubit extends Cubit<BooksState> {
         emit(GetBooksHomeFailure(data.failure!));
       }
 
-    },);
 
   }
 

@@ -10,6 +10,7 @@ part 'drawer_state.dart';
 class DrawerCubit extends Cubit<DrawerState> {
   DrawerCubit() : super(const DrawerInitial());
   bool? value;
+
   static DrawerCubit get(context) => BlocProvider.of(context);
 
   void getValue() async {
@@ -30,10 +31,30 @@ class DrawerCubit extends Cubit<DrawerState> {
     }
   }
 
+  void navigateToHome(BuildContext context) {
+    if (ModalRoute.of(context)?.settings.name == AppPathName.kHomeScreen) {
+      emit(DrawerHomePop());
+      Navigator.pop(context);
+    } else {
+      emit(DrawerNavigateToHome());
+      AppNavigator.navigateToHomeScreen(context);
+    }
+  }
+
+  void navigateToSaved(BuildContext context) {
+    if (ModalRoute.of(context)?.settings.name == AppPathName.kSavedScreen) {
+      emit(DrawerSavedPop());
+      Navigator.pop(context);
+    } else {
+      emit(DrawerNavigateToSaved());
+      AppNavigator.navigateToSavedScreen(context);
+    }
+  }
+
   void logOut(BuildContext context) {
     FirebaseAuth.instance.signOut();
     GoogleSignIn().disconnect();
     emit(DrawerLogOut());
-    Navigator.pushReplacementNamed(context, AppPathName.kLoginScreen);
+    AppNavigator.navigateToLoginScreen(context);
   }
 }

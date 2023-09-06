@@ -18,8 +18,9 @@ class SavedItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size screenSize=MediaQuery.of(context).size;
-    return Card(color: kColor.withOpacity(.2),
-      elevation: 0,
+    return Card(
+      color: kDefaultColor.withOpacity(.7),
+      elevation: 2,
       child: ListTile(
         dense: true,
         visualDensity: const VisualDensity(vertical: 4),

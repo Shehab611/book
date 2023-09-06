@@ -27,6 +27,7 @@ class DrawerHeaderWidget extends StatelessWidget {
                 imageUrl:
                 (state is DrawerHeaderGetUserData)?state.userData.userImagePath:'',
                 placeholder: (context, url) => const CircularProgressIndicator(),
+                errorWidget: (context, url, error) => const Placeholder(),
                 fit: BoxFit.cover,
                 fadeInDuration: const Duration(milliseconds: 850),
               ),
