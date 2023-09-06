@@ -10,10 +10,10 @@ class LoginCubit extends Cubit<LoginState> {
   LoginCubit(this.loginRepo) : super(LoginInitial());
   final LoginRepo loginRepo;
   @override
-  Future<void> close() {
+  Future<void> close() async{
     passwordController.dispose();
     emailController.dispose();
-    return super.close();
+    return await super.close();
   }
   static LoginCubit get(context) => BlocProvider.of(context);
 
@@ -22,11 +22,9 @@ class LoginCubit extends Cubit<LoginState> {
   var formKey = GlobalKey<FormState>();
 
   void goToRegister(BuildContext context) {
-    Navigator.pushReplacementNamed(
-      context,
-      AppPathName.kRegisterScreen,
-    );
     emit(GoToRegisterScreen());
+   AppNavigator.navigateToRegisterScreen(context);
+
   }
 
   void signInWithGoogle() async {
@@ -36,8 +34,9 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
   void navigateToForgetPassword(BuildContext context) {
-    Navigator.pushNamed(context, AppPathName.kForgetPasswordScreen);
     emit(GoToForgetPasswordScreen());
+    AppNavigator.navigateToForgetPasswordScreen(context);
+
   }
 
   void userLogin(BuildContext context) async {
@@ -56,13 +55,14 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
   void navigateToHome(BuildContext context) {
-    Navigator.pushNamedAndRemoveUntil(context, AppPathName.kHomeScreen, (route) => true);
-   // Navigator.pushNamed(context, AppRouter.kHomeScreen);
     emit(GoToHomeScreen());
+  AppNavigator.navigateToHomeScreen(context);
+
   }
 
   void navigateToCompleteProfile(BuildContext context) {
-    Navigator.pushNamed(context, AppPathName.kCompleteProfile);
     emit(GoToCompleteProfileScreen());
+   AppNavigator.navigateToCompleteProfileScreen(context);
+
   }
 }

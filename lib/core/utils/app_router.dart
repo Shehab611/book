@@ -55,7 +55,6 @@ abstract final class AppRouter {
     AppPathName.kHomeScreen: (BuildContext context) => MultiBlocProvider(
           providers: [
             BlocProvider(
-              lazy: false,
               create: (context) =>
                   HomeCubit(serviceLocator.get<HomeRepoImpl>())..check(),
             ),
@@ -82,34 +81,33 @@ abstract final class AppRouter {
         ),
   };
 }
-
 abstract final class AppNavigator {
   static navigateToRegisterScreen(BuildContext context) =>
-      Navigator.pushReplacementNamed(
+      Navigator.popAndPushNamed(
         context,
         AppPathName.kRegisterScreen,
       );
 
   static navigateToLoginScreen(BuildContext context) =>
-      Navigator.pushReplacementNamed(
+      Navigator.popAndPushNamed(
         context,
         AppPathName.kLoginScreen,
       );
 
   static navigateToCompleteProfileScreen(BuildContext context) =>
-      Navigator.pushReplacementNamed(
+      Navigator.popAndPushNamed(
         context,
         AppPathName.kCompleteProfile,
       );
 
   static navigateToVerificationScreen(BuildContext context) =>
-      Navigator.pushReplacementNamed(
+      Navigator.popAndPushNamed(
         context,
         AppPathName.kVerificationScreen,
       );
 
   static navigateToForgetPasswordScreen(BuildContext context) =>
-      Navigator.pushReplacementNamed(
+      Navigator.popAndPushNamed(
         context,
         AppPathName.kForgetPasswordScreen,
       );
@@ -118,22 +116,23 @@ abstract final class AppNavigator {
       Navigator.popAndPushNamed(
         context,
         AppPathName.kHomeScreen,
+
       );
 
   static navigateToSearchScreen(BuildContext context) =>
-      Navigator.pushReplacementNamed(
+      Navigator.popAndPushNamed(
         context,
         AppPathName.kSearchScreen,
       );
 
   static navigateToBookDetailsScreen(BuildContext context) =>
-      Navigator.pushReplacementNamed(
+      Navigator.popAndPushNamed(
         context,
         AppPathName.kBookDetailsScreen,
       );
 
   static navigateToSavedScreen(BuildContext context) =>
-      Navigator.pushReplacementNamed(
+      Navigator.popAndPushNamed(
         context,
         AppPathName.kSavedScreen,
       );
