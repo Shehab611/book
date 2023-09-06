@@ -1,4 +1,5 @@
 import 'package:book/core/usable_functions/firebase_auth.dart';
+import 'package:book/core/usable_functions/firebase_data.dart';
 import 'package:book/features/authentication/data/repositories/register/register_repo.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -40,5 +41,16 @@ final class RegisterRepoImpl implements RegisterRepo{
     }
 
   }
+  @override
+  Future<({String? errorString, bool exits,bool succsuful})> checkIfUserExits(String userEmail) async{
+    try{
 
+      bool exits=await DataHandling.checkIfDocExist(collectionName: 'users', docName: userEmail);
+      return (exits: exits,errorString: null,succsuful:true);
+
+    }catch(e){
+
+      return (exits: false,errorString: e.toString(),succsuful:false);
+    }
+  }
 }

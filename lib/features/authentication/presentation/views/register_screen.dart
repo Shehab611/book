@@ -12,7 +12,6 @@ class RegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final Size size = MediaQuery.of(context).size;
     double topPadding =
         switch (size.height) { <= 750 => 0, _ => size.height * 0.015625 };
@@ -28,14 +27,22 @@ class RegisterScreen extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.fromLTRB(0, topPadding, 0, 10),
                 child: BlocConsumer<RegisterCubit, RegisterState>(
-                  listener: (context,state){
+                  listener: (context, state) {
                     if (state is SignUpWithGoogle) {
                       if (!state.data.succsuful) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          MySnackBar.getSnackBar(state.data.errorString!),);
+                          MySnackBar.getSnackBar(state.data.errorString!),
+                        );
+                      } else {
+                        RegisterCubit.get(context).ifUserExits();
                       }
-                      else{
-                        RegisterCubit.get(context).navigateToCompleteProfileFromGoogle(context);
+                    }
+                    if (state is IfUserExits) {
+                      if (state.data.exits) {
+                        RegisterCubit.get(context).navigateToHome(context);
+                      } else {
+                        RegisterCubit.get(context)
+                            .navigateToCompleteProfileFromGoogle(context);
                       }
                     }
                   },
@@ -54,7 +61,6 @@ class RegisterScreen extends StatelessWidget {
                         ButtonsRow(
                           onPressedGoogleButton: () {
                             RegisterCubit.get(context).signUpWithGoogle();
-
                           },
                           onPressedFacebookButton: () {
                             // todo :: can not be add until the app is published
