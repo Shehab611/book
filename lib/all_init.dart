@@ -17,7 +17,7 @@ class AllAppInit{
     await Hive.openBox<UserDataModel>('user');
     await Hive.openBox<BookDetailsModel>('books');
     await Hive.openBox('keep_login');
-   return await Hive.box('keep_login').get('keep_login', defaultValue: true);
+   return await Hive.box('keep_login').get('keep_login', defaultValue: false);
   }
 
   static void dioInit(){

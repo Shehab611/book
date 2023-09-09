@@ -23,9 +23,7 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void check() async {
-    if (serviceLocator
-        .get<Box<UserDataModel>>()
-        .isEmpty) {
+    if (serviceLocator.get<Box<UserDataModel>>().isEmpty) {
       var userData = await DataHandling.getDataFromDoc(
           collectionName: 'users',
           docName: FirebaseAuth.instance.currentUser!.email!);

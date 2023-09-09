@@ -55,6 +55,7 @@ abstract final class AppRouter {
     AppPathName.kHomeScreen: (BuildContext context) => MultiBlocProvider(
           providers: [
             BlocProvider(
+              lazy: false,
               create: (context) =>
                   HomeCubit(serviceLocator.get<HomeRepoImpl>())..check(),
             ),

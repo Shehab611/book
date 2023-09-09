@@ -18,8 +18,6 @@ class RecommendedBooksCubit extends Cubit<RecommendedBooksState> {
 
   static RecommendedBooksCubit get(context) => BlocProvider.of(context);
 
-
-
   void openBookDetails(BuildContext context, String bookId) {
     showBottomSheet(
       context: context,
@@ -27,28 +25,30 @@ class RecommendedBooksCubit extends Cubit<RecommendedBooksState> {
         return MultiBlocProvider(providers: [
           BlocProvider(
               create: (context) =>
-              BookDetailsCubit(serviceLocator.get<BookDetailsRepoImpl>())
-                ..getBook(bookId)),
+                  BookDetailsCubit(serviceLocator.get<BookDetailsRepoImpl>())
+                    ..getBook(bookId)),
           BlocProvider(
               create: (context) =>
-              SavedHomeButtonCubit(serviceLocator.get<SavedRepoImpl>())
-                ..getSavedAllBooks(bookId)),
+                  SavedHomeButtonCubit(serviceLocator.get<SavedRepoImpl>())
+                    ..getSavedAllBooks(bookId)),
         ], child: const BookDetailsScreen());
       },
       enableDrag: true,
     );
   }
 
-
   Future<void> getRecommendedBooks() async {
     emit(const LoadingState());
-
-      var data=await homeRepo.getRecommendedBooks();
-      if(data.statuesCode==200){
-        emit(GetRecommendedBooksSuccessful(data.books!));
-      }else{
-        emit(GetRecommendedBooksHomeFailure(data.failure!));
-      }
-
+    Future.delayed(
+      const Duration(seconds: 2),
+      () async {
+        var data = await homeRepo.getRecommendedBooks();
+        if (data.statuesCode == 200) {
+          emit(GetRecommendedBooksSuccessful(data.books!));
+        } else {
+          emit(GetRecommendedBooksHomeFailure(data.failure!));
+        }
+      },
+    );
   }
 }
