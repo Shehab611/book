@@ -23,13 +23,14 @@ class UserDataModelAdapter extends TypeAdapter<UserDataModel> {
       gender: fields[3] as String,
       bookCategories: (fields[5] as List).cast<dynamic>(),
       imageLink: fields[4] as String,
+      keepLoggedIn: fields[6] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, UserDataModel obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.fName)
       ..writeByte(1)
@@ -41,7 +42,9 @@ class UserDataModelAdapter extends TypeAdapter<UserDataModel> {
       ..writeByte(4)
       ..write(obj.imageLink)
       ..writeByte(5)
-      ..write(obj.bookCategories);
+      ..write(obj.bookCategories)
+      ..writeByte(6)
+      ..write(obj.keepLoggedIn);
   }
 
   @override
