@@ -71,12 +71,12 @@ class LoginRegisterBackground extends CustomPainter {
 class CompleteProfileBackgroundCurve extends CustomPainter{
   @override
   void paint(Canvas canvas, Size size) {
+    double x=size.width,y=size.height;
     Paint paint = Paint()..color = kDefaultColor;
     Path path = Path();
-    double h = size.height * 0.18;
-    double w = size.width;
-    path.lineTo(0, h / 2);
-    path.cubicTo(5 * (w / 12), -(25 * (h / 336)), 7 * (w / 9), h , w, 0);
+    path.lineTo(0, y * .13);
+    path.cubicTo(x * .4, -15, x*.77, y * .3 , x, y * .07);
+    path.lineTo(x, 0);
     path.close();
     canvas.drawPath(path, paint);
   }
