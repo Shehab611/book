@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 
-class DioServiceHelper{
+abstract final class  DioServiceHelper{
   static Dio? dio;
   static init({required String url}) {
 

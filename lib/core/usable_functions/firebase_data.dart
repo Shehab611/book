@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-abstract class DataHandling {
+abstract final class  DataHandling {
   static Future<bool> checkIfDocExist({
     required String collectionName,
     required String docName,
