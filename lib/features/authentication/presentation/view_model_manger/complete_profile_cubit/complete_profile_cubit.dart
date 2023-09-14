@@ -121,7 +121,7 @@ class CompleteProfileCubit extends Cubit<CompleteProfileState> {
           birthDate: birthdateController.text,
           gender: selectedGender.name,
           bookCategories:allSelected,
-          imageLink: imageLink, keepLoggedIn: false);
+          imageLink: imageLink,);
       completeProfileRepo.addUserData(userDataModel:userData);
       completeProfileRepo.addUserDataToDB(userDataModel:userData);
          emit(LastStepConfirm());

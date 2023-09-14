@@ -1,24 +1,17 @@
-import 'package:hive/hive.dart';
+final class UserDataModel{
 
-part 'user_data.g.dart';
-
-@HiveType(typeId: 0)
-final class UserDataModel extends HiveObject {
-  @HiveField(0)
   final String fName;
-  @HiveField(1)
+
   final String lName;
-  @HiveField(2)
+
   final String birthDate;
-  @HiveField(3)
+
   final String gender;
-  @HiveField(4)
+
   final String imageLink;
-  @HiveField(5)
+
   final List<dynamic> bookCategories;
 
-  @HiveField(6)
-  final bool keepLoggedIn;
 
   UserDataModel(
       {required this.fName,
@@ -27,7 +20,7 @@ final class UserDataModel extends HiveObject {
       required this.gender,
       required this.bookCategories,
       required this.imageLink,
-      required this.keepLoggedIn});
+      });
 
   factory UserDataModel.fromJson(Map<String, dynamic> json) {
     return UserDataModel(
@@ -37,7 +30,7 @@ final class UserDataModel extends HiveObject {
         birthDate: json['birthDate'],
         gender: json['gender'],
         bookCategories: json['bookCategories'],
-        keepLoggedIn: json['keepLoggedIn'] ?? false);
+        );
   }
 
   static Map<String, dynamic> toJson({required UserDataModel userDataModel}) {
@@ -48,7 +41,7 @@ final class UserDataModel extends HiveObject {
       'gender': userDataModel.gender,
       'bookCategories': userDataModel.bookCategories,
       'imageLink': userDataModel.imageLink,
-      'keepLoggedIn':userDataModel.keepLoggedIn
+
     };
   }
 }
