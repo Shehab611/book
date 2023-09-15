@@ -1,4 +1,5 @@
-final class UserDataModel{
+final class UserDataModel {
+  final String userEmail;
 
   final String fName;
 
@@ -12,25 +13,26 @@ final class UserDataModel{
 
   final List<dynamic> bookCategories;
 
-
-  UserDataModel(
-      {required this.fName,
-      required this.lName,
-      required this.birthDate,
-      required this.gender,
-      required this.bookCategories,
-      required this.imageLink,
-      });
+  UserDataModel({
+    required this.userEmail,
+    required this.fName,
+    required this.lName,
+    required this.birthDate,
+    required this.gender,
+    required this.bookCategories,
+    required this.imageLink,
+  });
 
   factory UserDataModel.fromJson(Map<String, dynamic> json) {
     return UserDataModel(
-        fName: json['fName'],
-        lName: json['lName'],
-        imageLink: json['imageLink'],
-        birthDate: json['birthDate'],
-        gender: json['gender'],
-        bookCategories: json['bookCategories'],
-        );
+      userEmail: json['userEmail'],
+      fName: json['fName'],
+      lName: json['lName'],
+      imageLink: json['imageLink'],
+      birthDate: json['birthDate'],
+      gender: json['gender'],
+      bookCategories: (json['bookCategories'] as String ).split('-'),
+    );
   }
 
   static Map<String, dynamic> toJson({required UserDataModel userDataModel}) {
@@ -39,9 +41,9 @@ final class UserDataModel{
       'lName': userDataModel.lName,
       'birthDate': userDataModel.birthDate,
       'gender': userDataModel.gender,
-      'bookCategories': userDataModel.bookCategories,
+      'bookCategories': userDataModel.bookCategories.join('-'),
       'imageLink': userDataModel.imageLink,
-
+      'userEmail':userDataModel.userEmail,
     };
   }
 }

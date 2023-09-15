@@ -12,7 +12,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   value = await AllAppInit.initHive();
   AllAppInit.dioInit();
-  AllAppInit.serviceLocatorInit();
+  await AllAppInit.serviceLocatorInit();
   await AllAppInit.firebaseInit();
   AllAppInit.removeStatusBar();
 

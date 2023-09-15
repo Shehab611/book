@@ -1,4 +1,6 @@
 import 'package:book/core/utils/app_router.dart';
+import 'package:book/core/utils/services_locator.dart';
+import 'package:book/features/home/data/models/book_details_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -51,7 +53,8 @@ class DrawerCubit extends Cubit<DrawerState> {
     }
   }
 
-  void logOut(BuildContext context) {
+  Future<void> logOut(BuildContext context) async{
+    await serviceLocator.get<Box<BookDetailsModel>>().clear();
     FirebaseAuth.instance.signOut();
     GoogleSignIn().disconnect();
     emit(DrawerLogOut());

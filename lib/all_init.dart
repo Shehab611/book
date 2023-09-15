@@ -21,8 +21,8 @@ class AllAppInit{
     DioServiceHelper.init(url: 'https://www.googleapis.com/books/v1/');
   }
 
-  static void serviceLocatorInit(){
-    initServicesLocator();
+  static Future<void> serviceLocatorInit()async{
+    await initServicesLocator();
   }
 
   static Future<void> firebaseInit()async {

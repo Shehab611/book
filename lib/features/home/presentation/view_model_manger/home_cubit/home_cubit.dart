@@ -8,6 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
+import 'package:sqflite/sqflite.dart';
 
 part 'home_state.dart';
 
@@ -23,23 +24,30 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void check() async {
-    if (serviceLocator.get<Box<UserDataModel>>().isEmpty) {
+    var data = await serviceLocator.get<Database>().rawQuery(
+        'select * from users where userEmail = ?',
+        [FirebaseAuth.instance.currentUser!.email!]);
+    if (data.isEmpty) {
       var userData = await DataHandling.getDataFromDoc(
           collectionName: 'users',
           docName: FirebaseAuth.instance.currentUser!.email!);
       var userDataModel = UserDataModel.fromJson(userData.data()!);
-      await serviceLocator.get<Box<UserDataModel>>().add(userDataModel);
-
+      await serviceLocator
+          .get<Database>()
+          .insert('users', UserDataModel.toJson(userDataModel: userDataModel));
+    }
+    if (serviceLocator.get<Box<BookDetailsModel>>().isEmpty) {
       var favouriteBooks = await DataHandling.getDataFromAllDocsInSubCollection(
           collectionName: 'users',
           docName: FirebaseAuth.instance.currentUser!.email!,
           subCollectionName: 'favourites');
-        var books= favouriteBooks.map((e) =>BookDetailsModel.fromJson(e)).toList();
+      var books =
+          favouriteBooks.map((e) => BookDetailsModel.fromJson(e)).toList();
 
-        for (var item in books){
-          await serviceLocator.get<Box<BookDetailsModel>>().put(item.id, item);
-        }
-        emit(const CheckOnData());
+      for (var item in books) {
+        await serviceLocator.get<Box<BookDetailsModel>>().put(item.id, item);
+      }
     }
+    emit(const CheckOnData());
   }
 }

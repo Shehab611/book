@@ -85,7 +85,7 @@ class DrawerItem extends StatelessWidget {
             .copyWith(
                 fontSize: Theme.of(context).textTheme.titleMedium?.fontSize),
       ),
-      onTap: () {
+      onTap: () async{
         switch (index) {
           case 0:
 
@@ -93,7 +93,7 @@ class DrawerItem extends StatelessWidget {
           case 1:
             DrawerCubit.get(context).navigateToSaved(context);
           case 2:
-            DrawerCubit.get(context).logOut(context);
+            await DrawerCubit.get(context).logOut(context);
         }
       },
     );

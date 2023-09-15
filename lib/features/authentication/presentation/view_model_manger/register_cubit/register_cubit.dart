@@ -67,54 +67,61 @@ class RegisterCubit extends Cubit<RegisterState> {
   }
 
   void navigateToCompleteProfile(BuildContext context) async {
+
     await FirebaseAuth.instance.currentUser!.reload().then((value) {
       if (FirebaseAuth.instance.currentUser!.emailVerified) {
         emit(GoToCompleteProfileScreen());
         AppNavigator.navigateToCompleteProfileScreen(context);
 
       } else {
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text(
-                "Your Email is not verified",
-                style: GoogleFonts.montserrat(
-                        color: kDefaultColor, fontWeight: FontWeight.w800)
-                    .copyWith(
-                        fontSize: Theme.of(context)
-                            .textTheme
-                            .headlineSmall
-                            ?.fontSize),
-              ),
-              content: Text("'Did not receive the confirmation mail?",
-                  style: GoogleFonts.montserrat(
-                          color: kDefaultColor, fontWeight: FontWeight.w600)
-                      .copyWith(
-                          fontSize: Theme.of(context)
-                              .textTheme
-                              .bodyMedium
-                              ?.fontSize)),
-              backgroundColor: kColor,
-              shape:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
-              elevation: 10,
-              actions: [
-                Center(
-                  child: ButtonWidget(
-                    onPressed: () {
-                      verifyUserEmail();
-                      Navigator.pop(context);
-                    },
-                    iconData: FontAwesomeIcons.paperPlane,
-                    buttonText: 'RESEND EMAIL',
-                    iconDirection: TextDirection.rtl,
-                  ),
-                ),
-              ],
-            );
-          },
+ showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            "Your Email is not verified",
+            style: GoogleFonts.montserrat(
+                color: kDefaultColor, fontWeight: FontWeight.w800)
+                .copyWith(
+                fontSize: Theme.of(context)
+                    .textTheme
+                    .headlineSmall
+                    ?.fontSize),
+          ),
+          content: Text("'Did not receive the confirmation mail?",
+              style: GoogleFonts.montserrat(
+                  color: kDefaultColor, fontWeight: FontWeight.w600)
+                  .copyWith(
+                  fontSize: Theme.of(context)
+                      .textTheme
+                      .bodyMedium
+                      ?.fontSize)),
+          backgroundColor: kColor,
+          shape:
+          OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+          elevation: 10,
+          actions: [
+            ButtonWidget(
+              onPressed: () {
+                verifyUserEmail();
+                Navigator.pop(context);
+              },
+              iconData: FontAwesomeIcons.paperPlane,
+              buttonText: 'RESEND EMAIL',
+              iconDirection: TextDirection.rtl,
+            ),
+            ButtonWidget(
+              onPressed: () {
+               AppNavigator.navigateToLoginScreen(context);
+              },
+              iconData:Icons.logout,
+              buttonText: 'LogOut',
+              iconDirection: TextDirection.rtl,
+            ),
+          ],
         );
+      },
+    );
       }
     });
   }

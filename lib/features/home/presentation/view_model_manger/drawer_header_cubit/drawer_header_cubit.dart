@@ -6,13 +6,14 @@ part 'drawer_header_state.dart';
 class DrawerHeaderCubit extends Cubit<DrawerHeaderState> {
   DrawerHeaderCubit(this.drawerRepo) : super(const DrawerHeaderInitial());
   final DrawerRepo drawerRepo;
-  void getUserData() {
+
+  void getUserData() async {
     emit(const DrawerHeaderLoading());
     final ({String userImagePath, String userName}) userData =
-    drawerRepo.getUserData();
+        await drawerRepo.getUserData();
     Future.delayed(
       const Duration(microseconds: 5),
-          () => emit(DrawerHeaderGetUserData(userData)),
+      () => emit(DrawerHeaderGetUserData(userData)),
     );
   }
 }

@@ -1,3 +1,3 @@
 abstract interface class DrawerRepo{
-  ({String userName,String userImagePath}) getUserData();
+  Future< ({String userImagePath, String userName})> getUserData();
 }

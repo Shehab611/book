@@ -39,6 +39,8 @@ class VerificationScreen extends StatelessWidget {
                       aboveTextAlign: TextAlign.center,
                       bottomTextAlign: TextAlign.center,
                       aboveTextColor: kDefaultColor,
+                      aboveTextMaxLines: 2,
+                      bottomTextMaxLines: 4,
                       bottomTextColor: kColor,
                       bottomText:
                           'Please check your email for confirmation mail. Click link in email to verify your account',

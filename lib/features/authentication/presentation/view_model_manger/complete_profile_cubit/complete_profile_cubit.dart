@@ -1,5 +1,4 @@
 import 'package:book/core/utils/app_router.dart';
-import 'package:book/core/utils/services_locator.dart';
 import 'package:book/features/authentication/data/models/user_data.dart';
 import 'package:book/features/authentication/data/repositories/complete_profile/complete_profile_repo.dart';
 import 'package:book/features/authentication/presentation/widgets/step_one.dart';
@@ -9,7 +8,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:hive/hive.dart';
 
 part 'complete_profile_state.dart';
 
@@ -17,8 +15,10 @@ class CompleteProfileCubit extends Cubit<CompleteProfileState> {
   CompleteProfileCubit(this.completeProfileRepo)
       : super(CompleteProfileInitial());
   final CompleteProfileRepo completeProfileRepo;
-  final Box<UserDataModel> userBox=serviceLocator.get<Box<UserDataModel>>();
+
+
   static CompleteProfileCubit get(context) => BlocProvider.of(context);
+
   @override
   Future<void> close() {
     firstNameController.dispose();
@@ -26,6 +26,7 @@ class CompleteProfileCubit extends Cubit<CompleteProfileState> {
     birthdateController.dispose();
     return super.close();
   }
+
   TextEditingController firstNameController = TextEditingController();
   TextEditingController secondNameController = TextEditingController();
   TextEditingController birthdateController = TextEditingController();
@@ -67,12 +68,14 @@ class CompleteProfileCubit extends Cubit<CompleteProfileState> {
   ];
   List<String> allSelected = [];
 
-  void putData(){
-    if(FirebaseAuth.instance.currentUser?.displayName != null && FirebaseAuth.instance.currentUser?.photoURL!= null){
-      firstNameController.text=FirebaseAuth.instance.currentUser!.displayName!.split(' ')[0];
-      secondNameController.text=FirebaseAuth.instance.currentUser!.displayName!.split(' ')[1];
-      imageLink=FirebaseAuth.instance.currentUser!.photoURL!;
-
+  void putData() {
+    if (FirebaseAuth.instance.currentUser?.displayName != null &&
+        FirebaseAuth.instance.currentUser?.photoURL != null) {
+      firstNameController.text =
+          FirebaseAuth.instance.currentUser!.displayName!.split(' ')[0];
+      secondNameController.text =
+          FirebaseAuth.instance.currentUser!.displayName!.split(' ')[1];
+      imageLink = FirebaseAuth.instance.currentUser!.photoURL!;
     }
     emit(PutDataFromGoogleUser());
   }
@@ -115,18 +118,19 @@ class CompleteProfileCubit extends Cubit<CompleteProfileState> {
 
   void Function()? onStepContinue() {
     if (isLastStep()) {
-      final UserDataModel userData=UserDataModel(
-          fName: firstNameController.text,
-          lName: secondNameController.text,
-          birthDate: birthdateController.text,
-          gender: selectedGender.name,
-          bookCategories:allSelected,
-          imageLink: imageLink,);
-      completeProfileRepo.addUserData(userDataModel:userData);
+      final UserDataModel userData = UserDataModel(
+        fName: firstNameController.text,
+        lName: secondNameController.text,
+        birthDate: birthdateController.text,
+        gender: selectedGender.name,
+        bookCategories: allSelected,
+        imageLink: imageLink,
+        userEmail: FirebaseAuth.instance.currentUser!.email!,
+      );
+      completeProfileRepo.addUserData(userDataModel: userData);
       completeProfileRepo.addUserDataToDB(userDataModel:userData);
-         emit(LastStepConfirm());
-    }
-    else {
+      emit(LastStepConfirm());
+    } else {
       if (formKeys[currentStep].currentState!.validate()) {
         currentStep += 1;
         emit(StepContinue());
@@ -141,21 +145,17 @@ class CompleteProfileCubit extends Cubit<CompleteProfileState> {
     emit(StepTapped());
   }
 
-  void navigateToHomeScreen(BuildContext context){
+  void navigateToHomeScreen(BuildContext context) {
     emit(GoToHomeScreen());
     AppNavigator.navigateToHomeScreen(context);
-
   }
 
-  void logOut(BuildContext context){
+  void logOut(BuildContext context) {
     FirebaseAuth.instance.signOut();
     GoogleSignIn().disconnect();
     emit(LogOut());
     AppNavigator.navigateToLoginScreen(context);
-
   }
 }
 
-enum Gender{
-  male,female
-}
+enum Gender { male, female }
