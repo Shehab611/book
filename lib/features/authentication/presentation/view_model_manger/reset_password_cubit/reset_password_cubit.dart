@@ -1,6 +1,7 @@
 import 'package:book/constants.dart';
 import 'package:book/core/utils/app_router.dart';
 import 'package:book/features/authentication/data/repositories/reset_password/reset_password_repo.dart';
+import 'package:book/features/authentication/data/repositories/reset_password/reset_password_repo_impl.dart';
 import 'package:book/features/authentication/presentation/components/button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,8 +10,8 @@ import 'package:google_fonts/google_fonts.dart';
 part 'reset_password_state.dart';
 
 class ResetPasswordCubit extends Cubit<ResetPasswordState> {
-  ResetPasswordCubit(this.resetPasswordRepo) : super(ResetPasswordInitial());
-  final ResetPasswordRepo resetPasswordRepo;
+  ResetPasswordCubit() : super(ResetPasswordInitial());
+  final ResetPasswordRepo resetPasswordRepo=ResetPasswordImpl();
   @override
   Future<void> close() {
     emailController.dispose();

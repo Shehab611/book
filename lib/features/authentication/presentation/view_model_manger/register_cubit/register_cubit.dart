@@ -1,6 +1,7 @@
 import 'package:book/constants.dart';
 import 'package:book/core/utils/app_router.dart';
 import 'package:book/features/authentication/data/repositories/register/register_repo.dart';
+import 'package:book/features/authentication/data/repositories/register/register_repo_impl.dart';
 import 'package:book/features/authentication/presentation/components/button_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -11,8 +12,8 @@ import 'package:google_fonts/google_fonts.dart';
 part 'register_state.dart';
 
 class RegisterCubit extends Cubit<RegisterState> {
-  RegisterCubit(this.registerRepo) : super(RegisterInitial());
-  final RegisterRepo registerRepo;
+  RegisterCubit() : super(RegisterInitial());
+  final RegisterRepo registerRepo=RegisterRepoImpl();
 
   @override
   Future<void> close() {

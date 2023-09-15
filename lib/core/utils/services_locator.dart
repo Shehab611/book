@@ -1,7 +1,3 @@
-import 'package:book/features/authentication/data/repositories/complete_profile/complete_profile_repo_impl.dart';
-import 'package:book/features/authentication/data/repositories/login/login_repo_impl.dart';
-import 'package:book/features/authentication/data/repositories/register/register_repo_impl.dart';
-import 'package:book/features/authentication/data/repositories/reset_password/reset_password_repo_impl.dart';
 import 'package:book/features/home/data/models/book_details_model.dart';
 import 'package:book/features/home/data/repositories/book_details/book_details_repo_impl.dart';
 import 'package:book/features/home/data/repositories/drawer/drawer_repo_impl.dart';
@@ -14,11 +10,6 @@ import 'package:sqflite/sqflite.dart';
 final GetIt serviceLocator = GetIt.instance;
 
 Future<void> initServicesLocator() async {
-  serviceLocator.registerSingleton<LoginRepoImpl>(LoginRepoImpl());
-  serviceLocator.registerSingleton<RegisterRepoImpl>(RegisterRepoImpl());
-  serviceLocator
-      .registerSingleton<CompleteProfileRepoImpl>(CompleteProfileRepoImpl());
-  serviceLocator.registerSingleton<ResetPasswordImpl>(ResetPasswordImpl());
   serviceLocator.registerSingleton<HomeRepoImpl>(HomeRepoImpl());
   serviceLocator.registerSingleton<DrawerRepoImpl>(DrawerRepoImpl());
   serviceLocator.registerSingleton<BookDetailsRepoImpl>(BookDetailsRepoImpl());

@@ -1,8 +1,4 @@
 import 'package:book/core/utils/services_locator.dart';
-import 'package:book/features/authentication/data/repositories/complete_profile/complete_profile_repo_impl.dart';
-import 'package:book/features/authentication/data/repositories/login/login_repo_impl.dart';
-import 'package:book/features/authentication/data/repositories/register/register_repo_impl.dart';
-import 'package:book/features/authentication/data/repositories/reset_password/reset_password_repo_impl.dart';
 import 'package:book/features/authentication/presentation/view_model_manger/complete_profile_cubit/complete_profile_cubit.dart';
 import 'package:book/features/authentication/presentation/view_model_manger/login_cubit/login_cubit.dart';
 import 'package:book/features/authentication/presentation/view_model_manger/register_cubit/register_cubit.dart';
@@ -29,26 +25,25 @@ abstract final class AppRouter {
   static final Map<String, WidgetBuilder> routes = {
     AppPathName.kLoginScreen: (BuildContext context) => BlocProvider(
         create: (BuildContext context) =>
-            LoginCubit(serviceLocator.get<LoginRepoImpl>()),
+            LoginCubit(),
         child: const LoginScreen()),
     AppPathName.kForgetPasswordScreen: (BuildContext context) => BlocProvider(
           create: (context) =>
-              ResetPasswordCubit(serviceLocator.get<ResetPasswordImpl>()),
+              ResetPasswordCubit(),
           child: const ForgetPasswordScreen(),
         ),
     AppPathName.kRegisterScreen: (BuildContext context) => BlocProvider(
           create: (context) =>
-              RegisterCubit(serviceLocator.get<RegisterRepoImpl>()),
+              RegisterCubit(),
           child: const RegisterScreen(),
         ),
     AppPathName.kVerificationScreen: (BuildContext context) => BlocProvider(
           create: (context) =>
-              RegisterCubit(serviceLocator.get<RegisterRepoImpl>()),
+              RegisterCubit(),
           child: const VerificationScreen(),
         ),
     AppPathName.kCompleteProfile: (BuildContext context) => BlocProvider(
-          create: (context) => CompleteProfileCubit(
-              serviceLocator.get<CompleteProfileRepoImpl>())
+          create: (context) => CompleteProfileCubit()
             ..putData(),
           child: const CompleteProfileScreen(),
         ),

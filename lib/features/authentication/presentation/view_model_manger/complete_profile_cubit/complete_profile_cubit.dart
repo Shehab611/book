@@ -1,6 +1,7 @@
 import 'package:book/core/utils/app_router.dart';
 import 'package:book/features/authentication/data/models/user_data.dart';
 import 'package:book/features/authentication/data/repositories/complete_profile/complete_profile_repo.dart';
+import 'package:book/features/authentication/data/repositories/complete_profile/complete_profile_repo_impl.dart';
 import 'package:book/features/authentication/presentation/widgets/step_one.dart';
 import 'package:book/features/authentication/presentation/widgets/step_three.dart';
 import 'package:book/features/authentication/presentation/widgets/step_two.dart';
@@ -12,9 +13,9 @@ import 'package:google_sign_in/google_sign_in.dart';
 part 'complete_profile_state.dart';
 
 class CompleteProfileCubit extends Cubit<CompleteProfileState> {
-  CompleteProfileCubit(this.completeProfileRepo)
+  CompleteProfileCubit()
       : super(CompleteProfileInitial());
-  final CompleteProfileRepo completeProfileRepo;
+  final CompleteProfileRepo completeProfileRepo=CompleteProfileRepoImpl();
 
   static CompleteProfileCubit get(context) => BlocProvider.of(context);
 
@@ -156,6 +157,8 @@ class CompleteProfileCubit extends Cubit<CompleteProfileState> {
     emit(LogOut());
     AppNavigator.navigateToLoginScreen(context);
   }
+
+
 }
 
 enum Gender { male, female }

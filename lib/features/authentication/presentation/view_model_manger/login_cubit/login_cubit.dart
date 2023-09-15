@@ -1,5 +1,6 @@
 import 'package:book/core/utils/app_router.dart';
 import 'package:book/features/authentication/data/repositories/login/login_repo.dart';
+import 'package:book/features/authentication/data/repositories/login/login_repo_impl.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,8 +8,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
-  LoginCubit(this.loginRepo) : super(LoginInitial());
-  final LoginRepo loginRepo;
+  LoginCubit() : super(LoginInitial());
+  final LoginRepo loginRepo=LoginRepoImpl();
   @override
   Future<void> close() async{
     passwordController.dispose();
@@ -65,4 +66,5 @@ class LoginCubit extends Cubit<LoginState> {
    AppNavigator.navigateToCompleteProfileScreen(context);
 
   }
+
 }
