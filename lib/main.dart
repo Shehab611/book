@@ -10,10 +10,11 @@ late bool value;
 void main() async {
   Bloc.observer = MyBlocObserver();
   WidgetsFlutterBinding.ensureInitialized();
-  value = await AllAppInit.initHive();
+  await AllAppInit.initHive();
   AllAppInit.dioInit();
   await AllAppInit.serviceLocatorInit();
   await AllAppInit.firebaseInit();
+  value=await AllAppInit.keepLoggedIn();
   AllAppInit.removeStatusBar();
 
   /* runApp(

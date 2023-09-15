@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hive/hive.dart';
+import 'package:sqflite/sqflite.dart';
 
 part 'drawer_state.dart';
 
@@ -16,19 +17,30 @@ class DrawerCubit extends Cubit<DrawerState> {
   static DrawerCubit get(context) => BlocProvider.of(context);
 
   void getValue() async {
-    value = await Hive.box('keep_login').get('keep_login', defaultValue: false);
+    var data = await serviceLocator.get<Database>().rawQuery(
+        'select keepLoggedIn from users where userEmail = ?',
+        [FirebaseAuth.instance.currentUser!.email!]);
+    if ((data[0]['keepLoggedIn'] as int) == 0) {
+      value = false;
+    }else {
+      value =true;
+    }
     emit(DrawerValueGet());
   }
 
   void changeLoggedInValue(bool value) async {
-    this.value = await Hive.box('keep_login').get('keep_login');
+
     if (value) {
       this.value = value;
-      await Hive.box('keep_login').put('keep_login', value);
+      await  serviceLocator.get<Database>().rawUpdate('update users set keepLoggedIn = ? where userEmail =?',[
+        1,FirebaseAuth.instance.currentUser!.email!
+          ]);
       emit(DrawerMakeLoggedInTrue());
     } else {
       this.value = value;
-      await Hive.box('keep_login').put('keep_login', value);
+      await serviceLocator.get<Database>().rawUpdate('update users set keepLoggedIn = ? where userEmail =?',[
+        0,FirebaseAuth.instance.currentUser!.email!
+      ]);
       emit(DrawerMakeLoggedInFalse());
     }
   }
@@ -53,7 +65,7 @@ class DrawerCubit extends Cubit<DrawerState> {
     }
   }
 
-  Future<void> logOut(BuildContext context) async{
+  Future<void> logOut(BuildContext context) async {
     await serviceLocator.get<Box<BookDetailsModel>>().clear();
     FirebaseAuth.instance.signOut();
     GoogleSignIn().disconnect();

@@ -29,7 +29,7 @@ Future<void> initServicesLocator() async {
       version: 1,
       onCreate: (db, version) async {
         await db.execute(
-            'CREATE TABLE users (userEmail text Primary Key, fName text, lName text, imageLink text, birthDate text,gender text, bookCategories text );');
+            'CREATE TABLE users (userEmail text Primary Key, fName text, lName text, imageLink text, birthDate text,gender text, bookCategories text,keepLoggedIn INTEGER  );');
       },
     ),
   );

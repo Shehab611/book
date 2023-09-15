@@ -11,9 +11,12 @@ final class UserDataModel {
 
   final String imageLink;
 
+  final int keepLoggedIn;
+
   final List<dynamic> bookCategories;
 
   UserDataModel({
+    required this.keepLoggedIn,
     required this.userEmail,
     required this.fName,
     required this.lName,
@@ -31,7 +34,8 @@ final class UserDataModel {
       imageLink: json['imageLink'],
       birthDate: json['birthDate'],
       gender: json['gender'],
-      bookCategories: (json['bookCategories'] as String ).split('-'),
+      bookCategories: (json['bookCategories'] as String).split('-'),
+      keepLoggedIn: json['keepLoggedIn'],
     );
   }
 
@@ -43,7 +47,8 @@ final class UserDataModel {
       'gender': userDataModel.gender,
       'bookCategories': userDataModel.bookCategories.join('-'),
       'imageLink': userDataModel.imageLink,
-      'userEmail':userDataModel.userEmail,
+      'userEmail': userDataModel.userEmail,
+      'keepLoggedIn': userDataModel.keepLoggedIn
     };
   }
 }

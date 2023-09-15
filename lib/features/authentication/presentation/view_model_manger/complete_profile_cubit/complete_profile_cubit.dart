@@ -16,7 +16,6 @@ class CompleteProfileCubit extends Cubit<CompleteProfileState> {
       : super(CompleteProfileInitial());
   final CompleteProfileRepo completeProfileRepo;
 
-
   static CompleteProfileCubit get(context) => BlocProvider.of(context);
 
   @override
@@ -126,9 +125,10 @@ class CompleteProfileCubit extends Cubit<CompleteProfileState> {
         bookCategories: allSelected,
         imageLink: imageLink,
         userEmail: FirebaseAuth.instance.currentUser!.email!,
+        keepLoggedIn: 0,
       );
       completeProfileRepo.addUserData(userDataModel: userData);
-      completeProfileRepo.addUserDataToDB(userDataModel:userData);
+      completeProfileRepo.addUserDataToDB(userDataModel: userData);
       emit(LastStepConfirm());
     } else {
       if (formKeys[currentStep].currentState!.validate()) {
