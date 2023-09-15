@@ -19,7 +19,7 @@
 <img src="https://github.com/Shehab611/book/assets/77563526/dd509b28-ac35-4ce5-9813-79df13eec9c1" alt="project-screenshot" width="250" height="520/">
 
 <img src="https://github.com/Shehab611/book/assets/77563526/8a8592eb-235a-4b9f-9035-71d094d1eed9" alt="project-screenshot" width="250" height="520/">
-<span style="display: inline-block; width: 10px;"></span>
+<div style="display: inline-block; width: 10px;"></div>
 <img src="https://github.com/Shehab611/book/assets/77563526/d5041793-fa51-4b7b-8f79-18c1f65eac1c" alt="project-screenshot" width="250" height="520/">
 
 <img src="https://github.com/Shehab611/book/assets/77563526/ecf34bc9-1bbe-4844-aaf4-3572c960aa84" alt="project-screenshot" width="250" height="520/">
