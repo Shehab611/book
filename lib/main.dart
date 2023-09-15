@@ -38,9 +38,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Book App',
       theme: ThemeData(
-          pageTransitionsTheme: const PageTransitionsTheme(builders: {
-            TargetPlatform.android: OpenUpwardsPageTransitionsBuilder()
-          }),
+         /* pageTransitionsTheme: const PageTransitionsTheme(builders: {
+            TargetPlatform.android: ZoomPageTransitionsBuilder()
+          }),*/
           useMaterial3: true,
           primaryColor: kColor),
       debugShowCheckedModeBanner: false,
