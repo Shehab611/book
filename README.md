@@ -2,8 +2,11 @@
 
 <p align="center"><img src="https://socialify.git.ci/Shehab611/book/image?font=Inter&amp;language=1&amp;name=1&amp;pattern=Charlie%20Brown&amp;theme=Light" alt="project-image"></p>
 
-<p id="description" style="font-size:25px;>A Flutter Application that displays a list of books and recommended books to the user according to his category selection.</p>
 
+<p id="description" >A Flutter Application that displays a list of books and recommended books to the user according to his category selection.</p>
+.description{
+    font-size: 25px;
+}
 <h2>🚀 Demo</h2>
 
 [https://drive.google.com/file/d/1QMUcfm1lFLA2VDip3LfhQb4am\_QkPnOw/view?usp=drive\_link](https://drive.google.com/file/d/1QMUcfm1lFLA2VDip3LfhQb4am_QkPnOw/view?usp=drive_link)
