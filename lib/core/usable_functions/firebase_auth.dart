@@ -40,27 +40,6 @@ abstract final class Authentication {
 
   }
 
-  static Future<String> linkGoogleAcc({required user}) async {
-    late String text = '';
-    final GoogleSignInAccount? googleSignInAccount =
-    await GoogleSignIn().signIn();
-    if (googleSignInAccount != null) {
-      final GoogleSignInAuthentication googleSignInAuthentication =
-      await googleSignInAccount.authentication;
-      final AuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleSignInAuthentication.accessToken,
-        idToken: googleSignInAuthentication.idToken,
-      );
-      await user
-          .linkWithCredential(credential)
-          .whenComplete(() => text = 'Google Account Linked Successful')
-          .catchError((error) {
-        text = error.message.toString();
-      });
-
-    }
-    return text;
-  }
 }
 
 
