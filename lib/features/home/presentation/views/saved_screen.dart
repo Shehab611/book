@@ -4,6 +4,7 @@ import 'package:book/features/home/presentation/view_model_manger/saved_screen_c
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 
 import 'drawer.dart';
 
@@ -35,16 +36,22 @@ class _SavedScreenState extends State<SavedScreen> {
       drawer: const DrawerView(),
       body: BlocConsumer<SavedScreenCubit, SavedScreenState>(
         listener: (context, state) {
-          if(state is RemoveBook){
+          if (state is RemoveBook) {
             SavedScreenCubit.get(context).getAllBooks();
           }
-
         },
         builder: (context, state) {
-          var savedContext=context;
+          var savedContext = context;
           if (state is GetAllBooksFailure) {
-            return const Center(
-              child: Text('You Have No books Saved Yet'),
+            return Column(
+              children: [
+                Lottie.asset('assets/animated_json/no_data_animation.json'),
+                const Text(
+                  'You Have No books Saved Yet',
+                  style: TextStyle(
+                      color: kColor, fontSize: 20, fontWeight: FontWeight.w700),
+                )
+              ],
             );
           } else if (state is GetAllBooksSuccessful) {
             return ListView.builder(
@@ -100,7 +107,8 @@ class _SavedScreenState extends State<SavedScreen> {
                           actions: [
                             TextButton(
                                 onPressed: () {
-                                  SavedScreenCubit.get(savedContext).removeBookFromFav(index);
+                                  SavedScreenCubit.get(savedContext)
+                                      .removeBookFromFav(index);
                                   Navigator.of(context).pop(true);
                                 },
                                 child: const Text(
@@ -119,11 +127,17 @@ class _SavedScreenState extends State<SavedScreen> {
                       },
                     );
                   },
-                  child: SavedItem(
-                    imagePath:
-                        state.books[index].volumeInfo.imageLinks.thumbnail!,
-                    title: state.books[index].volumeInfo.title,
-                    authors: state.books[index].volumeInfo.authors,
+                  child: GestureDetector(
+                    onTap: () {
+                      SavedScreenCubit.get(context)
+                          .openBookDetails(context, state.books[index].id);
+                    },
+                    child: SavedItem(
+                      imagePath:
+                          state.books[index].volumeInfo.imageLinks.thumbnail!,
+                      title: state.books[index].volumeInfo.title,
+                      authors: state.books[index].volumeInfo.authors,
+                    ),
                   ),
                 );
               },

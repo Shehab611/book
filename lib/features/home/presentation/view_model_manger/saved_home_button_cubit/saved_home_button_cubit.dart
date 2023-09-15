@@ -41,11 +41,13 @@ class SavedHomeButtonCubit extends Cubit<SavedHomeButtonState> {
       _isSaved=!_isSaved;
       _buttonText='unsave Book';
       _addBook(book);
-    }else{
-
+      emit(const BookSaved());
+    }
+    else{
       _isSaved=!_isSaved;
       _buttonText='Save Book';
       _removeBook(book.id);
+      emit(const BookUnSaved());
     }
 
   }

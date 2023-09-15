@@ -39,3 +39,11 @@ class ContainBook extends SavedHomeButtonState{
 class DoesNotContainBook extends SavedHomeButtonState{
   const DoesNotContainBook();
 }
+
+class BookSaved extends SavedHomeButtonState{
+  const BookSaved();
+}
+
+class BookUnSaved extends SavedHomeButtonState{
+  const BookUnSaved();
+}
