@@ -11,7 +11,7 @@
 <h2>Project Screenshots:</h2>
 
 <img src="https://github.com/Shehab611/book/assets/77563526/9eb36683-990d-4ac9-abdb-eb54588db9a1" alt="project-screenshot" width="250" height="520/">
-
+<div style="display: inline-block; width: 20px;"></div>
 <img src="https://github.com/Shehab611/book/assets/77563526/e276599a-49b1-485b-a85a-27a4599961e2" alt="project-screenshot" width="250" height="520/">
 
 <img src="https://github.com/Shehab611/book/assets/77563526/98f44124-5fc0-45c6-a0eb-bf1f3009061d" alt="project-screenshot" width="250" height="520/">
