@@ -10,8 +10,6 @@ import '../widgets/login_transform_widget.dart';
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
-  static var formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
