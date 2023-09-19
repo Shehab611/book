@@ -39,7 +39,7 @@ abstract final class AppRouter {
         ),
     AppPathName.kVerificationScreen: (BuildContext context) => BlocProvider(
           create: (context) =>
-              RegisterCubit(),
+              RegisterCubit()..verifyUserEmail(),
           child: const VerificationScreen(),
         ),
     AppPathName.kCompleteProfile: (BuildContext context) => BlocProvider(

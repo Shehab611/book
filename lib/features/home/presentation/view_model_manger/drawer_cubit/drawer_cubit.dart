@@ -22,25 +22,24 @@ class DrawerCubit extends Cubit<DrawerState> {
         [FirebaseAuth.instance.currentUser!.email!]);
     if ((data[0]['keepLoggedIn'] as int) == 0) {
       value = false;
-    }else {
-      value =true;
+    } else {
+      value = true;
     }
     emit(DrawerValueGet());
   }
 
   void changeLoggedInValue(bool value) async {
-
     if (value) {
       this.value = value;
-      await  serviceLocator.get<Database>().rawUpdate('update users set keepLoggedIn = ? where userEmail =?',[
-        1,FirebaseAuth.instance.currentUser!.email!
-          ]);
+      await serviceLocator.get<Database>().rawUpdate(
+          'update users set keepLoggedIn = ? where userEmail =?',
+          [1, FirebaseAuth.instance.currentUser!.email!]);
       emit(DrawerMakeLoggedInTrue());
     } else {
       this.value = value;
-      await serviceLocator.get<Database>().rawUpdate('update users set keepLoggedIn = ? where userEmail =?',[
-        0,FirebaseAuth.instance.currentUser!.email!
-      ]);
+      await serviceLocator.get<Database>().rawUpdate(
+          'update users set keepLoggedIn = ? where userEmail =?',
+          [0, FirebaseAuth.instance.currentUser!.email!]);
       emit(DrawerMakeLoggedInFalse());
     }
   }
@@ -66,10 +65,11 @@ class DrawerCubit extends Cubit<DrawerState> {
   }
 
   Future<void> logOut(BuildContext context) async {
-    await serviceLocator.get<Box<BookDetailsModel>>().clear();
-    FirebaseAuth.instance.signOut();
-    GoogleSignIn().disconnect();
-    emit(DrawerLogOut());
-    AppNavigator.navigateToLoginScreen(context);
+    await serviceLocator.get<Box<BookDetailsModel>>().clear().then((value) {
+      FirebaseAuth.instance.signOut();
+      GoogleSignIn().disconnect();
+      emit(DrawerLogOut());
+      AppNavigator.navigateToLoginScreen(context);
+    });
   }
 }

@@ -68,46 +68,20 @@ class CompleteProfileCubit extends Cubit<CompleteProfileState> {
   ];
   List<String> allSelected = [];
 
-  void putData() {
-    if (FirebaseAuth.instance.currentUser?.displayName != null &&
-        FirebaseAuth.instance.currentUser?.photoURL != null) {
-      firstNameController.text =
-          FirebaseAuth.instance.currentUser!.displayName!.split(' ')[0];
-      secondNameController.text =
-          FirebaseAuth.instance.currentUser!.displayName!.split(' ')[1];
-      imageLink = FirebaseAuth.instance.currentUser!.photoURL!;
-    }
-    emit(PutDataFromGoogleUser());
+  void uploadImage() async {
+    ({bool successful, String? errorString, String? path}) data =
+    await completeProfileRepo.uploadUserImage(
+        subFolderName: FirebaseAuth.instance.currentUser!.email!);
+    emit(UploadUserImage(data: data));
   }
 
   bool isLastStep() {
     return currentStep == steps.length - 1;
   }
 
-  void uploadImage() async {
-    ({bool successful, String? errorString, String? path}) data =
-        await completeProfileRepo.uploadUserImage(
-            subFolderName: FirebaseAuth.instance.currentUser!.email!);
-    emit(UploadUserImage(data: data));
-  }
-
-  void changeGenderValue(Gender value) {
-    selectedGender = value;
-    emit(ChangeGenderValue());
-  }
-
-  void addToSelectedCategories(int index) {
-    allSelected.add(categories[index]);
-    emit(AddToSelectedCategories());
-  }
-
-  void removeFromSelectedCategories(int index) {
-    allSelected.removeWhere((element) => element == categories[index]);
-    emit(RemoveFromSelectedCategories());
-  }
-
-  bool doesContain(int index) {
-    return allSelected.contains(categories[index]);
+  void onStepTapped(int step) {
+    currentStep = step;
+    emit(StepTapped());
   }
 
   void Function()? onStepCancel() {
@@ -141,9 +115,35 @@ class CompleteProfileCubit extends Cubit<CompleteProfileState> {
     return null;
   }
 
-  void onStepTapped(int step) {
-    currentStep = step;
-    emit(StepTapped());
+  void changeGenderValue(Gender value) {
+    selectedGender = value;
+    emit(ChangeGenderValue());
+  }
+
+  void addToSelectedCategories(int index) {
+    allSelected.add(categories[index]);
+    emit(AddToSelectedCategories());
+  }
+
+  void removeFromSelectedCategories(int index) {
+    allSelected.removeWhere((element) => element == categories[index]);
+    emit(RemoveFromSelectedCategories());
+  }
+
+  bool doesContain(int index) {
+    return allSelected.contains(categories[index]);
+  }
+
+  void putData() {
+    if (FirebaseAuth.instance.currentUser?.displayName != null &&
+        FirebaseAuth.instance.currentUser?.photoURL != null) {
+      firstNameController.text =
+          FirebaseAuth.instance.currentUser!.displayName!.split(' ')[0];
+      secondNameController.text =
+          FirebaseAuth.instance.currentUser!.displayName!.split(' ')[1];
+      imageLink = FirebaseAuth.instance.currentUser!.photoURL!;
+    }
+    emit(PutDataFromGoogleUser());
   }
 
   void navigateToHomeScreen(BuildContext context) {

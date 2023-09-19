@@ -47,6 +47,7 @@ class RegisterCubit extends Cubit<RegisterState> {
         .checkIfUserExits(FirebaseAuth.instance.currentUser!.email!);
     emit(IfUserExits(data: data));
   }
+
   void userRegister(BuildContext context) async {
     if (formKey.currentState!.validate()) {
       ({String? errorString, bool succsuful}) data = await registerRepo
@@ -68,7 +69,6 @@ class RegisterCubit extends Cubit<RegisterState> {
   }
 
   void navigateToCompleteProfile(BuildContext context) async {
-
     await FirebaseAuth.instance.currentUser!.reload().then((value) {
       if (FirebaseAuth.instance.currentUser!.emailVerified) {
         emit(GoToCompleteProfileScreen());
@@ -132,6 +132,7 @@ class RegisterCubit extends Cubit<RegisterState> {
     AppNavigator.navigateToCompleteProfileScreen(context);
 
   }
+
   void navigateToHome(BuildContext context) {
     emit(GoToHomeScreen());
     AppNavigator.navigateToHomeScreen(context);
