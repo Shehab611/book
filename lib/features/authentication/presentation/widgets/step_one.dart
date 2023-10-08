@@ -18,17 +18,23 @@ class StepOne extends StatelessWidget {
                   labelText: 'First Name',
                   iconData: Icons.person,
                   validator: (p0) =>
-                  (p0!.length < 3) ? 'This Field can not be empty' : null,
-                  controller: CompleteProfileCubit.get(context).firstNameController),
+                      (p0!.length < 3) ? 'This Field can not be empty' : null,
+                  controller:
+                      CompleteProfileCubit.get(context).firstNameController),
               const SizedBox(
                 height: 7,
               ),
               MyTextField(
-                  labelText: 'Last Name',
-                  iconData: Icons.person,
-                  validator: (p0) =>
-                  (p0!.length < 3) ? 'This Field can not be empty' : null,
-                  controller: CompleteProfileCubit.get(context).secondNameController),
+                labelText: 'Last Name',
+                iconData: Icons.person,
+                validator: (p0) =>
+                    (p0!.length < 3) ? 'This Field can not be empty' : null,
+                controller:
+                    CompleteProfileCubit.get(context).secondNameController,
+                isLast: true,
+                onFieldSubmitted: (p0) =>
+                    CompleteProfileCubit.get(context).onStepContinue,
+              ),
             ],
           ),
         );

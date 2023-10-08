@@ -29,6 +29,7 @@ final class LoginRepoImpl implements LoginRepo {
       await Authentication.signInWithGoogle();
       return (succsuful: true, errorString: null);
     } catch (e) {
+      print(e.toString());
       return (succsuful: false, errorString: e.toString());
     }
   }

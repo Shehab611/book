@@ -22,11 +22,12 @@ class RegisterBodyWidget extends StatelessWidget {
             if (state is UserRegister) {
               if (!state.data.succsuful) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  MySnackBar.getSnackBar(state.data.errorString!),);
-              }
-              else{
+                  MySnackBar.getSnackBar(state.data.errorString!),
+                );
+              } else {
                 RegisterCubit.get(context).verifyUserEmail();
-                RegisterCubit.get(context).navigateToVerificationScreen(context);
+                RegisterCubit.get(context)
+                    .navigateToVerificationScreen(context);
               }
             }
           },
@@ -108,10 +109,8 @@ class RegisterBodyWidget extends StatelessWidget {
                             : null;
                     }
                   },
-                  onFieldSubmitted: (p0) => RegisterCubit.get(context)
-                      .formKey
-                      .currentState!
-                      .validate(),
+                  onFieldSubmitted: (p0) =>
+                      RegisterCubit.get(context).userRegister(context),
                 ),
                 GoInButton(
                   onPressed: () {

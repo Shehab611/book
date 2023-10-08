@@ -51,7 +51,7 @@ class LoginBodyWidget extends StatelessWidget {
               isLast: true,
               obscureText: true,
               onFieldSubmitted: (p0) =>
-                  LoginCubit.get(context).formKey.currentState!.validate(),
+                  LoginCubit.get(context).userLogin(context),
               validator: (String? value) {
                 switch (value!.isEmpty) {
                   case true:
@@ -74,22 +74,20 @@ class LoginBodyWidget extends StatelessWidget {
                           color: kDefaultColor, fontSize: 17),
                     ))),
             BlocConsumer<LoginCubit, LoginState>(
-              listener:  (context, state) {
+              listener: (context, state) {
                 if (state is UserLogin) {
                   if (!state.data.succsuful) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       MySnackBar.getSnackBar(state.data.errorString!),
                     );
-                  }
-                  else {
+                  } else {
                     LoginCubit.get(context).ifUserExits();
                   }
                 }
-                if(state is IfUserExits){
-                  if(state.data.exits){
+                if (state is IfUserExits) {
+                  if (state.data.exits) {
                     LoginCubit.get(context).navigateToHome(context);
-                  }
-                  else {
+                  } else {
                     LoginCubit.get(context).navigateToCompleteProfile(context);
                   }
                 }
