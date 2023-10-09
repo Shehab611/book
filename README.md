@@ -7,7 +7,7 @@
 
 <h2>🚀 Demo</h2>
 
-[https://drive.google.com/file/d/1QMUcfm1lFLA2VDip3LfhQb4am\_QkPnOw/view?usp=drive\_link](https://drive.google.com/file/d/1QMUcfm1lFLA2VDip3LfhQb4am_QkPnOw/view?usp=drive_link)
+[https://drive.google.com/file/d/1QMUcfm1lFLA2VDip3LfhQb4am\_QkPnOw/view?usp=drive\_link](https://drive.google.com/file/d/1rqhGnrNNjVWnxZ6pqlX3ZwNDckwki-QQ/view?usp=sharing)
 
 <h2>Project Screenshots:</h2>
 
