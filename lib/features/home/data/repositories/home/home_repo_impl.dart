@@ -49,9 +49,10 @@ final class HomeRepoImpl implements HomeRepo {
 
     try {
       var data = await DioServiceHelper.getData(endPoint: 'volumes', query: {
-        'q': bookCategories,
+        'q': (bookCategories.isNotEmpty) ? bookCategories : 'all',
         'maxResults': 40,
         'orderBy': 'newest',
+        if (bookCategories.isEmpty) 'startIndex': 150,
         'key': apiKey
       });
       List<BookModel> books = [];

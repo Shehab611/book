@@ -13,9 +13,7 @@ class BookDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size screenSize = MediaQuery
-        .of(context)
-        .size;
+    Size screenSize = MediaQuery.of(context).size;
     return SizedBox(
       height: screenSize.height * .85,
       child: Scaffold(
@@ -51,22 +49,22 @@ class BookDetailsScreen extends StatelessWidget {
                           height: screenSize.height * .38,
                           width: screenSize.width * .6,
                           imagePath:
-                          state.book.volumeInfo.imageLinks.thumbnail ?? '',
+                              state.book.volumeInfo.imageLinks.thumbnail ?? '',
                         ),
                         TextWidget(
                             aboveText: state.book.volumeInfo.title,
-                            aboveTextFontSize: Theme
-                                .of(context)
+                            aboveTextFontSize: Theme.of(context)
                                 .textTheme
                                 .titleLarge
                                 ?.fontSize,
-                            bottomTextFontSize: Theme
-                                .of(context)
+                            bottomTextFontSize: Theme.of(context)
                                 .textTheme
                                 .titleMedium
                                 ?.fontSize,
-                            bottomText:
-                            state.book.volumeInfo.authors[0].toString(),
+                            bottomText: (state
+                                    .book.volumeInfo.authors.isNotEmpty)
+                                ? state.book.volumeInfo.authors[0].toString()
+                                : '',
                             aboveTextAlign: TextAlign.center,
                             crossAxisAlignment: CrossAxisAlignment.center),
                         Container(
@@ -81,8 +79,7 @@ class BookDetailsScreen extends StatelessWidget {
                             style: GoogleFonts.libreCaslonText(
                                 color: kColor,
                                 fontWeight: FontWeight.w700,
-                                fontSize: Theme
-                                    .of(context)
+                                fontSize: Theme.of(context)
                                     .textTheme
                                     .bodyMedium
                                     ?.fontSize),
@@ -98,7 +95,7 @@ class BookDetailsScreen extends StatelessWidget {
                     height: screenSize.height * .1,
                     decoration: const BoxDecoration(
                         borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(20)),
+                            BorderRadius.vertical(top: Radius.circular(20)),
                         color: kDefaultColor),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -117,8 +114,7 @@ class BookDetailsScreen extends StatelessWidget {
                             Text(
                               state.book.volumeInfo.averageRating.toString(),
                               style: TextStyle(
-                                fontSize: Theme
-                                    .of(context)
+                                fontSize: Theme.of(context)
                                     .textTheme
                                     .bodyMedium
                                     ?.fontSize,
@@ -133,8 +129,7 @@ class BookDetailsScreen extends StatelessWidget {
                               child: Text(
                                 '(${state.book.volumeInfo.ratingsCount.toString()})',
                                 style: TextStyle(
-                                  fontSize: Theme
-                                      .of(context)
+                                  fontSize: Theme.of(context)
                                       .textTheme
                                       .bodyMedium
                                       ?.fontSize,
@@ -158,8 +153,7 @@ class BookDetailsScreen extends StatelessWidget {
                                     'Preview Link',
                                     style: GoogleFonts.libreCaslonText(
                                         color: kColor,
-                                        fontSize: Theme
-                                            .of(context)
+                                        fontSize: Theme.of(context)
                                             .textTheme
                                             .bodyMedium
                                             ?.fontSize),
@@ -170,10 +164,10 @@ class BookDetailsScreen extends StatelessWidget {
                               child: BlocBuilder<SavedHomeButtonCubit,
                                   SavedHomeButtonState>(
                                 builder: (context, state) {
-                                  BookDetailsModel book = (BookDetailsCubit
-                                      .get(context)
-                                      .state as GetBookDetailsSuccessful)
-                                      .book;
+                                  BookDetailsModel book =
+                                      (BookDetailsCubit.get(context).state
+                                              as GetBookDetailsSuccessful)
+                                          .book;
                                   return ElevatedButton(
                                       onPressed: () {
                                         SavedHomeButtonCubit.get(context)
@@ -184,8 +178,7 @@ class BookDetailsScreen extends StatelessWidget {
                                             .getButtonText(),
                                         style: GoogleFonts.libreCaslonText(
                                             color: kColor,
-                                            fontSize: Theme
-                                                .of(context)
+                                            fontSize: Theme.of(context)
                                                 .textTheme
                                                 .bodyMedium
                                                 ?.fontSize),
